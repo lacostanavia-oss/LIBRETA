@@ -73,7 +73,7 @@
 
     <div class="tabs">
         <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal</button>
-        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Oficial (Norma Bolivia)</button>
+        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Oficial (Norma)</button>
     </div>
 
     <div class="config-grid">
@@ -115,7 +115,7 @@
         </div>
     </div>
 
-    <!-- VISTA 2: CONSOLIDADO OFICIAL POR DIMENSIONES (NORMA BOLIVIA) -->
+    <!-- VISTA 2: CONSOLIDADO OFICIAL POR DIMENSIONES -->
     <div id="vista-trimestral" class="view-section">
         <div class="section-title">📈 Consolidado Oficial (Ser:10 | Saber:35 | Hacer:35 | Decidir:20)</div>
         <div class="table-container">
@@ -124,10 +124,10 @@
                     <tr>
                         <th style="width: 5%;">N°</th>
                         <th style="width: 27%;">Apellidos y Nombres</th>
-                        <th style="width: 10%;">SER<br>(10 pts / 10%)</th>
-                        <th style="width: 12%;">SABER<br>(35 pts / 35%)</th>
-                        <th style="width: 12%;">HACER<br>(35 pts / 35%)</th>
-                        <th style="width: 10%;">DECIDIR<br>(20 pts / 20%)</th>
+                        <th style="width: 10%;">SER<br>(10 pts)</th>
+                        <th style="width: 12%;">SABER<br>(35 pts)</th>
+                        <th style="width: 12%;">HACER<br>(35 pts)</th>
+                        <th style="width: 10%;">DECIDIR<br>(20 pts)</th>
                         <th style="width: 10%;">FINAL<br>(100 Ptos)</th>
                         <th style="width: 9%;">Historial</th>
                     </tr>
@@ -329,12 +329,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v9', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v11', JSON.stringify(datos));
         alert('¡Datos guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v9');
+        let guardado = localStorage.getItem('libreta_pro_2026_v11');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
