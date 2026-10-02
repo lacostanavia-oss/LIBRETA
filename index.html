@@ -136,8 +136,8 @@
     <div class="actions-grid">
         <button class="btn btn-add" onclick="agregarAlumno()">+ Alumno</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar</button>
-        <button class="btn btn-excel" onclick="exportarExcel()">📊 Excel / Sistema</button>
-        <button class="btn btn-pdf" onclick="exportarPDF()">🖨 Guardar PDF</button>
+        <button class="btn btn-excel" onclick="exportarExcelMovil()">📊 Excel / Sistema</button>
+        <button class="btn btn-pdf" onclick="exportarPDFMovil()">🖨 Guardar / Imprimir PDF</button>
     </div>
 </div>
 
@@ -296,7 +296,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_pro_def_v2_' + materia + '_2026';
+        return 'libreta_pro_funcional_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
@@ -355,10 +355,12 @@
         cargarDatos();
     }
 
-    function exportarExcel() {
+    // FUNCIÓN EXCEL OPTIMIZADA PARA MÓVIL
+    function exportarExcelMovil() {
         let csv = [];
         let materia = document.getElementById('materiaSelect').value;
         let filas = document.querySelectorAll("#tabla-principal tr");
+        
         for (let i = 0; i < filas.length; i++) {
             let fila = [], cols = filas[i].querySelectorAll("td input, th");
             for (let j = 0; j < cols.length; j++) {
@@ -367,17 +369,19 @@
             }
             csv.push(fila.join(","));
         }
+        
         let blob = new Blob(["\ufeff" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
+        let url = URL.createObjectURL(blob);
         let link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "consolidado_" + materia + "_2026.csv";
-        link.style.display = 'none';
+        link.href = url;
+        link.setAttribute("download", "consolidado_" + materia + "_2026.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
-    function exportarPDF() {
+    // FUNCIÓN PDF OPTIMIZADA PARA MÓVIL (EVITA BUCLES DE BÚSQUEDA)
+    function exportarPDFMovil() {
         window.print();
     }
 
