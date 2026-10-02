@@ -27,14 +27,15 @@
         .section-title { font-size: 12px; font-weight: 700; color: var(--primary); margin: 14px 0 6px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 680px; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 700px; background: white; }
         th, td { border: 1px solid var(--border-color); padding: 5px; text-align: center; vertical-align: middle; }
         th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; }
         th.sub-header-saber { background-color: #0f766e; }
         th.sub-header-hacer { background-color: #0369a1; }
         
         td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 4px; }
-        .nombre-input { text-align: left !important; width: 150px; font-weight: 500; }
+        .nombre-input { text-align: left !important; width: 130px; font-weight: 500; }
+        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 3px 6px; border-radius: 4px; font-size: 9px; cursor: pointer; font-weight: bold; margin-left: 4px; }
         .final-val { font-weight: 700; font-size: 12px; background: #f8fafc; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
 
@@ -46,10 +47,18 @@
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: var(--primary); color: white; grid-column: span 2; }
 
+        /* Modal / Ficha Individual */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .modal-content h3 { color: var(--primary); margin-top: 0; font-size: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
+        .modal-field { margin-bottom: 8px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-field input { width: 60px; padding: 4px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; }
+        .btn-close { background: #ef4444; color: white; width: 100%; padding: 8px; border: none; border-radius: 6px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .btn, .config-grid { display: none; }
+            .btn, .config-grid, .btn-ficha { display: none; }
             .config-item input { border: none; background: none; font-weight: bold; }
         }
     </style>
@@ -83,7 +92,7 @@
             <thead>
                 <tr>
                     <th rowspan="2" style="width: 3%;">N°</th>
-                    <th rowspan="2" style="width: 23%;">Apellidos y Nombres (A - Z)</th>
+                    <th rowspan="2" style="width: 28%;">Apellidos y Nombres (A - Z)</th>
                     <th rowspan="2" style="width: 7%;">Ser<br>(10)</th>
                     <th colspan="3" class="sub-header-saber">Saber (Max 45)</th>
                     <th colspan="3" class="sub-header-hacer">Hacer (Max 40)</th>
@@ -100,7 +109,7 @@
                 </tr>
             </thead>
             <tbody id="cuerpo-tabla">
-                <!-- Las filas se generan dinámicamente -->
+                <!-- Filas dinámicas -->
             </tbody>
         </table>
     </div>
@@ -114,7 +123,24 @@
     </div>
 </div>
 
+<!-- Ventana Modal de Ficha Individual del Alumno -->
+<div id="modalFicha" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitulo">Historial del Alumno</h3>
+        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Detalle de notas y tareas del mes:</p>
+        <div class="modal-field"><span>Ser (Valores / Asistencia) / 10:</span><input type="number" id="mSer" min="0" max="10" oninput="actualizarDesdeModal('ser')"></div>
+        <div class="modal-field"><span>Saber - Prueba 1 / 45:</span><input type="number" id="mS1" min="0" max="45" oninput="actualizarDesdeModal('s1')"></div>
+        <div class="modal-field"><span>Saber - Prueba 2 / 45:</span><input type="number" id="mS2" min="0" max="45" oninput="actualizarDesdeModal('s2')"></div>
+        <div class="modal-field"><span>Hacer - Práctica 1 / 40:</span><input type="number" id="mH1" min="0" max="40" oninput="actualizarDesdeModal('h1')"></div>
+        <div class="modal-field"><span>Hacer - Práctica 2 / 40:</span><input type="number" id="mH2" min="0" max="40" oninput="actualizarDesdeModal('h2')"></div>
+        <div class="modal-field"><span>Autoevaluación / 5:</span><input type="number" id="mAuto" min="0" max="5" oninput="actualizarDesdeModal('auto')"></div>
+        <button class="btn-close" onclick="cerrarFicha()">Guardar y Cerrar Ficha</button>
+    </div>
+</div>
+
 <script>
+    let filaActual = null;
+
     function calcularFila(elemento) {
         let fila = elemento.closest('tr');
         let ser = parseFloat(fila.querySelector('.ser').value) || 0;
@@ -151,7 +177,10 @@
         let fila = tbody.insertRow();
         fila.innerHTML = `
             <td class="num-fila">${num}</td>
-            <td><input type="text" class="nombre-input" value="${nombre || 'Apellido1 Apellido2, Nombres'}"></td>
+            <td>
+                <input type="text" class="nombre-input" value="${nombre || 'Apellidos, Nombres'}">
+                <button class="btn-ficha" onclick="abrirFicha(this)">📋 Ficha</button>
+            </td>
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFila(this)"></td>
             <td><input type="number" class="s1" value="${s1}" min="0" max="45" oninput="calcularFila(this)"></td>
             <td><input type="number" class="s2" value="${s2}" min="0" max="45" oninput="calcularFila(this)"></td>
@@ -165,16 +194,43 @@
         calcularFila(fila.querySelector('.ser'));
     }
 
+    function abrirFicha(btn) {
+        filaActual = btn.closest('tr');
+        let nombre = filaActual.querySelector('.nombre-input').value;
+        document.getElementById('modalTitulo').innerText = "Ficha: " + nombre;
+        document.getElementById('mSer').value = filaActual.querySelector('.ser').value;
+        document.getElementById('mS1').value = filaActual.querySelector('.s1').value;
+        document.getElementById('mS2').value = filaActual.querySelector('.s2').value;
+        document.getElementById('mH1').value = filaActual.querySelector('.h1').value;
+        document.getElementById('mH2').value = filaActual.querySelector('.h2').value;
+        document.getElementById('mAuto').value = filaActual.querySelector('.auto').value;
+        document.getElementById('modalFicha').style.display = 'flex';
+    }
+
+    function actualizarDesdeModal(campo) {
+        if (!filaActual) return;
+        if (campo === 'ser') filaActual.querySelector('.ser').value = document.getElementById('mSer').value;
+        if (campo === 's1') filaActual.querySelector('.s1').value = document.getElementById('mS1').value;
+        if (campo === 's2') filaActual.querySelector('.s2').value = document.getElementById('mS2').value;
+        if (campo === 'h1') filaActual.querySelector('.h1').value = document.getElementById('mH1').value;
+        if (campo === 'h2') filaActual.querySelector('.h2').value = document.getElementById('mH2').value;
+        if (campo === 'auto') filaActual.querySelector('.auto').value = document.getElementById('mAuto').value;
+        calcularFila(filaActual.querySelector('.ser'));
+    }
+
+    function cerrarFicha() {
+        document.getElementById('modalFicha').style.display = 'none';
+        filaActual = null;
+    }
+
     function ordenarAlfabeticamente() {
         let tbody = document.getElementById('cuerpo-tabla');
         let filas = Array.from(tbody.querySelectorAll('tr'));
-        
         filas.sort((a, b) => {
             let nombreA = a.querySelector('.nombre-input').value.trim().toLowerCase();
             let nombreB = b.querySelector('.nombre-input').value.trim().toLowerCase();
             return nombreA.localeCompare(nombreB);
         });
-
         tbody.innerHTML = '';
         filas.forEach((fila, index) => {
             fila.querySelector('.num-fila').innerText = index + 1;
@@ -221,7 +277,6 @@
                 });
             }
         } else {
-            // Fila inicial de ejemplo por defecto
             agregarFila('Apellidos Apellidos, Nombres');
         }
     }
