@@ -6,49 +6,40 @@
     <title>Libreta Docente Bolivia 2026</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 4px; background: #f8fafc; color: #1e293b; }
-        .container { max-width: 100%; margin: auto; background: #ffffff; padding: 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        h1 { color: #1e3a8a; text-align: center; font-size: 15px; margin: 4px 0 8px 0; font-weight: 700; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: #f8fafc; color: #1e293b; }
+        .container { max-width: 100%; margin: auto; background: #ffffff; padding: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        h1 { color: #1e3a8a; text-align: center; font-size: 16px; margin: 4px 0 10px 0; font-weight: 700; }
         
-        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; background: #f1f5f9; padding: 6px; border-radius: 6px; }
+        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; background: #f1f5f9; padding: 8px; border-radius: 6px; }
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .config-item input, .config-item select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
 
-        .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 12px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
+        .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 14px 0 6px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; text-transform: uppercase; }
         
-        .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 650px; }
+        .table-container { overflow-x: auto; margin-bottom: 10px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 700px; }
         th, td { border: 1px solid #cbd5e1; padding: 6px 4px; text-align: center; vertical-align: middle; }
         th { background-color: #1e3a8a; color: white; font-size: 10px; font-weight: 600; }
         
         td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; pointer-events: auto; }
         td input:focus { border-color: #1e3a8a; background: #f8fafc; outline: none; }
-        .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
+        .nombre-input { text-align: left !important; width: 150px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 13px; background: #f1f5f9; color: #1e3a8a; }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
-        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 6px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; }
 
-        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
-        .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+        .btn { padding: 12px; font-size: 11px; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; pointer-events: auto; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: #d97706; color: white; }
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: #1e3a8a; color: white; grid-column: span 2; }
 
-        /* Modal Ficha e Historial Individual del Alumno */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
-        .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
-        .modal-field { margin-bottom: 8px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
-        .modal-field input { width: 80px; padding: 8px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
-        .btn-close { background: #ef4444; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; margin-top: 10px; cursor: pointer; }
-
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .actions-grid, .config-grid, .btn-ficha { display: none; }
+            .actions-grid, .config-grid { display: none; }
         }
     </style>
 </head>
@@ -71,7 +62,7 @@
                 <option value="EducacionMusical">Educación Musical</option>
                 <option value="EducacionFisica">Educación Física y Deportes</option>
                 <option value="Cosmovisiones">Cosmovisiones, Filosofía y Psicología</option>
-                <option value="Tecnologia">Técnica Tecnológica General / Especializada</option>
+                <option value="Tecnologia">Técnica Tecnológica</option>
                 <option value="Ingles">Idioma Extranjero (Inglés)</option>
                 <option value="Religion">Valores, Espiritualidad y Religiones</option>
             </select>
@@ -94,41 +85,26 @@
         </div>
     </div>
 
-    <!-- SECCIÓN 1: CONTROL SEMANAL -->
-    <div class="section-title">📝 1. Control Semanal (Día a Día)</div>
+    <!-- TABLA UNIFICADA: CONTROL SEMANAL + DIMENSIONES OFICIALES -->
+    <div class="section-title">📊 Registro Completo y Consolidado Oficial (Min. Educación 2026)</div>
     <div class="table-container">
-        <table id="tabla-semanal">
+        <table id="tabla-principal">
             <thead>
                 <tr>
-                    <th style="width: 5%;">N°</th>
-                    <th style="width: 35%;">Apellidos y Nombres</th>
-                    <th style="width: 15%;">Sem 1</th>
-                    <th style="width: 15%;">Sem 2</th>
-                    <th style="width: 15%;">Sem 3</th>
-                    <th style="width: 15%;">Sem 4</th>
+                    <th style="width: 4%;">N°</th>
+                    <th style="width: 26%;">Apellidos y Nombres</th>
+                    <th style="width: 7%;">Sem 1</th>
+                    <th style="width: 7%;">Sem 2</th>
+                    <th style="width: 7%;">Sem 3</th>
+                    <th style="width: 7%;">Sem 4</th>
+                    <th style="width: 9%;">Ser<br>(10%)</th>
+                    <th style="width: 9%;">Saber<br>(35%)</th>
+                    <th style="width: 9%;">Hacer<br>(35%)</th>
+                    <th style="width: 9%;">Decid.<br>(20%)</th>
+                    <th style="width: 9%;">Final<br>(100)</th>
                 </tr>
             </thead>
-            <tbody id="cuerpo-semanal"></tbody>
-        </table>
-    </div>
-
-    <!-- SECCIÓN 2: CONSOLIDADO OFICIAL MINISTERIO DE EDUCACIÓN 2026 -->
-    <div class="section-title">📈 2. Consolidado Oficial (Ser: 10% | Saber: 35% | Hacer: 35% | Decidir: 20%)</div>
-    <div class="table-container">
-        <table id="tabla-trimestral">
-            <thead>
-                <tr>
-                    <th style="width: 5%;">N°</th>
-                    <th style="width: 27%;">Apellidos y Nombres</th>
-                    <th style="width: 11%;">SER<br>(10%)</th>
-                    <th style="width: 13%;">SABER<br>(35%)</th>
-                    <th style="width: 13%;">HACER<br>(35%)</th>
-                    <th style="width: 11%;">DECID.<br>(20%)</th>
-                    <th style="width: 11%;">FINAL<br>(100)</th>
-                    <th style="width: 9%;">Ficha</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpo-trimestral"></tbody>
+            <tbody id="cuerpo-tabla"></tbody>
         </table>
     </div>
 
@@ -140,85 +116,38 @@
     </div>
 </div>
 
-<!-- Modal de Ficha e Historial Individual del Alumno -->
-<div id="modalFicha" class="modal">
-    <div class="modal-content">
-        <h3 id="modalTitulo">Historial del Alumno</h3>
-        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Detalle independiente semanal y notas de dimensiones:</p>
-        
-        <div style="background: #f8fafc; padding: 6px; border-radius: 6px; margin-bottom: 8px;">
-            <div style="font-size: 10px; font-weight: bold; color: #1e3a8a; margin-bottom: 4px;">Seguimiento Semanal:</div>
-            <div class="modal-field"><span>Semana 1:</span><input type="number" id="mSem1" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Semana 2:</span><input type="number" id="mSem2" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Semana 3:</span><input type="number" id="mSem3" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Semana 4:</span><input type="number" id="mSem4" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-        </div>
-
-        <div style="background: #f1f5f9; padding: 6px; border-radius: 6px;">
-            <div style="font-size: 10px; font-weight: bold; color: #1e3a8a; margin-bottom: 4px;">Dimensiones Oficiales (Min. Educación):</div>
-            <div class="modal-field"><span>Ser (10 pts):</span><input type="number" id="mSer" min="0" max="10" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Saber (35 pts):</span><input type="number" id="mSaber" min="0" max="35" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Hacer (35 pts):</span><input type="number" id="mHacer" min="0" max="35" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-            <div class="modal-field"><span>Decidir (20 pts):</span><input type="number" id="mDecidir" min="0" max="20" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
-        </div>
-
-        <button class="btn-close" onclick="cerrarFicha()">Guardar y Cerrar Ficha</button>
-    </div>
-</div>
-
 <script>
-    let filaActualIndex = null;
-
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
 
-    function limpiarTablas() {
-        document.getElementById('cuerpo-semanal').innerHTML = '';
-        document.getElementById('cuerpo-trimestral').innerHTML = '';
+    function limpiarTabla() {
+        document.getElementById('cuerpo-tabla').innerHTML = '';
     }
 
     function agregarAlumno(nombre = '', sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0, ser = 0, saber = 0, hacer = 0, decidir = 0) {
-        let tbodySem = document.getElementById('cuerpo-semanal');
-        let num = tbodySem.rows.length + 1;
+        let tbody = document.getElementById('cuerpo-tabla');
+        let num = tbody.rows.length + 1;
         let nombreFormateado = formatearTexto(nombre);
         
-        let filaSem = tbodySem.insertRow();
-        filaSem.innerHTML = `
+        let fila = tbody.insertRow();
+        fila.innerHTML = `
             <td class="num-fila">${num}</td>
-            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="sincronizarNombres(this, ${num-1})"></td>
+            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="this.value = formatearTexto(this.value)"></td>
             <td><input type="number" class="sem1" value="${sem1}" min="0" max="100" inputmode="numeric"></td>
             <td><input type="number" class="sem2" value="${sem2}" min="0" max="100" inputmode="numeric"></td>
             <td><input type="number" class="sem3" value="${sem3}" min="0" max="100" inputmode="numeric"></td>
             <td><input type="number" class="sem4" value="${sem4}" min="0" max="100" inputmode="numeric"></td>
-        `;
-
-        let tbodyTrim = document.getElementById('cuerpo-trimestral');
-        let indexFila = num - 1;
-        let filaTrim = tbodyTrim.insertRow();
-        filaTrim.innerHTML = `
-            <td class="num-fila-trim">${num}</td>
-            <td><input type="text" class="nombre-input-trim" placeholder="Apellidos, Nombres" value="${nombreFormateado}" readonly></td>
-            <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
-            <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
-            <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
-            <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
+            <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFinal(this)" inputmode="numeric"></td>
+            <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
+            <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
+            <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="text" class="final final-val" value="0" readonly></td>
-            <td><button class="btn-ficha" onclick="abrirFicha(${indexFila})">📋 Ficha</button></td>
         `;
-        calcularTrimestral(filaTrim.querySelector('.ser'));
+        calcularFinal(fila.querySelector('.ser'));
     }
 
-    function sincronizarNombres(input, index) {
-        input.value = formatearTexto(input.value);
-        let nombreVal = input.value;
-        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        if (filasTrim[index]) {
-            filasTrim[index].querySelector('.nombre-input-trim').value = nombreVal;
-        }
-    }
-
-    function calcularTrimestral(elemento) {
+    function calcularFinal(elemento) {
         let fila = elemento.closest('tr');
         let ser = parseFloat(fila.querySelector('.ser').value) || 0;
         let saber = parseFloat(fila.querySelector('.saber').value) || 0;
@@ -238,56 +167,9 @@
         }
     }
 
-    function abrirFicha(index) {
-        filaActualIndex = index;
-        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
-        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        
-        let nombre = filasSem[index].querySelector('.nombre-input').value || "Estudiante";
-        document.getElementById('modalTitulo').innerText = "Ficha / Historial: " + nombre;
-        
-        document.getElementById('mSem1').value = filasSem[index].querySelector('.sem1').value;
-        document.getElementById('mSem2').value = filasSem[index].querySelector('.sem2').value;
-        document.getElementById('mSem3').value = filasSem[index].querySelector('.sem3').value;
-        document.getElementById('mSem4').value = filasSem[index].querySelector('.sem4').value;
-
-        document.getElementById('mSer').value = filasTrim[index].querySelector('.ser').value;
-        document.getElementById('mSaber').value = filasTrim[index].querySelector('.saber').value;
-        document.getElementById('mHacer').value = filasTrim[index].querySelector('.hacer').value;
-        document.getElementById('mDecidir').value = filasTrim[index].querySelector('.decidir').value;
-        
-        document.getElementById('modalFicha').style.display = 'flex';
-    }
-
-    function actualizarDesdeModal() {
-        if (filaActualIndex === null) return;
-        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
-        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        
-        let filaS = filasSem[filaActualIndex];
-        let filaT = filasTrim[filaActualIndex];
-
-        filaS.querySelector('.sem1').value = document.getElementById('mSem1').value;
-        filaS.querySelector('.sem2').value = document.getElementById('mSem2').value;
-        filaS.querySelector('.sem3').value = document.getElementById('mSem3').value;
-        filaS.querySelector('.sem4').value = document.getElementById('mSem4').value;
-
-        filaT.querySelector('.ser').value = document.getElementById('mSer').value;
-        filaT.querySelector('.saber').value = document.getElementById('mSaber').value;
-        filaT.querySelector('.hacer').value = document.getElementById('mHacer').value;
-        filaT.querySelector('.decidir').value = document.getElementById('mDecidir').value;
-        
-        calcularTrimestral(filaT.querySelector('.ser'));
-    }
-
-    function cerrarFicha() {
-        document.getElementById('modalFicha').style.display = 'none';
-        filaActualIndex = null;
-    }
-
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_materia_' + materia + '_2026';
+        return 'libreta_unificada_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
@@ -298,28 +180,27 @@
             trimestre: document.getElementById('trimestre').value,
             alumnos: []
         };
-        let tbodySem = document.getElementById('cuerpo-semanal');
-        let tbodyTrim = document.getElementById('cuerpo-trimestral');
+        let tbody = document.getElementById('cuerpo-tabla');
 
-        for (let i = 0; i < tbodySem.rows.length; i++) {
+        for (let i = 0; i < tbody.rows.length; i++) {
             datos.alumnos.push({
-                nombre: tbodySem.rows[i].querySelector('.nombre-input').value,
-                sem1: tbodySem.rows[i].querySelector('.sem1').value,
-                sem2: tbodySem.rows[i].querySelector('.sem2').value,
-                sem3: tbodySem.rows[i].querySelector('.sem3').value,
-                sem4: tbodySem.rows[i].querySelector('.sem4').value,
-                ser: tbodyTrim.rows[i].querySelector('.ser').value,
-                saber: tbodyTrim.rows[i].querySelector('.saber').value,
-                hacer: tbodyTrim.rows[i].querySelector('.hacer').value,
-                decidir: tbodyTrim.rows[i].querySelector('.decidir').value
+                nombre: tbody.rows[i].querySelector('.nombre-input').value,
+                sem1: tbody.rows[i].querySelector('.sem1').value,
+                sem2: tbody.rows[i].querySelector('.sem2').value,
+                sem3: tbody.rows[i].querySelector('.sem3').value,
+                sem4: tbody.rows[i].querySelector('.sem4').value,
+                ser: tbody.rows[i].querySelector('.ser').value,
+                saber: tbody.rows[i].querySelector('.saber').value,
+                hacer: tbody.rows[i].querySelector('.hacer').value,
+                decidir: tbody.rows[i].querySelector('.decidir').value
             });
         }
         localStorage.setItem(obtenerClaveStorage(), JSON.stringify(datos));
-        alert('¡Datos guardados con éxito para esta materia!');
+        alert('¡Datos guardados con éxito!');
     }
 
     function cargarDatos() {
-        limpiarTablas();
+        limpiarTabla();
         let guardado = localStorage.getItem(obtenerClaveStorage());
         if (guardado) {
             let datos = JSON.parse(guardado);
@@ -346,7 +227,7 @@
     function exportarExcel() {
         let csv = [];
         let materia = document.getElementById('materiaSelect').value;
-        let filas = document.querySelectorAll("#tabla-trimestral tr");
+        let filas = document.querySelectorAll("#tabla-principal tr");
         for (let i = 0; i < filas.length; i++) {
             let fila = [], cols = filas[i].querySelectorAll("td input, th");
             for (let j = 0; j < cols.length; j++) {
