@@ -15,37 +15,29 @@
             --border-color: #cbd5e1;
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: var(--bg-color); color: var(--text-main); }
-        .container { max-width: 100%; margin: auto; background: var(--card-bg); padding: 12px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h1 { color: var(--primary); text-align: center; font-size: 16px; margin-bottom: 8px; font-weight: 700; }
+        .container { max-width: 100%; margin: auto; background: var(--card-bg); padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h1 { color: var(--primary); text-align: center; font-size: 15px; margin-bottom: 8px; font-weight: 700; }
         
-        /* Pestañas de Navegación */
-        .tabs { display: flex; gap: 4px; margin-bottom: 10px; background: #e2e8f0; padding: 4px; border-radius: 6px; }
-        .tab-btn { flex: 1; padding: 7px; text-align: center; font-size: 11px; font-weight: bold; background: transparent; border: none; border-radius: 4px; cursor: pointer; color: #475569; }
-        .tab-btn.active { background: var(--primary); color: white; }
-
-        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; background: #f1f5f9; padding: 8px; border-radius: 8px; }
+        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; background: #f1f5f9; padding: 8px; border-radius: 6px; }
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .config-item input { width: 100%; padding: 5px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 4px; font-size: 11px; background: white; }
 
-        .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 10px 0 4px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
+        .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 12px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
-        .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 720px; background: white; }
-        th, td { border: 1px solid var(--border-color); padding: 5px; text-align: center; vertical-align: middle; }
-        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; line-height: 1.2; }
+        .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 6px; border: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 700px; background: white; }
+        th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; vertical-align: middle; }
+        th { background-color: var(--primary); color: white; font-size: 9px; font-weight: 600; line-height: 1.1; }
         
         td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 3px; }
         .nombre-input { text-align: left !important; width: 130px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 11px; background: #f8fafc; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
-        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 3px 6px; border-radius: 4px; font-size: 9px; cursor: pointer; font-weight: bold; margin-left: 3px; }
+        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 2px 5px; border-radius: 4px; font-size: 9px; cursor: pointer; font-weight: bold; margin-left: 3px; }
 
-        .view-section { display: none; }
-        .view-section.active { display: block; }
-
-        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
         .btn { padding: 9px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: var(--accent); color: white; }
@@ -63,18 +55,13 @@
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .tabs, .actions-grid, .config-grid, .btn-ficha { display: none; }
+            .actions-grid, .config-grid, .btn-ficha { display: none; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Libreta Docente Profesional</h1>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal</button>
-        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Oficial (Norma)</button>
-    </div>
 
     <div class="config-grid">
         <div class="config-item full">
@@ -95,46 +82,42 @@
         </div>
     </div>
 
-    <!-- VISTA 1: SEGUIMIENTO SEMANAL -->
-    <div id="vista-semanal" class="view-section active">
-        <div class="section-title">📝 Registro de Trabajos y Tareas Semanales</div>
-        <div class="table-container">
-            <table id="tabla-semanal">
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">N°</th>
-                        <th style="width: 35%;">Apellidos y Nombres</th>
-                        <th style="width: 15%;">Semana 1</th>
-                        <th style="width: 15%;">Semana 2</th>
-                        <th style="width: 15%;">Semana 3</th>
-                        <th style="width: 15%;">Semana 4</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo-semanal"></tbody>
-            </table>
-        </div>
+    <!-- SECCIÓN 1: CONTROL SEMANAL -->
+    <div class="section-title">📝 1. Control de Trabajos y Tareas Semanales</div>
+    <div class="table-container">
+        <table id="tabla-semanal">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">N°</th>
+                    <th style="width: 35%;">Apellidos y Nombres</th>
+                    <th style="width: 15%;">Semana 1</th>
+                    <th style="width: 15%;">Semana 2</th>
+                    <th style="width: 15%;">Semana 3</th>
+                    <th style="width: 15%;">Semana 4</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-semanal"></tbody>
+        </table>
     </div>
 
-    <!-- VISTA 2: CONSOLIDADO OFICIAL POR DIMENSIONES -->
-    <div id="vista-trimestral" class="view-section">
-        <div class="section-title">📈 Consolidado Oficial (Ser:10 | Saber:35 | Hacer:35 | Decidir:20)</div>
-        <div class="table-container">
-            <table id="tabla-trimestral">
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">N°</th>
-                        <th style="width: 27%;">Apellidos y Nombres</th>
-                        <th style="width: 10%;">SER<br>(10 pts)</th>
-                        <th style="width: 12%;">SABER<br>(35 pts)</th>
-                        <th style="width: 12%;">HACER<br>(35 pts)</th>
-                        <th style="width: 10%;">DECIDIR<br>(20 pts)</th>
-                        <th style="width: 10%;">FINAL<br>(100 Ptos)</th>
-                        <th style="width: 9%;">Historial</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo-trimestral"></tbody>
-            </table>
-        </div>
+    <!-- SECCIÓN 2: CONSOLIDADO OFICIAL POR DIMENSIONES -->
+    <div class="section-title">📈 2. Consolidado Oficial (Ser:10 | Saber:35 | Hacer:35 | Decidir:20)</div>
+    <div class="table-container">
+        <table id="tabla-trimestral">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">N°</th>
+                    <th style="width: 27%;">Apellidos y Nombres</th>
+                    <th style="width: 10%;">SER<br>(10 pts)</th>
+                    <th style="width: 12%;">SABER<br>(35 pts)</th>
+                    <th style="width: 12%;">HACER<br>(35 pts)</th>
+                    <th style="width: 10%;">DECIDIR<br>(20 pts)</th>
+                    <th style="width: 10%;">FINAL<br>(100 Ptos)</th>
+                    <th style="width: 9%;">Historial</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-trimestral"></tbody>
+        </table>
     </div>
 
     <div class="actions-grid">
@@ -173,19 +156,6 @@
 
 <script>
     let filaActualIndex = null;
-
-    function cambiarVista(vista) {
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        if (vista === 'semanal') {
-            document.getElementById('vista-semanal').classList.add('active');
-            event.target.classList.add('active');
-        } else {
-            document.getElementById('vista-trimestral').classList.add('active');
-            event.target.classList.add('active');
-            sincronizarTrimestral();
-        }
-    }
 
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
@@ -232,10 +202,6 @@
                 filasTrim[i].querySelector('.nombre-input-trim').value = input.value;
             }
         });
-    }
-
-    function sincronizarTrimestral() {
-        sincronizarNombres();
     }
 
     function calcularTrimestral(elemento) {
@@ -329,12 +295,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v11', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v12', JSON.stringify(datos));
         alert('¡Datos guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v11');
+        let guardado = localStorage.getItem('libreta_pro_2026_v12');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -378,3 +344,4 @@
 </script>
 </body>
 </html>
+
