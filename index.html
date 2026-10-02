@@ -10,18 +10,13 @@
         .container { max-width: 100%; margin: auto; background: #ffffff; padding: 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         h1 { color: #1e3a8a; text-align: center; font-size: 15px; margin: 4px 0 8px 0; font-weight: 700; }
         
-        /* Pestañas de Navegación */
-        .tabs { display: flex; gap: 4px; margin-bottom: 8px; background: #e2e8f0; padding: 3px; border-radius: 6px; }
-        .tab-btn { flex: 1; padding: 8px; text-align: center; font-size: 11px; font-weight: bold; background: transparent; border: none; border-radius: 4px; color: #475569; cursor: pointer; }
-        .tab-btn.active { background: #1e3a8a; color: white; }
-
         .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; background: #f1f5f9; padding: 6px; border-radius: 6px; }
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .config-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
 
-        .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 8px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
+        .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 12px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 650px; }
@@ -35,10 +30,7 @@
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
         .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 6px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; }
 
-        .view-section { display: none; }
-        .view-section.active { display: block; }
-
-        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
         .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: #d97706; color: white; }
@@ -56,18 +48,13 @@
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .tabs, .actions-grid, .config-grid, .btn-ficha { display: none; }
+            .actions-grid, .config-grid, .btn-ficha { display: none; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Libreta Docente Bolivia 2026</h1>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal (Día a Día)</button>
-        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Sistema Ministerio</button>
-    </div>
 
     <div class="config-grid">
         <div class="config-item full">
@@ -88,46 +75,42 @@
         </div>
     </div>
 
-    <!-- VISTA 1: SEGUIMIENTO SEMANAL -->
-    <div id="vista-semanal" class="view-section active">
-        <div class="section-title">📝 Registro Diario y Trabajos Semanales</div>
-        <div class="table-container">
-            <table id="tabla-semanal">
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">N°</th>
-                        <th style="width: 35%;">Apellidos y Nombres</th>
-                        <th style="width: 15%;">Sem 1</th>
-                        <th style="width: 15%;">Sem 2</th>
-                        <th style="width: 15%;">Sem 3</th>
-                        <th style="width: 15%;">Sem 4</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo-semanal"></tbody>
-            </table>
-        </div>
+    <!-- SECCIÓN 1: CONTROL SEMANAL -->
+    <div class="section-title">📝 1. Control Semanal (Día a Día)</div>
+    <div class="table-container">
+        <table id="tabla-semanal">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">N°</th>
+                    <th style="width: 35%;">Apellidos y Nombres</th>
+                    <th style="width: 15%;">Sem 1</th>
+                    <th style="width: 15%;">Sem 2</th>
+                    <th style="width: 15%;">Sem 3</th>
+                    <th style="width: 15%;">Sem 4</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-semanal"></tbody>
+        </table>
     </div>
 
-    <!-- VISTA 2: CONSOLIDADO OFICIAL MINISTERIO DE EDUCACIÓN 2026 -->
-    <div id="vista-trimestral" class="view-section">
-        <div class="section-title">📈 Consolidado Oficial (Ser:10% | Saber:35% | Hacer:35% | Decidir:20%)</div>
-        <div class="table-container">
-            <table id="tabla-trimestral">
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">N°</th>
-                        <th style="width: 27%;">Apellidos y Nombres</th>
-                        <th style="width: 11%;">SER<br>(10%)</th>
-                        <th style="width: 13%;">SABER<br>(35%)</th>
-                        <th style="width: 13%;">HACER<br>(35%)</th>
-                        <th style="width: 11%;">DECID.<br>(20%)</th>
-                        <th style="width: 11%;">FINAL<br>(100)</th>
-                        <th style="width: 9%;">Ficha</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo-trimestral"></tbody>
-            </table>
-        </div>
+    <!-- SECCIÓN 2: CONSOLIDADO OFICIAL MINISTERIO DE EDUCACIÓN 2026 -->
+    <div class="section-title">📈 2. Consolidado Oficial (Ser: 10% | Saber: 35% | Hacer: 35% | Decidir: 20%)</div>
+    <div class="table-container">
+        <table id="tabla-trimestral">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">N°</th>
+                    <th style="width: 27%;">Apellidos y Nombres</th>
+                    <th style="width: 11%;">SER<br>(10%)</th>
+                    <th style="width: 13%;">SABER<br>(35%)</th>
+                    <th style="width: 13%;">HACER<br>(35%)</th>
+                    <th style="width: 11%;">DECID.<br>(20%)</th>
+                    <th style="width: 11%;">FINAL<br>(100)</th>
+                    <th style="width: 9%;">Ficha</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-trimestral"></tbody>
+        </table>
     </div>
 
     <div class="actions-grid">
@@ -166,19 +149,6 @@
 
 <script>
     let filaActualIndex = null;
-
-    function cambiarVista(vista) {
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        if (vista === 'semanal') {
-            document.getElementById('vista-semanal').classList.add('active');
-            event.target.classList.add('active');
-        } else {
-            document.getElementById('vista-trimestral').classList.add('active');
-            event.target.classList.add('active');
-            sincronizarTrimestral();
-        }
-    }
 
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
@@ -222,17 +192,6 @@
         if (filasTrim[index]) {
             filasTrim[index].querySelector('.nombre-input-trim').value = nombreVal;
         }
-    }
-
-    function sincronizarTrimestral() {
-        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
-        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        filasSem.forEach((fila, i) => {
-            if (filasTrim[i]) {
-                let nombre = fila.querySelector('.nombre-input').value;
-                filasTrim[i].querySelector('.nombre-input-trim').value = nombre;
-            }
-        });
     }
 
     function calcularTrimestral(elemento) {
@@ -326,12 +285,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_bolivia_2026_v8', JSON.stringify(datos));
-        alert('¡Datos guardados con éxito en este dispositivo!');
+        localStorage.setItem('libreta_bolivia_2026_v9', JSON.stringify(datos));
+        alert('¡Datos guardados con éxito!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_bolivia_2026_v8');
+        let guardado = localStorage.getItem('libreta_bolivia_2026_v9');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
