@@ -2,71 +2,71 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreta Digital Docente - Bolivia 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Libreta Docente Oficial - Bolivia 2026</title>
     <style>
-        :root {
-            --primary: #1e3a8a;
-            --secondary: #0d9488;
-            --accent: #d97706;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --border-color: #cbd5e1;
-        }
-        * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: var(--bg-color); color: var(--text-main); }
-        .container { max-width: 100%; margin: auto; background: var(--card-bg); padding: 12px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h1 { color: var(--primary); text-align: center; font-size: 16px; margin-bottom: 8px; font-weight: 700; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 4px; background: #f8fafc; color: #1e293b; }
+        .container { max-width: 100%; margin: auto; background: #ffffff; padding: 8px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        h1 { color: #1e3a8a; text-align: center; font-size: 15px; margin: 4px 0 8px 0; font-weight: 700; }
         
         /* Pestañas de Navegación */
-        .tabs { display: flex; gap: 4px; margin-bottom: 10px; background: #e2e8f0; padding: 4px; border-radius: 6px; }
-        .tab-btn { flex: 1; padding: 7px; text-align: center; font-size: 11px; font-weight: bold; background: transparent; border: none; border-radius: 4px; cursor: pointer; color: #475569; }
-        .tab-btn.active { background: var(--primary); color: white; }
+        .tabs { display: flex; gap: 4px; margin-bottom: 8px; background: #e2e8f0; padding: 3px; border-radius: 6px; }
+        .tab-btn { flex: 1; padding: 8px; text-align: center; font-size: 11px; font-weight: bold; background: transparent; border: none; border-radius: 4px; color: #475569; cursor: pointer; }
+        .tab-btn.active { background: #1e3a8a; color: white; }
 
-        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; background: #f1f5f9; padding: 8px; border-radius: 8px; }
+        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; background: #f1f5f9; padding: 6px; border-radius: 6px; }
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input { width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px; background: white; -webkit-appearance: none; pointer-events: auto; }
+        .config-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; }
 
-        .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 10px 0 4px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
+        .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 8px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
-        .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 650px; background: white; }
-        th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; vertical-align: middle; }
-        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; padding: 6px 4px; }
+        .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 650px; }
+        th, td { border: 1px solid #cbd5e1; padding: 6px 4px; text-align: center; vertical-align: middle; }
+        th { background-color: #1e3a8a; color: white; font-size: 10px; font-weight: 600; }
         
-        td input { width: 100%; border: 1px solid transparent; text-align: center; font-size: 12px; background: transparent; padding: 8px 4px; -webkit-appearance: none; pointer-events: auto; }
-        td input:focus { border-color: var(--primary); background: #f8fafc; outline: none; }
+        td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; }
+        td input:focus { border-color: #1e3a8a; background: #f8fafc; outline: none; }
         .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
-        .final-val { font-weight: 700; font-size: 12px; background: #f8fafc; color: var(--primary); }
+        .final-val { font-weight: 700; font-size: 13px; background: #f1f5f9; color: #1e3a8a; }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
+        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 6px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; }
 
         .view-section { display: none; }
         .view-section.active { display: block; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
-        .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+        .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
         .btn-add { background: #10b981; color: white; }
-        .btn-save { background: var(--accent); color: white; }
+        .btn-save { background: #d97706; color: white; }
         .btn-excel { background: #0d9488; color: white; }
-        .btn-pdf { background: var(--primary); color: white; grid-column: span 2; }
+        .btn-pdf { background: #1e3a8a; color: white; grid-column: span 2; }
+
+        /* Modal Ficha e Historial Individual */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+        .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
+        .modal-field { margin-bottom: 8px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-field input { width: 80px; padding: 8px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
+        .btn-close { background: #ef4444; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; margin-top: 10px; cursor: pointer; }
 
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .tabs, .actions-grid, .config-grid { display: none; }
+            .tabs, .actions-grid, .config-grid, .btn-ficha { display: none; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Libreta Digital Docente</h1>
+    <h1>Libreta Docente Oficial - Bolivia 2026</h1>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal</button>
-        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Final</button>
+        <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal (Día a Día)</button>
+        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Sistema RUDE / Min. Educación</button>
     </div>
 
     <div class="config-grid">
@@ -90,27 +90,25 @@
 
     <!-- VISTA 1: SEGUIMIENTO SEMANAL -->
     <div id="vista-semanal" class="view-section active">
-        <div class="section-title">📝 Registro de Trabajos y Actividades por Semana</div>
+        <div class="section-title">📝 Registro Diario y Trabajos Semanales</div>
         <div class="table-container">
             <table id="tabla-semanal">
                 <thead>
                     <tr>
                         <th style="width: 5%;">N°</th>
                         <th style="width: 35%;">Apellidos y Nombres</th>
-                        <th style="width: 15%;">Semana 1</th>
-                        <th style="width: 15%;">Semana 2</th>
-                        <th style="width: 15%;">Semana 3</th>
-                        <th style="width: 15%;">Semana 4</th>
+                        <th style="width: 15%;">Sem 1</th>
+                        <th style="width: 15%;">Sem 2</th>
+                        <th style="width: 15%;">Sem 3</th>
+                        <th style="width: 15%;">Sem 4</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpo-semanal">
-                    <!-- Filas dinámicas -->
-                </tbody>
+                <tbody id="cuerpo-semanal"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- VISTA 2: CONSOLIDADO TRIMESTRAL OFICIAL -->
+    <!-- VISTA 2: CONSOLIDADO OFICIAL MINISTERIO DE EDUCACIÓN 2026 -->
     <div id="vista-trimestral" class="view-section">
         <div class="section-title">📈 Consolidado Oficial (Ser: 10% | Saber: 35% | Hacer: 35% | Decidir: 20%)</div>
         <div class="table-container">
@@ -118,30 +116,57 @@
                 <thead>
                     <tr>
                         <th style="width: 5%;">N°</th>
-                        <th style="width: 35%;">Apellidos y Nombres</th>
-                        <th style="width: 10%;">Ser<br>(10 pts / 10%)</th>
-                        <th style="width: 15%;">Saber<br>(35 pts / 35%)</th>
-                        <th style="width: 15%;">Hacer<br>(35 pts / 35%)</th>
-                        <th style="width: 10%;">Decidir<br>(20 pts / 20%)</th>
-                        <th style="width: 10%;">Final<br>(100 Ptos)</th>
+                        <th style="width: 27%;">Apellidos y Nombres</th>
+                        <th style="width: 11%;">SER<br>(10%)</th>
+                        <th style="width: 13%;">SABER<br>(35%)</th>
+                        <th style="width: 13%;">HACER<br>(35%)</th>
+                        <th style="width: 11%;">DECID.<br>(20%)</th>
+                        <th style="width: 11%;">FINAL<br>(100)</th>
+                        <th style="width: 9%;">Ficha</th>
                     </tr>
                 </thead>
-                <tbody id="cuerpo-trimestral">
-                    <!-- Filas dinámicas -->
-                </tbody>
+                <tbody id="cuerpo-trimestral"></tbody>
             </table>
         </div>
     </div>
 
     <div class="actions-grid">
         <button class="btn btn-add" onclick="agregarAlumno()">+ Alumno</button>
-        <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar Datos</button>
-        <button class="btn btn-excel" onclick="exportarExcel()">📊 Exportar CSV</button>
-        <button class="btn btn-pdf" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar</button>
+        <button class="btn btn-excel" onclick="exportarExcel()">📊 Excel / Sistema</button>
+        <button class="btn btn-pdf" onclick="window.print()">🖨 Imprimir / PDF</button>
+    </div>
+</div>
+
+<!-- Modal de Ficha e Historial Individual del Alumno -->
+<div id="modalFicha" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitulo">Historial del Alumno</h3>
+        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Detalle independiente semanal y notas de dimensiones:</p>
+        
+        <div style="background: #f8fafc; padding: 6px; border-radius: 6px; margin-bottom: 8px;">
+            <div style="font-size: 10px; font-weight: bold; color: #1e3a8a; margin-bottom: 4px;">Seguimiento Semanal:</div>
+            <div class="modal-field"><span>Semana 1:</span><input type="number" id="mSem1" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 2:</span><input type="number" id="mSem2" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 3:</span><input type="number" id="mSem3" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 4:</span><input type="number" id="mSem4" min="0" max="100" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+        </div>
+
+        <div style="background: #f1f5f9; padding: 6px; border-radius: 6px;">
+            <div style="font-size: 10px; font-weight: bold; color: #1e3a8a; margin-bottom: 4px;">Dimensiones Oficiales (Min. Educación):</div>
+            <div class="modal-field"><span>Ser (10 pts):</span><input type="number" id="mSer" min="0" max="10" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Saber (35 pts):</span><input type="number" id="mSaber" min="0" max="35" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Hacer (35 pts):</span><input type="number" id="mHacer" min="0" max="35" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Decidir (20 pts):</span><input type="number" id="mDecidir" min="0" max="20" inputmode="numeric" oninput="actualizarDesdeModal()"></div>
+        </div>
+
+        <button class="btn-close" onclick="cerrarFicha()">Guardar y Cerrar Ficha</button>
     </div>
 </div>
 
 <script>
+    let filaActualIndex = null;
+
     function cambiarVista(vista) {
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -168,22 +193,24 @@
         filaSem.innerHTML = `
             <td class="num-fila">${num}</td>
             <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="sincronizarNombres(this, ${num-1})"></td>
-            <td><input type="number" class="sem1" value="${sem1}" min="0" max="100"></td>
-            <td><input type="number" class="sem2" value="${sem2}" min="0" max="100"></td>
-            <td><input type="number" class="sem3" value="${sem3}" min="0" max="100"></td>
-            <td><input type="number" class="sem4" value="${sem4}" min="0" max="100"></td>
+            <td><input type="number" class="sem1" value="${sem1}" min="0" max="100" inputmode="numeric"></td>
+            <td><input type="number" class="sem2" value="${sem2}" min="0" max="100" inputmode="numeric"></td>
+            <td><input type="number" class="sem3" value="${sem3}" min="0" max="100" inputmode="numeric"></td>
+            <td><input type="number" class="sem4" value="${sem4}" min="0" max="100" inputmode="numeric"></td>
         `;
 
         let tbodyTrim = document.getElementById('cuerpo-trimestral');
+        let indexFila = num - 1;
         let filaTrim = tbodyTrim.insertRow();
         filaTrim.innerHTML = `
             <td class="num-fila-trim">${num}</td>
             <td><input type="text" class="nombre-input-trim" placeholder="Apellidos, Nombres" value="${nombreFormateado}" readonly></td>
-            <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularTrimestral(this)"></td>
-            <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularTrimestral(this)"></td>
-            <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularTrimestral(this)"></td>
-            <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularTrimestral(this)"></td>
+            <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
+            <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
+            <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
+            <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularTrimestral(this)" inputmode="numeric"></td>
             <td><input type="text" class="final final-val" value="0" readonly></td>
+            <td><button class="btn-ficha" onclick="abrirFicha(${indexFila})">📋 Ficha</button></td>
         `;
         calcularTrimestral(filaTrim.querySelector('.ser'));
     }
@@ -228,6 +255,53 @@
         }
     }
 
+    function abrirFicha(index) {
+        filaActualIndex = index;
+        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
+        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
+        
+        let nombre = filasSem[index].querySelector('.nombre-input').value || "Estudiante";
+        document.getElementById('modalTitulo').innerText = "Ficha / Historial: " + nombre;
+        
+        document.getElementById('mSem1').value = filasSem[index].querySelector('.sem1').value;
+        document.getElementById('mSem2').value = filasSem[index].querySelector('.sem2').value;
+        document.getElementById('mSem3').value = filasSem[index].querySelector('.sem3').value;
+        document.getElementById('mSem4').value = filasSem[index].querySelector('.sem4').value;
+
+        document.getElementById('mSer').value = filasTrim[index].querySelector('.ser').value;
+        document.getElementById('mSaber').value = filasTrim[index].querySelector('.saber').value;
+        document.getElementById('mHacer').value = filasTrim[index].querySelector('.hacer').value;
+        document.getElementById('mDecidir').value = filasTrim[index].querySelector('.decidir').value;
+        
+        document.getElementById('modalFicha').style.display = 'flex';
+    }
+
+    function actualizarDesdeModal() {
+        if (filaActualIndex === null) return;
+        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
+        let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
+        
+        let filaS = filasSem[filaActualIndex];
+        let filaT = filasTrim[filaActualIndex];
+
+        filaS.querySelector('.sem1').value = document.getElementById('mSem1').value;
+        filaS.querySelector('.sem2').value = document.getElementById('mSem2').value;
+        filaS.querySelector('.sem3').value = document.getElementById('mSem3').value;
+        filaS.querySelector('.sem4').value = document.getElementById('mSem4').value;
+
+        filaT.querySelector('.ser').value = document.getElementById('mSer').value;
+        filaT.querySelector('.saber').value = document.getElementById('mSaber').value;
+        filaT.querySelector('.hacer').value = document.getElementById('mHacer').value;
+        filaT.querySelector('.decidir').value = document.getElementById('mDecidir').value;
+        
+        calcularTrimestral(filaT.querySelector('.ser'));
+    }
+
+    function cerrarFicha() {
+        document.getElementById('modalFicha').style.display = 'none';
+        filaActualIndex = null;
+    }
+
     function guardarLocalmente() {
         let datos = {
             ue: document.getElementById('ue').value,
@@ -252,12 +326,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v5', JSON.stringify(datos));
-        alert('¡Datos y registros guardados de forma segura en este dispositivo!');
+        localStorage.setItem('libreta_bolivia_2026_v7', JSON.stringify(datos));
+        alert('¡Datos guardados con éxito en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v5');
+        let guardado = localStorage.getItem('libreta_bolivia_2026_v7');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -288,7 +362,7 @@
         let blob = new Blob(["\ufeff" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
         let link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "consolidado_trimestral_2026.csv";
+        link.download = "consolidado_ministerio_2026.csv";
         link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
