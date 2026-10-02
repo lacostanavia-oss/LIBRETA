@@ -34,21 +34,22 @@
         th.sub-header-hacer { background-color: #0369a1; }
         
         td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 4px; }
-        .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
+        .nombre-input { text-align: left !important; width: 150px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 12px; background: #f8fafc; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
         .btn { padding: 9px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .btn-add { background: #10b981; color: white; }
+        .btn-sort { background: #6366f1; color: white; }
         .btn-save { background: var(--accent); color: white; }
         .btn-excel { background: #0d9488; color: white; }
-        .btn-pdf { background: var(--primary); color: white; }
+        .btn-pdf { background: var(--primary); color: white; grid-column: span 2; }
 
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .btn, .config-grid { border: none; background: none; }
+            .btn, .config-grid { display: none; }
             .config-item input { border: none; background: none; font-weight: bold; }
         }
     </style>
@@ -82,7 +83,7 @@
             <thead>
                 <tr>
                     <th rowspan="2" style="width: 3%;">N°</th>
-                    <th rowspan="2" style="width: 22%;">Apellidos y Nombres</th>
+                    <th rowspan="2" style="width: 23%;">Apellidos y Nombres (A - Z)</th>
                     <th rowspan="2" style="width: 7%;">Ser<br>(10)</th>
                     <th colspan="3" class="sub-header-saber">Saber (Max 45)</th>
                     <th colspan="3" class="sub-header-hacer">Hacer (Max 40)</th>
@@ -99,28 +100,17 @@
                 </tr>
             </thead>
             <tbody id="cuerpo-tabla">
-                <tr>
-                    <td>1</td>
-                    <td><input type="text" class="nombre-input" value="Apellidos, Nombres 1"></td>
-                    <td><input type="number" class="ser" value="0" min="0" max="10" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="s1" value="0" min="0" max="45" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="s2" value="0" min="0" max="45" oninput="calcularFila(this)"></td>
-                    <td><input type="text" class="prom-saber" value="0" readonly></td>
-                    <td><input type="number" class="h1" value="0" min="0" max="40" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="h2" value="0" min="0" max="40" oninput="calcularFila(this)"></td>
-                    <td><input type="text" class="prom-hacer" value="0" readonly></td>
-                    <td><input type="number" class="auto" value="0" min="0" max="5" oninput="calcularFila(this)"></td>
-                    <td><input type="text" class="final final-val" value="0" readonly></td>
-                </tr>
+                <!-- Las filas se generan dinámicamente -->
             </tbody>
         </table>
     </div>
 
     <div class="actions-grid">
         <button class="btn btn-add" onclick="agregarFila()">+ Alumno</button>
+        <button class="btn btn-sort" onclick="ordenarAlfabeticamente()">🔤 Ordenar A-Z</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar</button>
         <button class="btn btn-excel" onclick="exportarExcel()">📊 Excel (CSV)</button>
-        <button class="btn btn-pdf" onclick="window.print()">🖨️ PDF / Imprimir</button>
+        <button class="btn btn-pdf" onclick="window.print()">🖨️ PDF / Imprimir Acta</button>
     </div>
 </div>
 
@@ -160,8 +150,8 @@
         let num = tbody.rows.length + 1;
         let fila = tbody.insertRow();
         fila.innerHTML = `
-            <td>${num}</td>
-            <td><input type="text" class="nombre-input" value="${nombre || 'Apellidos, Nombres ' + num}"></td>
+            <td class="num-fila">${num}</td>
+            <td><input type="text" class="nombre-input" value="${nombre || 'Apellido1 Apellido2, Nombres'}"></td>
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFila(this)"></td>
             <td><input type="number" class="s1" value="${s1}" min="0" max="45" oninput="calcularFila(this)"></td>
             <td><input type="number" class="s2" value="${s2}" min="0" max="45" oninput="calcularFila(this)"></td>
@@ -173,6 +163,24 @@
             <td><input type="text" class="final final-val" value="0" readonly></td>
         `;
         calcularFila(fila.querySelector('.ser'));
+    }
+
+    function ordenarAlfabeticamente() {
+        let tbody = document.getElementById('cuerpo-tabla');
+        let filas = Array.from(tbody.querySelectorAll('tr'));
+        
+        filas.sort((a, b) => {
+            let nombreA = a.querySelector('.nombre-input').value.trim().toLowerCase();
+            let nombreB = b.querySelector('.nombre-input').value.trim().toLowerCase();
+            return nombreA.localeCompare(nombreB);
+        });
+
+        tbody.innerHTML = '';
+        filas.forEach((fila, index) => {
+            fila.querySelector('.num-fila').innerText = index + 1;
+            tbody.appendChild(fila);
+        });
+        alert('¡Lista ordenada alfabéticamente por apellidos!');
     }
 
     function guardarLocalmente() {
@@ -212,6 +220,9 @@
                     agregarFila(a.nombre, a.ser, a.s1, a.s2, a.h1, a.h2, a.auto);
                 });
             }
+        } else {
+            // Fila inicial de ejemplo por defecto
+            agregarFila('Apellidos Apellidos, Nombres');
         }
     }
 
