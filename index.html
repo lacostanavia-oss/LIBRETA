@@ -22,23 +22,24 @@
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input { width: 100%; padding: 5px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 4px; font-size: 11px; background: white; }
+        .config-item input { width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px; background: white; -webkit-appearance: none; }
 
         .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 12px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 6px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 700px; background: white; }
-        th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; vertical-align: middle; }
-        th { background-color: var(--primary); color: white; font-size: 9px; font-weight: 600; line-height: 1.1; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 780px; background: white; }
+        th, td { border: 1px solid var(--border-color); padding: 5px; text-align: center; vertical-align: middle; }
+        th { background-color: var(--primary); color: white; font-size: 9px; font-weight: 600; line-height: 1.2; }
         
-        td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 3px; }
+        td input { width: 100%; box-sizing: border-box; border: 1px solid transparent; text-align: center; font-size: 12px; background: #fff; padding: 6px 4px; border-radius: 4px; -webkit-appearance: none; }
+        td input:focus { border-color: var(--primary); outline: none; background: #f8fafc; }
         .nombre-input { text-align: left !important; width: 130px; font-weight: 500; }
-        .final-val { font-weight: 700; font-size: 11px; background: #f8fafc; color: var(--primary); }
+        .final-val { font-weight: 700; font-size: 12px; background: #f1f5f9; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
-        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 2px 5px; border-radius: 4px; font-size: 9px; cursor: pointer; font-weight: bold; margin-left: 3px; }
+        .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 4px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
-        .btn { padding: 9px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+        .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: var(--accent); color: white; }
         .btn-excel { background: #0d9488; color: white; }
@@ -49,8 +50,8 @@
         .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
         .modal-content h3 { color: var(--primary); margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
         .modal-field { margin-bottom: 7px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
-        .modal-field input { width: 60px; padding: 4px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; }
-        .btn-close { background: #ef4444; color: white; width: 100%; padding: 7px; border: none; border-radius: 6px; font-weight: bold; margin-top: 8px; cursor: pointer; }
+        .modal-field input { width: 70px; padding: 6px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; }
+        .btn-close { background: #ef4444; color: white; width: 100%; padding: 8px; border: none; border-radius: 6px; font-weight: bold; margin-top: 10px; cursor: pointer; }
 
         @media print {
             body { background: white; padding: 0; }
@@ -82,26 +83,27 @@
         </div>
     </div>
 
-    <!-- SECCIÓN 1: CONTROL SEMANAL -->
+    <!-- SECCIÓN 1: CONTROL SEMANAL DIARIO -->
     <div class="section-title">📝 1. Control de Trabajos y Tareas Semanales</div>
     <div class="table-container">
         <table id="tabla-semanal">
             <thead>
                 <tr>
                     <th style="width: 5%;">N°</th>
-                    <th style="width: 35%;">Apellidos y Nombres</th>
-                    <th style="width: 15%;">Semana 1</th>
-                    <th style="width: 15%;">Semana 2</th>
-                    <th style="width: 15%;">Semana 3</th>
-                    <th style="width: 15%;">Semana 4</th>
+                    <th style="width: 33%;">Apellidos y Nombres</th>
+                    <th style="width: 13%;">Semana 1</th>
+                    <th style="width: 13%;">Semana 2</th>
+                    <th style="width: 13%;">Semana 3</th>
+                    <th style="width: 13%;">Semana 4</th>
+                    <th style="width: 10%;">Prom. Sem.</th>
                 </tr>
             </thead>
             <tbody id="cuerpo-semanal"></tbody>
         </table>
     </div>
 
-    <!-- SECCIÓN 2: CONSOLIDADO OFICIAL POR DIMENSIONES -->
-    <div class="section-title">📈 2. Consolidado Oficial (Ser:10 | Saber:35 | Hacer:35 | Decidir:20)</div>
+    <!-- SECCIÓN 2: CONSOLIDADO OFICIAL CON DIMENSIONES Y CÁLCULO MENSUAL -->
+    <div class="section-title">📈 2. Consolidado Oficial (Ser: 10% | Saber: 35% | Hacer: 35% | Decidir: 20%)</div>
     <div class="table-container">
         <table id="tabla-trimestral">
             <thead>
@@ -123,7 +125,7 @@
     <div class="actions-grid">
         <button class="btn btn-add" onclick="agregarAlumno()">+ Añadir Alumno</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar Datos</button>
-        <button class="btn btn-excel" onclick="exportarExcel()">📊 Exportar CSV</button>
+        <button class="btn btn-excel" onclick="exportarExcel()">📊 Exportar CSV / Excel</button>
         <button class="btn btn-pdf" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
 </div>
@@ -169,11 +171,12 @@
         let filaSem = tbodySem.insertRow();
         filaSem.innerHTML = `
             <td class="num-fila">${num}</td>
-            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="sincronizarNombres()"></td>
-            <td><input type="number" class="sem1" value="${sem1}" min="0" max="100"></td>
-            <td><input type="number" class="sem2" value="${sem2}" min="0" max="100"></td>
-            <td><input type="number" class="sem3" value="${sem3}" min="0" max="100"></td>
-            <td><input type="number" class="sem4" value="${sem4}" min="0" max="100"></td>
+            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="sincronizarNombres(this)"></td>
+            <td><input type="number" class="sem1" value="${sem1}" min="0" max="100" oninput="calcularPromedioSemanal(this)"></td>
+            <td><input type="number" class="sem2" value="${sem2}" min="0" max="100" oninput="calcularPromedioSemanal(this)"></td>
+            <td><input type="number" class="sem3" value="${sem3}" min="0" max="100" oninput="calcularPromedioSemanal(this)"></td>
+            <td><input type="number" class="sem4" value="${sem4}" min="0" max="100" oninput="calcularPromedioSemanal(this)"></td>
+            <td><input type="text" class="prom-sem" value="0" readonly style="font-weight:bold; background:#f1f5f9;"></td>
         `;
 
         let tbodyTrim = document.getElementById('cuerpo-trimestral');
@@ -189,19 +192,39 @@
             <td><input type="text" class="final final-val" value="0" readonly></td>
             <td><button class="btn-ficha" onclick="abrirFicha(${indexFila})">📋 Ver</button></td>
         `;
+        calcularPromedioSemanal(filaSem.querySelector('.sem1'));
         calcularTrimestral(filaTrim.querySelector('.ser'));
     }
 
-    function sincronizarNombres() {
-        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
+    function sincronizarNombres(input) {
+        input.value = formatearTexto(input.value);
+        let filaSem = input.closest('tr');
+        let index = Array.from(filaSem.parentNode.children).indexOf(filaSem);
         let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        filasSem.forEach((fila, i) => {
-            if (filasTrim[i]) {
-                let input = fila.querySelector('.nombre-input');
-                input.value = formatearTexto(input.value);
-                filasTrim[i].querySelector('.nombre-input-trim').value = input.value;
+        if (filasTrim[index]) {
+            filasTrim[index].querySelector('.nombre-input-trim').value = input.value;
+        }
+    }
+
+    function calcularPromedioSemanal(elemento) {
+        let fila = elemento.closest('tr');
+        let s1 = parseFloat(fila.querySelector('.sem1').value) || 0;
+        let s2 = parseFloat(fila.querySelector('.sem2').value) || 0;
+        let s3 = parseFloat(fila.querySelector('.sem3').value) || 0;
+        let s4 = parseFloat(fila.querySelector('.sem4').value) || 0;
+
+        // Calcular cuántas semanas tienen notas ingresadas (mayores a 0 o con valor) para un promedio real
+        let semanasValidas = 0;
+        let suma = 0;
+        [s1, s2, s3, s4].forEach(val => {
+            if (val > 0) {
+                suma += val;
+                semanasValidas++;
             }
         });
+
+        let promedio = semanasValidas > 0 ? (suma / semanasValidas) : 0;
+        fila.querySelector('.prom-sem').value = promedio.toFixed(1);
     }
 
     function calcularTrimestral(elemento) {
@@ -263,6 +286,7 @@
         filaT.querySelector('.hacer').value = document.getElementById('mHacer').value;
         filaT.querySelector('.decidir').value = document.getElementById('mDecidir').value;
         
+        calcularPromedioSemanal(filaS.querySelector('.sem1'));
         calcularTrimestral(filaT.querySelector('.ser'));
     }
 
@@ -295,12 +319,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v12', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v14', JSON.stringify(datos));
         alert('¡Datos guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v12');
+        let guardado = localStorage.getItem('libreta_pro_2026_v14');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -344,4 +368,3 @@
 </script>
 </body>
 </html>
-
