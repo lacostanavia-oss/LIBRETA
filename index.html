@@ -16,7 +16,7 @@
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: var(--bg-color); color: var(--text-main); }
         .container { max-width: 100%; margin: auto; background: var(--card-bg); padding: 12px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h1 { color: var(--primary); text-align: center; font-size: 17px; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.3px; }
+        h1 { color: var(--primary); text-align: center; font-size: 17px; margin-bottom: 12px; font-weight: 700; }
         
         .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; background: #f1f5f9; padding: 10px; border-radius: 8px; }
         .config-item { display: flex; flex-direction: column; gap: 3px; }
@@ -27,9 +27,9 @@
         .section-title { font-size: 12px; font-weight: 700; color: var(--primary); margin: 14px 0 6px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 650px; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 680px; background: white; }
         th, td { border: 1px solid var(--border-color); padding: 5px; text-align: center; vertical-align: middle; }
-        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; letter-spacing: 0.2px; }
+        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; }
         th.sub-header-saber { background-color: #0f766e; }
         th.sub-header-hacer { background-color: #0369a1; }
         
@@ -39,9 +39,7 @@
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
-        .btn { padding: 9px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; transition: opacity 0.2s; }
-        .btn:active { opacity: 0.8; }
-        .btn-full { grid-column: span 2; }
+        .btn { padding: 9px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: var(--accent); color: white; }
         .btn-excel { background: #0d9488; color: white; }
@@ -57,7 +55,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Libreta Digital Profesional</h1>
+    <h1>Libreta Digital Docente - Bolivia</h1>
 
     <div class="config-grid">
         <div class="config-item full">
@@ -78,17 +76,17 @@
         </div>
     </div>
 
-    <div class="section-title">📊 Registro y Dimensiones (Ser:10 | Saber:35 | Hacer:35 | Decidir:20)</div>
+    <div class="section-title">📊 Registro (Ser:10 | Saber:45 | Hacer:40 | Auto:5)</div>
     <div class="table-container">
         <table id="tabla-libreta">
             <thead>
                 <tr>
                     <th rowspan="2" style="width: 3%;">N°</th>
-                    <th rowspan="2" style="width: 24%;">Apellidos y Nombres</th>
+                    <th rowspan="2" style="width: 22%;">Apellidos y Nombres</th>
                     <th rowspan="2" style="width: 7%;">Ser<br>(10)</th>
-                    <th colspan="3" class="sub-header-saber">Saber (Max 35)</th>
-                    <th colspan="3" class="sub-header-hacer">Hacer (Max 35)</th>
-                    <th rowspan="2" style="width: 7%;">Dec.<br>(20)</th>
+                    <th colspan="3" class="sub-header-saber">Saber (Max 45)</th>
+                    <th colspan="3" class="sub-header-hacer">Hacer (Max 40)</th>
+                    <th rowspan="2" style="width: 7%;">Auto<br>(5)</th>
                     <th rowspan="2" style="width: 8%;">Final<br>(100)</th>
                 </tr>
                 <tr>
@@ -105,13 +103,13 @@
                     <td>1</td>
                     <td><input type="text" class="nombre-input" value="Apellidos, Nombres 1"></td>
                     <td><input type="number" class="ser" value="0" min="0" max="10" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="s1" value="0" min="0" max="35" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="s2" value="0" min="0" max="35" oninput="calcularFila(this)"></td>
+                    <td><input type="number" class="s1" value="0" min="0" max="45" oninput="calcularFila(this)"></td>
+                    <td><input type="number" class="s2" value="0" min="0" max="45" oninput="calcularFila(this)"></td>
                     <td><input type="text" class="prom-saber" value="0" readonly></td>
-                    <td><input type="number" class="h1" value="0" min="0" max="35" oninput="calcularFila(this)"></td>
-                    <td><input type="number" class="h2" value="0" min="0" max="35" oninput="calcularFila(this)"></td>
+                    <td><input type="number" class="h1" value="0" min="0" max="40" oninput="calcularFila(this)"></td>
+                    <td><input type="number" class="h2" value="0" min="0" max="40" oninput="calcularFila(this)"></td>
                     <td><input type="text" class="prom-hacer" value="0" readonly></td>
-                    <td><input type="number" class="decidir" value="0" min="0" max="20" oninput="calcularFila(this)"></td>
+                    <td><input type="number" class="auto" value="0" min="0" max="5" oninput="calcularFila(this)"></td>
                     <td><input type="text" class="final final-val" value="0" readonly></td>
                 </tr>
             </tbody>
@@ -134,17 +132,17 @@
         let s2 = parseFloat(fila.querySelector('.s2').value) || 0;
         let h1 = parseFloat(fila.querySelector('.h1').value) || 0;
         let h2 = parseFloat(fila.querySelector('.h2').value) || 0;
-        let decidir = parseFloat(fila.querySelector('.decidir').value) || 0;
+        let auto = parseFloat(fila.querySelector('.auto').value) || 0;
 
         let promSaber = ((s1 + s2) / 2);
-        if (promSaber > 35) promSaber = 35;
+        if (promSaber > 45) promSaber = 45;
         fila.querySelector('.prom-saber').value = promSaber.toFixed(1);
 
         let promHacer = ((h1 + h2) / 2);
-        if (promHacer > 35) promHacer = 35;
+        if (promHacer > 40) promHacer = 40;
         fila.querySelector('.prom-hacer').value = promHacer.toFixed(1);
 
-        let total = ser + promSaber + promHacer + decidir;
+        let total = ser + promSaber + promHacer + auto;
         if (total > 100) total = 100;
         
         let finalInput = fila.querySelector('.final');
@@ -157,7 +155,7 @@
         }
     }
 
-    function agregarFila(nombre = '', ser = 0, s1 = 0, s2 = 0, h1 = 0, h2 = 0, decidir = 0) {
+    function agregarFila(nombre = '', ser = 0, s1 = 0, s2 = 0, h1 = 0, h2 = 0, auto = 0) {
         let tbody = document.getElementById('cuerpo-tabla');
         let num = tbody.rows.length + 1;
         let fila = tbody.insertRow();
@@ -165,13 +163,13 @@
             <td>${num}</td>
             <td><input type="text" class="nombre-input" value="${nombre || 'Apellidos, Nombres ' + num}"></td>
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFila(this)"></td>
-            <td><input type="number" class="s1" value="${s1}" min="0" max="35" oninput="calcularFila(this)"></td>
-            <td><input type="number" class="s2" value="${s2}" min="0" max="35" oninput="calcularFila(this)"></td>
+            <td><input type="number" class="s1" value="${s1}" min="0" max="45" oninput="calcularFila(this)"></td>
+            <td><input type="number" class="s2" value="${s2}" min="0" max="45" oninput="calcularFila(this)"></td>
             <td><input type="text" class="prom-saber" value="0" readonly></td>
-            <td><input type="number" class="h1" value="${h1}" min="0" max="35" oninput="calcularFila(this)"></td>
-            <td><input type="number" class="h2" value="${h2}" min="0" max="35" oninput="calcularFila(this)"></td>
+            <td><input type="number" class="h1" value="${h1}" min="0" max="40" oninput="calcularFila(this)"></td>
+            <td><input type="number" class="h2" value="${h2}" min="0" max="40" oninput="calcularFila(this)"></td>
             <td><input type="text" class="prom-hacer" value="0" readonly></td>
-            <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularFila(this)"></td>
+            <td><input type="number" class="auto" value="${auto}" min="0" max="5" oninput="calcularFila(this)"></td>
             <td><input type="text" class="final final-val" value="0" readonly></td>
         `;
         calcularFila(fila.querySelector('.ser'));
@@ -193,15 +191,15 @@
                 s2: fila.querySelector('.s2').value,
                 h1: fila.querySelector('.h1').value,
                 h2: fila.querySelector('.h2').value,
-                decidir: fila.querySelector('.decidir').value
+                auto: fila.querySelector('.auto').value
             });
         });
-        localStorage.setItem('libreta_datos_pro', JSON.stringify(datos));
+        localStorage.setItem('libreta_datos_pro_2026', JSON.stringify(datos));
         alert('¡Datos guardados con éxito en este dispositivo!');
     }
 
     function cargarDatosGuardados() {
-        let guardado = localStorage.getItem('libreta_datos_pro');
+        let guardado = localStorage.getItem('libreta_datos_pro_2026');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -211,7 +209,7 @@
             if (datos.alumnos && datos.alumnos.length > 0) {
                 document.getElementById('cuerpo-tabla').innerHTML = '';
                 datos.alumnos.forEach(a => {
-                    agregarFila(a.nombre, a.ser, a.s1, a.s2, a.h1, a.h2, a.decidir);
+                    agregarFila(a.nombre, a.ser, a.s1, a.s2, a.h1, a.h2, a.auto);
                 });
             }
         }
@@ -231,7 +229,7 @@
         let blob = new Blob(["\ufeff" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
         let link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "libreta_profesional.csv";
+        link.download = "libreta_oficial_2026.csv";
         link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
