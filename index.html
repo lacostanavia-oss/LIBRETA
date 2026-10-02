@@ -14,7 +14,7 @@
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
+        .config-item input, .config-item select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
 
         .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 12px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
@@ -57,6 +57,25 @@
     <h1>Libreta Docente Bolivia 2026</h1>
 
     <div class="config-grid">
+        <div class="config-item full">
+            <label>Seleccionar Materia / Asignatura:</label>
+            <select id="materiaSelect" onchange="cambiarMateria()">
+                <option value="Matematicas">Matemáticas</option>
+                <option value="Lenguaje">Lenguaje y Comunicación</option>
+                <option value="CienciasSociales">Ciencias Sociales</option>
+                <option value="CienciasNaturales">Ciencias Naturales</option>
+                <option value="Fisica">Física</option>
+                <option value="Quimica">Química</option>
+                <option value="Biologia">Biología - Geografía</option>
+                <option value="ArtesPlasticas">Artes Plásticas y Visuales</option>
+                <option value="EducacionMusical">Educación Musical</option>
+                <option value="EducacionFisica">Educación Física y Deportes</option>
+                <option value="Cosmovisiones">Cosmovisiones, Filosofía y Psicología</option>
+                <option value="Tecnologia">Técnica Tecnológica General / Especializada</option>
+                <option value="Ingles">Idioma Extranjero (Inglés)</option>
+                <option value="Religion">Valores, Espiritualidad y Religiones</option>
+            </select>
+        </div>
         <div class="config-item full">
             <label>Unidad Educativa:</label>
             <input type="text" id="ue" value="Unidad Educativa">
@@ -152,6 +171,11 @@
 
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
+    }
+
+    function limpiarTablas() {
+        document.getElementById('cuerpo-semanal').innerHTML = '';
+        document.getElementById('cuerpo-trimestral').innerHTML = '';
     }
 
     function agregarAlumno(nombre = '', sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0, ser = 0, saber = 0, hacer = 0, decidir = 0) {
@@ -261,6 +285,11 @@
         filaActualIndex = null;
     }
 
+    function obtenerClaveStorage() {
+        let materia = document.getElementById('materiaSelect').value;
+        return 'libreta_materia_' + materia + '_2026';
+    }
+
     function guardarLocalmente() {
         let datos = {
             ue: document.getElementById('ue').value,
@@ -285,12 +314,13 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_bolivia_2026_v9', JSON.stringify(datos));
-        alert('¡Datos guardados con éxito!');
+        localStorage.setItem(obtenerClaveStorage(), JSON.stringify(datos));
+        alert('¡Datos guardados con éxito para esta materia!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_bolivia_2026_v9');
+        limpiarTablas();
+        let guardado = localStorage.getItem(obtenerClaveStorage());
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -301,14 +331,21 @@
                 datos.alumnos.forEach(a => {
                     agregarAlumno(a.nombre, a.sem1, a.sem2, a.sem3, a.sem4, a.ser, a.saber, a.hacer, a.decidir);
                 });
+            } else {
+                agregarAlumno('');
             }
         } else {
             agregarAlumno('');
         }
     }
 
+    function cambiarMateria() {
+        cargarDatos();
+    }
+
     function exportarExcel() {
         let csv = [];
+        let materia = document.getElementById('materiaSelect').value;
         let filas = document.querySelectorAll("#tabla-trimestral tr");
         for (let i = 0; i < filas.length; i++) {
             let fila = [], cols = filas[i].querySelectorAll("td input, th");
@@ -321,7 +358,7 @@
         let blob = new Blob(["\ufeff" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
         let link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "consolidado_ministerio_2026.csv";
+        link.download = "consolidado_" + materia + "_2026.csv";
         link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
