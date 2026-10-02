@@ -32,12 +32,12 @@
         .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 10px 0 4px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border-color); }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 700px; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 720px; background: white; }
         th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; vertical-align: middle; }
         th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; }
         
         td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 3px; }
-        .nombre-input { text-align: left !important; width: 140px; font-weight: 500; text-transform: capitalize; }
+        .nombre-input { text-align: left !important; width: 130px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 11px; background: #f8fafc; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
         .btn-ficha { background: #e0e7ff; color: #3730a3; border: none; padding: 2px 5px; border-radius: 4px; font-size: 9px; cursor: pointer; font-weight: bold; margin-left: 3px; }
@@ -53,9 +53,9 @@
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: var(--primary); color: white; grid-column: span 2; }
 
-        /* Modal Ficha Individual */
+        /* Modal Ficha e Historial */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
         .modal-content h3 { color: var(--primary); margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
         .modal-field { margin-bottom: 7px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
         .modal-field input { width: 60px; padding: 4px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; }
@@ -118,19 +118,19 @@
 
     <!-- VISTA 2: CONSOLIDADO OFICIAL POR DIMENSIONES -->
     <div id="vista-trimestral" class="view-section">
-        <div class="section-title">📈 Consolidado (Ser:10 | Saber:45 | Hacer:40 | Auto:5)</div>
+        <div class="section-title">📈 Consolidado (Ser:10 | Saber:45 | Hacer:40 | Decidir:5)</div>
         <div class="table-container">
             <table id="tabla-trimestral">
                 <thead>
                     <tr>
                         <th style="width: 5%;">N°</th>
-                        <th style="width: 33%;">Apellidos y Nombres</th>
-                        <th style="width: 10%;">Ser<br>(10)</th>
-                        <th style="width: 12%;">Saber<br>(45)</th>
-                        <th style="width: 12%;">Hacer<br>(40)</th>
-                        <th style="width: 10%;">Auto<br>(5)</th>
+                        <th style="width: 29%;">Apellidos y Nombres</th>
+                        <th style="width: 9%;">Ser<br>(10)</th>
+                        <th style="width: 11%;">Saber<br>(45)</th>
+                        <th style="width: 11%;">Hacer<br>(40)</th>
+                        <th style="width: 9%;">Dec.<br>(5)</th>
                         <th style="width: 10%;">Final<br>(100)</th>
-                        <th style="width: 8%;">Ficha</th>
+                        <th style="width: 8%;">Historial</th>
                     </tr>
                 </thead>
                 <tbody id="cuerpo-trimestral"></tbody>
@@ -147,16 +147,29 @@
     </div>
 </div>
 
-<!-- Modal de Ficha Individual -->
+<!-- Modal de Ficha e Historial Individual -->
 <div id="modalFicha" class="modal">
     <div class="modal-content">
-        <h3 id="modalTitulo">Ficha del Alumno</h3>
-        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Desglose de notas del trimestre:</p>
-        <div class="modal-field"><span>Ser (Valores) / 10:</span><input type="number" id="mSer" min="0" max="10" oninput="actualizarDesdeModal('ser')"></div>
-        <div class="modal-field"><span>Saber / 45:</span><input type="number" id="mSaber" min="0" max="45" oninput="actualizarDesdeModal('saber')"></div>
-        <div class="modal-field"><span>Hacer / 40:</span><input type="number" id="mHacer" min="0" max="40" oninput="actualizarDesdeModal('hacer')"></div>
-        <div class="modal-field"><span>Autoevaluación / 5:</span><input type="number" id="mAuto" min="0" max="5" oninput="actualizarDesdeModal('auto')"></div>
-        <button class="btn-close" onclick="cerrarFicha()">Guardar y Cerrar</button>
+        <h3 id="modalTitulo">Historial del Alumno</h3>
+        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Desglose semanal y dimensiones del trimestre:</p>
+        
+        <div style="background: #f8fafc; padding: 6px; border-radius: 6px; margin-bottom: 8px;">
+            <div style="font-size: 10px; font-weight: bold; color: var(--primary); margin-bottom: 4px;">Seguimiento Semanal:</div>
+            <div class="modal-field"><span>Semana 1:</span><input type="number" id="mSem1" min="0" max="100" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 2:</span><input type="number" id="mSem2" min="0" max="100" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 3:</span><input type="number" id="mSem3" min="0" max="100" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Semana 4:</span><input type="number" id="mSem4" min="0" max="100" oninput="actualizarDesdeModal()"></div>
+        </div>
+
+        <div style="background: #f1f5f9; padding: 6px; border-radius: 6px;">
+            <div style="font-size: 10px; font-weight: bold; color: var(--primary); margin-bottom: 4px;">Evaluación Oficial (Dimensiones):</div>
+            <div class="modal-field"><span>Ser (Valores) / 10:</span><input type="number" id="mSer" min="0" max="10" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Saber / 45:</span><input type="number" id="mSaber" min="0" max="45" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Hacer / 40:</span><input type="number" id="mHacer" min="0" max="40" oninput="actualizarDesdeModal()"></div>
+            <div class="modal-field"><span>Decidir (Autoeval.) / 5:</span><input type="number" id="mDecidir" min="0" max="5" oninput="actualizarDesdeModal()"></div>
+        </div>
+
+        <button class="btn-close" onclick="cerrarFicha()">Guardar y Cerrar Historial</button>
     </div>
 </div>
 
@@ -180,7 +193,7 @@
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
 
-    function agregarAlumno(nombre = '', sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0, ser = 0, saber = 0, hacer = 0, auto = 0) {
+    function agregarAlumno(nombre = '', sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0, ser = 0, saber = 0, hacer = 0, decidir = 0) {
         let tbodySem = document.getElementById('cuerpo-semanal');
         let num = tbodySem.rows.length + 1;
         let nombreFormateado = formatearTexto(nombre);
@@ -204,9 +217,9 @@
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularTrimestral(this)"></td>
             <td><input type="number" class="saber" value="${saber}" min="0" max="45" oninput="calcularTrimestral(this)"></td>
             <td><input type="number" class="hacer" value="${hacer}" min="0" max="40" oninput="calcularTrimestral(this)"></td>
-            <td><input type="number" class="auto" value="${auto}" min="0" max="5" oninput="calcularTrimestral(this)"></td>
+            <td><input type="number" class="decidir" value="${decidir}" min="0" max="5" oninput="calcularTrimestral(this)"></td>
             <td><input type="text" class="final final-val" value="0" readonly></td>
-            <td><button class="btn-ficha" onclick="abrirFicha(${indexFila})">📋 Ficha</button></td>
+            <td><button class="btn-ficha" onclick="abrirFicha(${indexFila})">📋 Ver</button></td>
         `;
         calcularTrimestral(filaTrim.querySelector('.ser'));
     }
@@ -232,9 +245,9 @@
         let ser = parseFloat(fila.querySelector('.ser').value) || 0;
         let saber = parseFloat(fila.querySelector('.saber').value) || 0;
         let hacer = parseFloat(fila.querySelector('.hacer').value) || 0;
-        let auto = parseFloat(fila.querySelector('.auto').value) || 0;
+        let decidir = parseFloat(fila.querySelector('.decidir').value) || 0;
 
-        let total = ser + saber + hacer + auto;
+        let total = ser + saber + hacer + decidir;
         if (total > 100) total = 100;
         
         let finalInput = fila.querySelector('.final');
@@ -253,27 +266,43 @@
         let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
         
         let nombre = filasSem[index].querySelector('.nombre-input').value || "Estudiante";
-        document.getElementById('modalTitulo').innerText = "Ficha: " + nombre;
+        document.getElementById('modalTitulo').innerText = "Historial: " + nombre;
         
+        // Cargar notas semanales al modal
+        document.getElementById('mSem1').value = filasSem[index].querySelector('.sem1').value;
+        document.getElementById('mSem2').value = filasSem[index].querySelector('.sem2').value;
+        document.getElementById('mSem3').value = filasSem[index].querySelector('.sem3').value;
+        document.getElementById('mSem4').value = filasSem[index].querySelector('.sem4').value;
+
+        // Cargar dimensiones al modal
         document.getElementById('mSer').value = filasTrim[index].querySelector('.ser').value;
         document.getElementById('mSaber').value = filasTrim[index].querySelector('.saber').value;
         document.getElementById('mHacer').value = filasTrim[index].querySelector('.hacer').value;
-        document.getElementById('mAuto').value = filasTrim[index].querySelector('.auto').value;
+        document.getElementById('mDecidir').value = filasTrim[index].querySelector('.decidir').value;
         
         document.getElementById('modalFicha').style.display = 'flex';
     }
 
-    function actualizarDesdeModal(campo) {
+    function actualizarDesdeModal() {
         if (filaActualIndex === null) return;
+        let filasSem = document.querySelectorAll('#cuerpo-semanal tr');
         let filasTrim = document.querySelectorAll('#cuerpo-trimestral tr');
-        let fila = filasTrim[filaActualIndex];
         
-        if (campo === 'ser') fila.querySelector('.ser').value = document.getElementById('mSer').value;
-        if (campo === 'saber') fila.querySelector('.saber').value = document.getElementById('mSaber').value;
-        if (campo === 'hacer') fila.querySelector('.hacer').value = document.getElementById('mHacer').value;
-        if (campo === 'auto') fila.querySelector('.auto').value = document.getElementById('mAuto').value;
+        let filaS = filasSem[filaActualIndex];
+        let filaT = filasTrim[filaActualIndex];
+
+        // Guardar desde modal a las tablas principales
+        filaS.querySelector('.sem1').value = document.getElementById('mSem1').value;
+        filaS.querySelector('.sem2').value = document.getElementById('mSem2').value;
+        filaS.querySelector('.sem3').value = document.getElementById('mSem3').value;
+        filaS.querySelector('.sem4').value = document.getElementById('mSem4').value;
+
+        filaT.querySelector('.ser').value = document.getElementById('mSer').value;
+        filaT.querySelector('.saber').value = document.getElementById('mSaber').value;
+        filaT.querySelector('.hacer').value = document.getElementById('mHacer').value;
+        filaT.querySelector('.decidir').value = document.getElementById('mDecidir').value;
         
-        calcularTrimestral(fila.querySelector('.ser'));
+        calcularTrimestral(filaT.querySelector('.ser'));
     }
 
     function cerrarFicha() {
@@ -296,7 +325,7 @@
                 ser: tbodyTrim.rows[i].querySelector('.ser').value,
                 saber: tbodyTrim.rows[i].querySelector('.saber').value,
                 hacer: tbodyTrim.rows[i].querySelector('.hacer').value,
-                auto: tbodyTrim.rows[i].querySelector('.auto').value
+                decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
 
@@ -306,9 +335,9 @@
         tbodyTrim.innerHTML = '';
 
         datosUnidos.forEach(d => {
-            agregarAlumno(d.nombre, d.sem1, d.sem2, d.sem3, d.sem4, d.ser, d.saber, d.hacer, d.auto);
+            agregarAlumno(d.nombre, d.sem1, d.sem2, d.sem3, d.sem4, d.ser, d.saber, d.hacer, d.decidir);
         });
-        alert('¡Listas ordenadas alfabéticamente por apellidos con la inicial en mayúscula!');
+        alert('¡Listas ordenadas alfabéticamente por apellidos!');
     }
 
     function guardarLocalmente() {
@@ -332,15 +361,15 @@
                 ser: tbodyTrim.rows[i].querySelector('.ser').value,
                 saber: tbodyTrim.rows[i].querySelector('.saber').value,
                 hacer: tbodyTrim.rows[i].querySelector('.hacer').value,
-                auto: tbodyTrim.rows[i].querySelector('.auto').value
+                decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v5', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v7', JSON.stringify(datos));
         alert('¡Datos guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v5');
+        let guardado = localStorage.getItem('libreta_pro_2026_v7');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
@@ -349,7 +378,7 @@
             document.getElementById('trimestre').value = datos.trimestre || '';
             if (datos.alumnos && datos.alumnos.length > 0) {
                 datos.alumnos.forEach(a => {
-                    agregarAlumno(a.nombre, a.sem1, a.sem2, a.sem3, a.sem4, a.ser, a.saber, a.hacer, a.auto);
+                    agregarAlumno(a.nombre, a.sem1, a.sem2, a.sem3, a.sem4, a.ser, a.saber, a.hacer, a.decidir);
                 });
             }
         } else {
@@ -361,7 +390,7 @@
         let csv = [];
         let filas = document.querySelectorAll("#tabla-trimestral tr");
         for (let i = 0; i < filas.length; i++) {
-            let fila, cols = filas[i].querySelectorAll("td input, th");
+            let fila = [], cols = filas[i].querySelectorAll("td input, th");
             for (let j = 0; j < cols.length; j++) {
                 let val = cols[j].value !== undefined ? cols[j].value : cols[j].innerText;
                 fila.push('"' + val + '"');
