@@ -19,16 +19,16 @@
         .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 14px 0 6px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 10px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 780px; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 750px; }
         th, td { border: 1px solid #cbd5e1; padding: 6px 4px; text-align: center; vertical-align: middle; }
         th { background-color: #1e3a8a; color: white; font-size: 10px; font-weight: 600; }
         
         td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; pointer-events: auto; }
         td input:focus { border-color: #1e3a8a; background: #f8fafc; outline: none; }
-        .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
+        .nombre-input { text-align: left !important; width: 150px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 13px; background: #f1f5f9; color: #1e3a8a; }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
-        .btn-diario { background: #e0e7ff; color: #3730a3; border: none; padding: 6px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; pointer-events: auto; }
+        .btn-historial { background: #e0e7ff; color: #3730a3; border: none; padding: 6px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: bold; pointer-events: auto; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
         .btn { padding: 12px; font-size: 11px; border: none; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; pointer-events: auto; }
@@ -37,17 +37,21 @@
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: #1e3a8a; color: white; grid-column: span 2; }
 
-        /* Modal para Apuntes del Día a Día */
+        /* Modal Profesional para el Historial y Apuntes del Día a Día */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
+        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 95%; max-width: 420px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
         .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
-        .modal-content textarea { width: 100%; height: 150px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; resize: vertical; margin-top: 8px; pointer-events: auto; }
-        .btn-close { background: #ef4444; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        .modal-section { font-size: 11px; font-weight: bold; color: #1e3a8a; margin-top: 10px; margin-bottom: 4px; text-transform: uppercase; }
+        .modal-content textarea { width: 100%; height: 110px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; resize: vertical; pointer-events: auto; }
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: #f8fafc; padding: 8px; border-radius: 6px; }
+        .modal-field { display: flex; flex-direction: column; gap: 2px; font-size: 10px; }
+        .modal-field input { padding: 6px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; }
+        .btn-close { background: #ef4444; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; margin-top: 12px; cursor: pointer; }
 
         @media print {
             body { background: white; padding: 0; }
             .container { box-shadow: none; padding: 0; }
-            .actions-grid, .config-grid, .btn-diario { display: none; }
+            .actions-grid, .config-grid, .btn-historial { display: none; }
         }
     </style>
 </head>
@@ -93,24 +97,20 @@
         </div>
     </div>
 
-    <!-- TABLA UNIFICADA CON APUNTES DIARIOS -->
-    <div class="section-title">📊 Registro Completo y Consolidado Oficial (Min. Educación 2026)</div>
+    <!-- TABLA PRINCIPAL LIMPIA Y PROFESIONAL -->
+    <div class="section-title">📊 Registro Consolidado Oficial (Min. Educación 2026)</div>
     <div class="table-container">
         <table id="tabla-principal">
             <thead>
                 <tr>
                     <th style="width: 4%;">N°</th>
-                    <th style="width: 24%;">Apellidos y Nombres</th>
-                    <th style="width: 6%;">Sem 1</th>
-                    <th style="width: 6%;">Sem 2</th>
-                    <th style="width: 6%;">Sem 3</th>
-                    <th style="width: 6%;">Sem 4</th>
+                    <th style="width: 28%;">Apellidos y Nombres</th>
                     <th style="width: 8%;">Ser<br>(10%)</th>
-                    <th style="width: 8%;">Saber<br>(35%)</th>
-                    <th style="width: 8%;">Hacer<br>(35%)</th>
+                    <th style="width: 9%;">Saber<br>(35%)</th>
+                    <th style="width: 9%;">Hacer<br>(35%)</th>
                     <th style="width: 8%;">Decid.<br>(20%)</th>
-                    <th style="width: 8%;">Final<br>(100)</th>
-                    <th style="width: 8%;">Diario</th>
+                    <th style="width: 9%;">Final<br>(100)</th>
+                    <th style="width: 10%;">Historial / Diario</th>
                 </tr>
             </thead>
             <tbody id="cuerpo-tabla"></tbody>
@@ -125,19 +125,30 @@
     </div>
 </div>
 
-<!-- Modal para Historial de Apuntes del Día a Día -->
-<div id="modalDiario" class="modal">
+<!-- Modal Profesional: Historial, Apuntes Diarios y Notas Independientes -->
+<div id="modalHistorial" class="modal">
     <div class="modal-content">
-        <h3 id="modalTitulo">Apuntes del Día a Día</h3>
-        <p style="font-size: 10px; color: #64748b; margin-top: 0;">Anota aquí observaciones diarias, tareas, participación o asistencia:</p>
-        <textarea id="textoDiario" placeholder="Ej: 03/10: Entregó trabajo práctico..."></textarea>
-        <button class="btn-close" onclick="cerrarDiario()">Guardar y Cerrar</button>
+        <h3 id="modalTitulo">Historial del Alumno</h3>
+        
+        <div class="modal-section">📖 Apuntes y Observaciones del Día a Día:</div>
+        <p style="font-size: 9px; color: #64748b; margin: 0 0 4px 0;">Anota fechas, trabajos prácticos, asistencias y el porqué de sus notas:</p>
+        <textarea id="textoApuntes" placeholder="Ej: 03/10: Presentó tarea tarde (-5). 10/10: Excelente exposición..."></textarea>
+
+        <div class="modal-section">📅 Seguimiento Semanal:</div>
+        <div class="modal-grid">
+            <div class="modal-field"><label>Semana 1:</label><input type="number" id="mSem1" min="0" max="100" inputmode="numeric"></div>
+            <div class="modal-field"><label>Semana 2:</label><input type="number" id="mSem2" min="0" max="100" inputmode="numeric"></div>
+            <div class="modal-field"><label>Semana 3:</label><input type="number" id="mSem3" min="0" max="100" inputmode="numeric"></div>
+            <div class="modal-field"><label>Semana 4:</label><input type="number" id="mSem4" min="0" max="100" inputmode="numeric"></div>
+        </div>
+
+        <button class="btn-close" onclick="cerrarHistorial()">Guardar y Cerrar Historial</button>
     </div>
 </div>
 
 <script>
     let filaActualIndex = null;
-    let apuntesAlumnos = {};
+    let datosHistorialAlumnos = {};
 
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
@@ -147,30 +158,28 @@
         document.getElementById('cuerpo-tabla').innerHTML = '';
     }
 
-    function agregarAlumno(nombre = '', sem1 = 0, sem2 = 0, sem3 = 0, sem4 = 0, ser = 0, saber = 0, hacer = 0, decidir = 0, notasDiario = '') {
+    function agregarAlumno(nombre = '', ser = 0, saber = 0, hacer = 0, decidir = 0, historialObj = null) {
         let tbody = document.getElementById('cuerpo-tabla');
         let index = tbody.rows.length;
         let num = index + 1;
         let nombreFormateado = formatearTexto(nombre);
         
-        if (notasDiario) {
-            apuntesAlumnos[index] = notasDiario;
+        if (historialObj) {
+            datosHistorialAlumnos[index] = historialObj;
+        } else if (!datosHistorialAlumnos[index]) {
+            datosHistorialAlumnos[index] = { apuntes: '', sem1: 0, sem2: 0, sem3: 0, sem4: 0 };
         }
 
         let fila = tbody.insertRow();
         fila.innerHTML = `
             <td class="num-fila">${num}</td>
             <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="this.value = formatearTexto(this.value)"></td>
-            <td><input type="number" class="sem1" value="${sem1}" min="0" max="100" inputmode="numeric"></td>
-            <td><input type="number" class="sem2" value="${sem2}" min="0" max="100" inputmode="numeric"></td>
-            <td><input type="number" class="sem3" value="${sem3}" min="0" max="100" inputmode="numeric"></td>
-            <td><input type="number" class="sem4" value="${sem4}" min="0" max="100" inputmode="numeric"></td>
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="number" class="decidir" value="${decidir}" min="0" max="20" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="text" class="final final-val" value="0" readonly></td>
-            <td><button class="btn-diario" onclick="abrirDiario(${index})">📖 Diario</button></td>
+            <td><button class="btn-historial" onclick="abrirHistorial(${index})">📖 Historial</button></td>
         `;
         calcularFinal(fila.querySelector('.ser'));
     }
@@ -195,27 +204,40 @@
         }
     }
 
-    function abrirDiario(index) {
+    function abrirHistorial(index) {
         filaActualIndex = index;
         let filas = document.querySelectorAll('#cuerpo-tabla tr');
         let nombre = filas[index].querySelector('.nombre-input').value || "Estudiante";
         
-        document.getElementById('modalTitulo').innerText = "Apuntes Diario: " + nombre;
-        document.getElementById('textoDiario').value = apuntesAlumnos[index] || '';
-        document.getElementById('modalDiario').style.display = 'flex';
+        document.getElementById('modalTitulo').innerText = "Historial y Diario: " + nombre;
+        
+        let hist = datosHistorialAlumnos[index] || { apuntes: '', sem1: 0, sem2: 0, sem3: 0, sem4: 0 };
+        document.getElementById('textoApuntes').value = hist.apuntes || '';
+        document.getElementById('mSem1').value = hist.sem1 || 0;
+        document.getElementById('mSem2').value = hist.sem2 || 0;
+        document.getElementById('mSem3').value = hist.sem3 || 0;
+        document.getElementById('mSem4').value = hist.sem4 || 0;
+
+        document.getElementById('modalHistorial').style.display = 'flex';
     }
 
-    function cerrarDiario() {
+    function cerrarHistorial() {
         if (filaActualIndex !== null) {
-            apuntesAlumnos[filaActualIndex] = document.getElementById('textoDiario').value;
+            datosHistorialAlumnos[filaActualIndex] = {
+                apuntes: document.getElementById('textoApuntes').value,
+                sem1: document.getElementById('mSem1').value,
+                sem2: document.getElementById('mSem2').value,
+                sem3: document.getElementById('mSem3').value,
+                sem4: document.getElementById('mSem4').value
+            };
         }
-        document.getElementById('modalDiario').style.display = 'none';
+        document.getElementById('modalHistorial').style.display = 'none';
         filaActualIndex = null;
     }
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_diario_' + materia + '_2026';
+        return 'libreta_pro_definitiva_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
@@ -224,7 +246,7 @@
             prof: document.getElementById('prof').value,
             curso: document.getElementById('curso').value,
             trimestre: document.getElementById('trimestre').value,
-            apuntes: apuntesAlumnos,
+            historiales: datosHistorialAlumnos,
             alumnos: []
         };
         let tbody = document.getElementById('cuerpo-tabla');
@@ -232,10 +254,6 @@
         for (let i = 0; i < tbody.rows.length; i++) {
             datos.alumnos.push({
                 nombre: tbody.rows[i].querySelector('.nombre-input').value,
-                sem1: tbody.rows[i].querySelector('.sem1').value,
-                sem2: tbody.rows[i].querySelector('.sem2').value,
-                sem3: tbody.rows[i].querySelector('.sem3').value,
-                sem4: tbody.rows[i].querySelector('.sem4').value,
                 ser: tbody.rows[i].querySelector('.ser').value,
                 saber: tbody.rows[i].querySelector('.saber').value,
                 hacer: tbody.rows[i].querySelector('.hacer').value,
@@ -243,12 +261,12 @@
             });
         }
         localStorage.setItem(obtenerClaveStorage(), JSON.stringify(datos));
-        alert('¡Datos y apuntes diarios guardados con éxito!');
+        alert('¡Datos, notas e historiales diarios guardados con éxito!');
     }
 
     function cargarDatos() {
         limpiarTabla();
-        apuntesAlumnos = {};
+        datosHistorialAlumnos = {};
         let guardado = localStorage.getItem(obtenerClaveStorage());
         if (guardado) {
             let datos = JSON.parse(guardado);
@@ -257,13 +275,13 @@
             document.getElementById('curso').value = datos.curso || '';
             document.getElementById('trimestre').value = datos.trimestre || '';
             
-            if (datos.apuntes) {
-                apuntesAlumnos = datos.apuntes;
+            if (datos.historiales) {
+                datosHistorialAlumnos = datos.historiales;
             }
 
             if (datos.alumnos && datos.alumnos.length > 0) {
                 datos.alumnos.forEach((a, index) => {
-                    agregarAlumno(a.nombre, a.sem1, a.sem2, a.sem3, a.sem4, a.ser, a.saber, a.hacer, a.decidir, datos.apuntes ? datos.apuntes[index] : '');
+                    agregarAlumno(a.nombre, a.ser, a.saber, a.hacer, a.decidir, datos.historiales ? datos.historiales[index] : null);
                 });
             } else {
                 agregarAlumno('');
