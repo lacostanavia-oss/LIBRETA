@@ -70,9 +70,9 @@
     <!-- BARRA DE ESTADÍSTICAS Y CONTADOR EN VIVO -->
     <div class="stats-bar">
         <span>👥 Alumnos: <span id="statTotal">0</span></span>
-        <span>🟢 Verde (Destacados): <span id="statVerde" style="color: #166534;">0</span></span>
-        <span>🟡 Amarillo (Proceso): <span id="statAmarillo" style="color: #854d0e;">0</span></span>
-        <span>🔴 Rojo (Riesgo): <span id="statRojo" style="color: #991b1b;">0</span></span>
+        <span>🟢 Verde: <span id="statVerde" style="color: #166534;">0</span></span>
+        <span>🟡 Amarillo: <span id="statAmarillo" style="color: #854d0e;">0</span></span>
+        <span>🔴 Rojo: <span id="statRojo" style="color: #991b1b;">0</span></span>
     </div>
 
     <div class="config-grid">
@@ -137,7 +137,7 @@
         <button class="btn btn-add" onclick="agregarAlumno()">+ Alumno</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar</button>
         <button class="btn btn-excel" onclick="exportarExcel()">📊 Excel / Sistema</button>
-        <button class="btn btn-pdf" onclick="window.print()">🖨 Imprimir / PDF</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">🖨 Guardar PDF</button>
     </div>
 </div>
 
@@ -213,7 +213,6 @@
         let finalInput = fila.querySelector('.final');
         finalInput.value = total.toFixed(0);
 
-        // Clases de Zonas Automáticas
         finalInput.classList.remove('zona-verde', 'zona-amarilla', 'zona-roja');
         if (total >= 81) {
             finalInput.classList.add('zona-verde');
@@ -255,7 +254,6 @@
         [s1, s2, s3, s4].forEach(v => { if (v > 0) { suma += v; validas++; } });
         let promedioSemanal = validas > 0 ? (suma / validas) : 0;
 
-        // Convertir escala de 100 a la ponderación de Saber (35 puntos)
         let notaSugeridaSaber = Math.round((promedioSemanal * 35) / 100);
 
         let filas = document.querySelectorAll('#cuerpo-tabla tr');
@@ -298,7 +296,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_pro_mejorada_' + materia + '_2026';
+        return 'libreta_pro_def_v2_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
@@ -377,6 +375,10 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+
+    function exportarPDF() {
+        window.print();
     }
 
     window.onload = function() {
