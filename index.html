@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libreta Digital Docente</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 10px; background: #f4f7f6; color: #333; }
+        .container { max-width: 100%; margin: auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; font-size: 20px; margin-bottom: 15px; }
+        .config-box { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; background: #eef2f3; padding: 10px; border-radius: 6px; }
+        .config-box label { font-size: 11px; font-weight: bold; }
+        .config-box input { width: 100%; padding: 6px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; min-width: 500px; }
+        th, td { border: 1px solid #ddd; padding: 6px; text-align: center; }
+        th { background-color: #2c3e50; color: white; }
+        td input { width: 45px; text-align: center; padding: 4px; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; }
+        .nombre-col { text-align: left; padding-left: 5px; }
+        .nombre-input { width: 100%; border: none; background: transparent; font-size: 12px; }
+        .btn { background: #27ae60; color: white; border: none; padding: 10px; font-size: 14px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; }
+        .btn-print { background: #2980b9; margin-top: 5px; }
+        .btn-add { background: #e67e22; margin-top: 5px; }
+        @media print {
+            body { background: white; margin: 0; }
+            .container { box-shadow: none; padding: 0; }
+            .btn, .config-box input, .btn-add { display: none; }
+            .config-box { background: none; border: none; padding: 0; }
+            td input { border: none; background: none; font-size: 12px; }
+            .nombre-input { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Libreta Digital (SIGED)</h1>
+    
+    <div class="config-box">
+        <div><label>Unidad Educativa:</label><input type="text" id="ue" value="Unidad Educativa"></div>
+        <div><label>Profesor(a):</label><input type="text" id="prof" value="Docente"></div>
+        <div><label>Curso / Paralelo:</label><input type="text" id="curso" value="Curso"></div>
+        <div><label>Trimestre:</label><input type="text" id="trim" value="1er Trimestre"></div>
+    </div>
+
+    <div class="table-container">
+        <table id="tablaAlumnos">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th class="nombre-col">Apellidos y Nombres</th>
+                    <th>Ser (10)</th>
+                    <th>Saber (35)</th>
+                    <th>Hacer (35)</th>
+                    <th>Decidir (20)</th>
+                    <th>Final (100)</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+                <!-- Fila 1 de ejemplo -->
+                <tr>
+                    <td>1</td>
+                    <td class="nombre-col"><input type="text" class="nombre-input" value="Apellidos, Nombres 1"></td>
+                    <td><input type="number" class="ser" value="9" oninput="calcular()"></td>
+                    <td><input type="number" class="saber" value="30" oninput="calcular()"></td>
+                    <td><input type="number" class="hacer" value="32" oninput="calcular()"></td>
+                    <td><input type="number" class="decidir" value="18" oninput="calcular()"></td>
+                    <td class="final">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="btn btn-add" onclick="agregarFila()">+ Añadir Alumno</button>
+    <button class="btn" onclick="calcular()">⚡ Actualizar Notas</button>
+    <button class="btn btn-print" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+</div>
+
+<script>
+function calcular() {
+    const filas = document.querySelectorAll("#cuerpoTabla tr");
+    filas.forEach(fila => {
+        const ser = parseFloat(fila.querySelector(".ser").value) || 0;
+        const saber = parseFloat(fila.querySelector(".saber").value) || 0;
+        const hacer = parseFloat(fila.querySelector(".hacer").value) || 0;
+        const decidir = parseFloat(fila.querySelector(".decidir").value) || 0;
+        
+        const total = ser + saber + hacer + decidir;
+        fila.querySelector(".final").innerText = total.toFixed(0);
+    });
+}
+
+function agregarFila() {
+    const tbody = document.getElementById("cuerpoTabla");
+    const numFilas = tbody.rows.length + 1;
+    const nuevaFila = document.createElement("tr");
+    nuevaFila.innerHTML = `
+        <td>${numFilas}</td>
+        <td class="nombre-col"><input type="text" class="nombre-input" value="Apellidos, Nombres ${numFilas}"></td>
+        <td><input type="number" class="ser" value="0" oninput="calcular()"></td>
+        <td><input type="number" class="saber" value="0" oninput="calcular()"></td>
+        <td><input type="number" class="hacer" value="0" oninput="calcular()"></td>
+        <td><input type="number" class="decidir" value="0" oninput="calcular()"></td>
+        <td class="final">0</td>
+    `;
+    tbody.appendChild(nuevaFila);
+    calcular();
+}
+
+window.onload = calcular;
+</script>
+
+</body>
+</html>
