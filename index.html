@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreta Docente Profesional - Bolivia 2026</title>
+    <title>Libreta Digital Docente - Bolivia 2026</title>
     <style>
         :root {
             --primary: #1e3a8a;
@@ -135,7 +135,7 @@
         <button class="btn btn-add" onclick="agregarAlumno()">+ Alumno</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar Datos</button>
         <button class="btn btn-excel" onclick="exportarExcel()">📊 Exportar CSV</button>
-        <button class="btn btn-pdf" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn btn-pdf" onclick="window.print()">🖨️️ Imprimir / Guardar PDF</button>
     </div>
 </div>
 
@@ -250,12 +250,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v3', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v4', JSON.stringify(datos));
         alert('¡Datos y registros guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v3');
+        let guardado = localStorage.getItem('libreta_pro_2026_v4');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
