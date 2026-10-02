@@ -14,6 +14,7 @@
             --text-main: #1e293b;
             --border-color: #cbd5e1;
         }
+        * { box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: var(--bg-color); color: var(--text-main); }
         .container { max-width: 100%; margin: auto; background: var(--card-bg); padding: 12px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         h1 { color: var(--primary); text-align: center; font-size: 16px; margin-bottom: 8px; font-weight: 700; }
@@ -27,25 +28,26 @@
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input { width: 100%; padding: 5px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 4px; font-size: 11px; background: white; }
+        .config-item input { width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 12px; background: white; -webkit-appearance: none; pointer-events: auto; }
 
         .section-title { font-size: 11px; font-weight: 700; color: var(--primary); margin: 10px 0 4px 0; display: flex; align-items: center; gap: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
         .table-container { overflow-x: auto; margin-bottom: 8px; border-radius: 8px; border: 1px solid var(--border-color); }
         table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 650px; background: white; }
         th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; vertical-align: middle; }
-        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; }
+        th { background-color: var(--primary); color: white; font-size: 10px; font-weight: 600; padding: 6px 4px; }
         
-        td input { width: 100%; box-sizing: border-box; border: none; text-align: center; font-size: 11px; background: transparent; padding: 3px; }
+        td input { width: 100%; border: 1px solid transparent; text-align: center; font-size: 12px; background: transparent; padding: 8px 4px; -webkit-appearance: none; pointer-events: auto; }
+        td input:focus { border-color: var(--primary); background: #f8fafc; outline: none; }
         .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
-        .final-val { font-weight: 700; font-size: 11px; background: #f8fafc; color: var(--primary); }
+        .final-val { font-weight: 700; font-size: 12px; background: #f8fafc; color: var(--primary); }
         .alerta-rojo { background: #fee2e2 !important; color: #991b1b; font-weight: 700; }
 
         .view-section { display: none; }
         .view-section.active { display: block; }
 
         .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
-        .btn { padding: 8px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
+        .btn { padding: 10px; font-size: 11px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; text-transform: uppercase; }
         .btn-add { background: #10b981; color: white; }
         .btn-save { background: var(--accent); color: white; }
         .btn-excel { background: #0d9488; color: white; }
@@ -60,7 +62,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Libreta Docente Profesional</h1>
+    <h1>Libreta Digital Docente</h1>
 
     <div class="tabs">
         <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal</button>
@@ -135,7 +137,7 @@
         <button class="btn btn-add" onclick="agregarAlumno()">+ Alumno</button>
         <button class="btn btn-save" onclick="guardarLocalmente()">💾 Guardar Datos</button>
         <button class="btn btn-excel" onclick="exportarExcel()">📊 Exportar CSV</button>
-        <button class="btn btn-pdf" onclick="window.print()">🖨️️ Imprimir / Guardar PDF</button>
+        <button class="btn btn-pdf" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
     </div>
 </div>
 
@@ -250,12 +252,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_pro_2026_v4', JSON.stringify(datos));
+        localStorage.setItem('libreta_pro_2026_v5', JSON.stringify(datos));
         alert('¡Datos y registros guardados de forma segura en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_pro_2026_v4');
+        let guardado = localStorage.getItem('libreta_pro_2026_v5');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
