@@ -296,7 +296,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_pro_funcional_' + materia + '_2026';
+        return 'libreta_pro_funcional_v3_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
@@ -355,7 +355,7 @@
         cargarDatos();
     }
 
-    // FUNCIÓN EXCEL OPTIMIZADA PARA MÓVIL
+    // EXCEL / CSV 100% FUNCIONAL EN MÓVIL (FORZADO CON DATA URI)
     function exportarExcelMovil() {
         let csv = [];
         let materia = document.getElementById('materiaSelect').value;
@@ -370,19 +370,98 @@
             csv.push(fila.join(","));
         }
         
-        let blob = new Blob(["\ufeff" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
-        let url = URL.createObjectURL(blob);
+        let csvContent = "data:text/csv;charset=utf-8,\ufeff" + csv.join("\n");
+        let encodedUri = encodeURI(csvContent);
         let link = document.createElement("a");
-        link.href = url;
+        link.setAttribute("href", encodedUri);
         link.setAttribute("download", "consolidado_" + materia + "_2026.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
-    // FUNCIÓN PDF OPTIMIZADA PARA MÓVIL (EVITA BUCLES DE BÚSQUEDA)
+    // PDF / IMPRESIÓN DIRECTA 100% FUNCIONAL EN MÓVIL
     function exportarPDFMovil() {
-        window.print();
+        let contenidoOriginal = document.body.innerHTML;
+        let ue = document.getElementById('ue').value;
+        let prof = document.getElementById('prof').value;
+        let curso = document.getElementById('curso').value;
+        let trimestre = document.getElementById('trimestre').value;
+        let materia = document.getElementById('materiaSelect').value;
+
+        let ventanaImpresion = window.open('', '_blank');
+        ventanaImpresion.document.write(`
+            <html>
+            <head>
+                <title>Reporte - ${materia} - ${curso}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; color: #000; }
+                    h2 { text-align: center; color: #1e3a8a; margin-bottom: 5px; }
+                    .info { font-size: 12px; margin-bottom: 15px; text-align: center; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
+                    th, td { border: 1px solid #333; padding: 6px; text-align: center; }
+                    th { background-color: #1e3a8a; color: white; }
+                    .nombre { text-align: left !important; }
+                </style>
+            </head>
+            <body>
+                <h2>LIBRETA DOCENTE OFICIAL - BOLIVIA 2026</h2>
+                <div class="info">
+                    <b>Unidad Educativa:</b> ${ue} | <b>Profesor(a):</b> ${prof}<br>
+                    <b>Curso:</b> ${curso} | <b>Asignatura:</b> ${materia} | <b>Periodo:</b> ${trimestre}
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Apellidos y Nombres</th>
+                            <th>Ser (10%)</th>
+                            <th>Saber (35%)</th>
+                            <th>Hacer (35%)</th>
+                            <th>Decidir (20%)</th>
+                            <th>Final (100)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `);
+
+        let filas = document.querySelectorAll("#tabla-principal tr");
+        filas.forEach((fila, idx) => {
+            if (idx === 0) return; // Saltar cabecera
+            let inputs = fila.querySelectorAll("input");
+            if (inputs.length >= 6) {
+                let num = idx;
+                let nombre = inputs[0].value;
+                let ser = inputs[1].value;
+                let saber = inputs[2].value;
+                let hacer = inputs[3].value;
+                let decidir = inputs[4].value;
+                let final = inputs[5].value;
+
+                ventanaImpresion.document.write(`
+                    <tr>
+                        <td>${num}</td>
+                        <td class="nombre">${nombre}</td>
+                        <td>${ser}</td>
+                        <td>${saber}</td>
+                        <td>${hacer}</td>
+                        <td>${decidir}</td>
+                        <td><b>${final}</b></td>
+                    </tr>
+                `);
+            }
+        });
+
+        ventanaImpresion.document.write(`
+                    </tbody>
+                </table>
+                <script>
+                    window.onload = function() { window.print(); }
+                <\/script>
+            </body>
+            </html>
+        `);
+        ventanaImpresion.document.close();
     }
 
     window.onload = function() {
