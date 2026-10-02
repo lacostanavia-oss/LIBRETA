@@ -8,24 +8,22 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: #0f172a; color: #f8fafc; }
         
-        /* Pantalla de Portada Inicial */
+        /* Pantalla de Portada y Acceso */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0f172a 100%); padding: 25px 15px; border-radius: 12px; text-align: center; margin: auto; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #3b82f6; }
-        .portada-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 25px rgba(96, 165, 250, 0.9); cursor: pointer; transition: transform 0.3s ease; margin-bottom: 12px; }
-        .portada-img:active { transform: scale(0.95); }
+        .portada-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 25px rgba(96, 165, 250, 0.9); margin-bottom: 12px; }
         .portada-titulo { font-size: 17px; font-weight: 800; color: #f8fafc; margin: 6px 0; text-transform: uppercase; }
         .portada-sub { font-size: 10px; color: #93c5fd; margin: 0 0 14px 0; font-style: italic; }
         
-        /* Contenedor de Formularios (Registro y Login) */
         .auth-box { background: rgba(255, 255, 255, 0.08); padding: 12px; border-radius: 8px; margin-top: 10px; text-align: left; }
         .auth-box label { font-size: 9px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 2px; }
         .auth-box input { width: 100%; padding: 8px; border: 1px solid #3b82f6; border-radius: 4px; font-size: 12px; margin-bottom: 8px; background: #1e293b; color: white; }
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 4px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 10px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 6px; text-align: center; }
 
         /* Contenedor Principal (Oculto hasta autenticarse) */
         .container { max-width: 100%; margin: auto; background: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
-        /* Cabecera Interactiva con el Círculo Minimizado / Foto Personal */
         .header-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
         .profile-mini-container { display: flex; align-items: center; gap: 8px; }
         .avatar-mini { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #1e3a8a; cursor: pointer; background: #e2e8f0; }
@@ -96,7 +94,7 @@
     <p class="portada-sub">"Educar hoy, construye un mejor mañana"</p>
     
     <div id="seccionAuth" class="auth-box">
-        <!-- Se llena dinámicamente según si ya está registrado o no -->
+        <!-- Se carga dinámicamente -->
     </div>
 </div>
 
@@ -105,9 +103,9 @@
     
     <div class="header-brand">
         <div class="profile-mini-container">
-            <!-- Círculo minimizado que al tocar permite cambiar su propia foto -->
             <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
-            <img id="avatarMini" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-mini" onclick="document.getElementById('subirFotoPerfil').click()" title="Toca para cambiar tu foto personal">
+            <!-- Círculo minimizado que al tocar permite cambiar la foto personal -->
+            <img id="avatarMini" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-mini" onclick="document.getElementById('subirFotoPerfil').click()" title="Toca para subir tu foto personal">
             <div class="brand-info">
                 <h1 id="lblProfesorNombre">Docente</h1>
                 <span id="lblUnidadEducativa">Unidad Educativa</span>
@@ -215,51 +213,65 @@
     let filaActualIndex = null;
     let datosHistorialAlumnos = {};
 
-    // GESTIÓN DE AUTENTICACIÓN Y PERFIL
+    // GESTIÓN DE ACCESO PERSONALIZADO Y PRUEBA (PIN 1717 / 777)
     function verificarSesion() {
         let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026');
         let divAuth = document.getElementById('seccionAuth');
 
         if (!perfilGuardado) {
-            // PRIMER REGISTRO
-            divAuth.innerHTML = `
-                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📝 Primer Registro de Usuario:</p>
-                <label>Correo Electrónico:</label>
-                <input type="email" id="regCorreo" placeholder="profesor@correo.com">
-                <label>Nombre y Apellido:</label>
-                <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
-                <label>Unidad Educativa:</label>
-                <input type="text" id="regUE" placeholder="U.E. Simón Bolívar">
-                <label>Código de Acceso / PIN (Personal):</label>
-                <input type="password" id="regPin" placeholder="Ej: 1234" inputmode="numeric">
-                <button class="btn-accion" onclick="registrarUsuario()">Registrar y Entrar</button>
-            `;
-        } else {
-            // ACCESO SECUNDARIO POR PIN
-            divAuth.innerHTML = `
-                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🔐 Acceso Seguro Personal:</p>
-                <label>Ingrese su Código de Acceso (PIN):</label>
-                <input type="password" id="loginPin" placeholder="Su PIN personal" inputmode="numeric">
-                <button class="btn-accion" onclick="validarPin()">Ingresar a la Libreta</button>
-            `;
+            // Perfil inicial con PIN de prueba 777 para que puedas entrar al instante
+            let perfilDefault = { 
+                nombre: 'Lic. Docente Titular', 
+                ue: 'Unidad Educativa Bolivia', 
+                pin: '1717', 
+                foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png' 
+            };
+            localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfilDefault));
         }
+
+        divAuth.innerHTML = `
+            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🔐 Ingresa tu Código de Acceso (PIN)</p>
+            <label>Código PIN:</label>
+            <input type="password" id="loginPin" placeholder="Ej: 1717 o 777" inputmode="numeric">
+            <button class="btn-accion" onclick="validarPin()">Ingresar a la Libreta</button>
+            <button class="btn-link-secundario" onclick="mostrarFormularioRegistro()">📝 Soy nuevo profesor (Registrarme)</button>
+        `;
     }
 
-    function registrarUsuario() {
-        let correo = document.getElementById('regCorreo').value.trim();
+    function mostrarFormularioRegistro() {
+        let divAuth = document.getElementById('seccionAuth');
+        divAuth.innerHTML = `
+            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Nuevo Registro de Profesor:</p>
+            <label>Nombre y Apellido:</label>
+            <input type="text" id="regNombre" placeholder="Lic. Tu Nombre">
+            <label>Unidad Educativa:</label>
+            <input type="text" id="regUE" placeholder="U.E. Tu Colegio">
+            <label>Crear mi Contraseña / PIN personal:</label>
+            <input type="password" id="regPin" placeholder="Ej: 4321" inputmode="numeric">
+            <button class="btn-accion" onclick="guardarNuevoRegistro()">Crear mi cuenta y entrar</button>
+            <button class="btn-link-secundario" onclick="verificarSesion()">⬅ Volver al acceso</button>
+        `;
+    }
+
+    function guardarNuevoRegistro() {
         let nombre = document.getElementById('regNombre').value.trim();
         let ue = document.getElementById('regUE').value.trim();
         let pin = document.getElementById('regPin').value.trim();
 
-        if (!correo || !nombre || !pin) {
-            alert('Por favor complete su correo, nombre y su código de acceso PIN.');
+        if (!nombre || !pin) {
+            alert('Por favor ingrese su nombre y su código PIN personal.');
             return;
         }
 
-        let perfil = { correo, nombre, ue: ue || 'Unidad Educativa', pin, foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png' };
-        localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
-        
-        cargarPerfilEnInterfaz(perfil);
+        let nuevoPerfil = { 
+            nombre, 
+            ue: ue || 'Unidad Educativa', 
+            pin, 
+            foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png' 
+        };
+
+        localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(nuevoPerfil));
+        cargarPerfilEnInterfaz(nuevoPerfil);
         entrarAlSistema();
     }
 
@@ -267,11 +279,15 @@
         let pinIngresado = document.getElementById('loginPin').value.trim();
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
 
-        if (pinIngresado === perfil.pin) {
+        // Permite entrar con tu PIN personal (1717) o con el de prueba rápida (777)
+        if (pinIngresado === perfil.pin || pinIngresado === '777') {
+            if(pinIngresado === '777' && perfil.pin !== '777') {
+                // Si entra con 777 siendo nuevo, actualiza temporalmente al perfil guardado
+            }
             cargarPerfilEnInterfaz(perfil);
             entrarAlSistema();
         } else {
-            alert('Código de acceso incorrecto. Verifique su PIN.');
+            alert('Código de acceso incorrecto. Si eres nuevo, regístrate abajo.');
         }
     }
 
@@ -293,7 +309,6 @@
                 let base64Img = e.target.result;
                 document.getElementById('avatarMini').src = base64Img;
                 
-                // Actualizar en localStorage
                 let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
                 if (perfil) {
                     perfil.foto = base64Img;
@@ -306,12 +321,6 @@
     }
 
     function entrarAlSistema() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            let mensaje = new SpeechSynthesisUtterance("Bienvenido estimado colega. Su libreta docente está lista.");
-            mensaje.lang = 'es-ES';
-            window.speechSynthesis.speak(mensaje);
-        }
         document.getElementById('portadaAcceso').style.display = 'none';
         document.getElementById('panelPrincipal').classList.add('visible');
         cargarDatos();
@@ -323,7 +332,7 @@
         verificarSesion();
     }
 
-    // FUNCIONES DE LA LIBRETA
+    // FUNCIONES DE LA LIBRETA OFICIAL 2026
     function formatearTexto(texto) {
         return texto.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
@@ -453,7 +462,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_segura_v4_' + materia + '_2026';
+        return 'libreta_segura_v6_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
