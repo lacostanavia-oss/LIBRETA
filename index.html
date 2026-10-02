@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Libreta Docente Oficial - Bolivia 2026</title>
+    <title>Libreta Docente Bolivia 2026</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 4px; background: #f8fafc; color: #1e293b; }
@@ -19,7 +19,7 @@
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; }
+        .config-item input { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
 
         .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 8px 0 4px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 3px; text-transform: uppercase; }
         
@@ -28,7 +28,7 @@
         th, td { border: 1px solid #cbd5e1; padding: 6px 4px; text-align: center; vertical-align: middle; }
         th { background-color: #1e3a8a; color: white; font-size: 10px; font-weight: 600; }
         
-        td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; }
+        td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; pointer-events: auto; }
         td input:focus { border-color: #1e3a8a; background: #f8fafc; outline: none; }
         .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
         .final-val { font-weight: 700; font-size: 13px; background: #f1f5f9; color: #1e3a8a; }
@@ -45,9 +45,9 @@
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: #1e3a8a; color: white; grid-column: span 2; }
 
-        /* Modal Ficha e Historial Individual */
+        /* Modal Ficha e Historial Individual del Alumno */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+        .modal-content { background: white; padding: 16px; border-radius: 10px; width: 90%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
         .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
         .modal-field { margin-bottom: 8px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; }
         .modal-field input { width: 80px; padding: 8px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
@@ -62,11 +62,11 @@
 </head>
 <body>
 <div class="container">
-    <h1>Libreta Docente Oficial - Bolivia 2026</h1>
+    <h1>Libreta Docente Bolivia 2026</h1>
 
     <div class="tabs">
         <button class="tab-btn active" onclick="cambiarVista('semanal')">📅 Control Semanal (Día a Día)</button>
-        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Sistema RUDE / Min. Educación</button>
+        <button class="tab-btn" onclick="cambiarVista('trimestral')">📊 Consolidado Sistema Ministerio</button>
     </div>
 
     <div class="config-grid">
@@ -110,7 +110,7 @@
 
     <!-- VISTA 2: CONSOLIDADO OFICIAL MINISTERIO DE EDUCACIÓN 2026 -->
     <div id="vista-trimestral" class="view-section">
-        <div class="section-title">📈 Consolidado Oficial (Ser: 10% | Saber: 35% | Hacer: 35% | Decidir: 20%)</div>
+        <div class="section-title">📈 Consolidado Oficial (Ser:10% | Saber:35% | Hacer:35% | Decidir:20%)</div>
         <div class="table-container">
             <table id="tabla-trimestral">
                 <thead>
@@ -326,12 +326,12 @@
                 decidir: tbodyTrim.rows[i].querySelector('.decidir').value
             });
         }
-        localStorage.setItem('libreta_bolivia_2026_v7', JSON.stringify(datos));
+        localStorage.setItem('libreta_bolivia_2026_v8', JSON.stringify(datos));
         alert('¡Datos guardados con éxito en este dispositivo!');
     }
 
     function cargarDatos() {
-        let guardado = localStorage.getItem('libreta_bolivia_2026_v7');
+        let guardado = localStorage.getItem('libreta_bolivia_2026_v8');
         if (guardado) {
             let datos = JSON.parse(guardado);
             document.getElementById('ue').value = datos.ue || '';
