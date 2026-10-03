@@ -8,10 +8,10 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* FASE 1 & 2: PORTADA DE INICIO CON LOGO AMPLIO Y DESLIZABLE */
+        /* FASE 1 & 2: PORTADA DE INICIO CON TU IMAGEN OFICIAL */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 30px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
-        .portada-img-grande { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 35px rgba(96, 165, 250, 0.9); margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s ease; }
+        .portada-img-grande { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 35px rgba(96, 165, 250, 0.9); margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s ease; }
         .portada-img-grande:active { transform: scale(0.95); }
         
         .portada-titulo { font-size: 20px; font-weight: 800; color: #ffffff; margin: 6px 0 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -34,7 +34,7 @@
 
         .header-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 14px; text-align: center; position: relative; }
         
-        .avatar-central-panel { width: 115px; height: 115px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 8px 25px rgba(30,58,138,0.4); margin-bottom: 8px; transition: transform 0.2s; }
+        .avatar-central-panel { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 8px 25px rgba(30,58,138,0.4); margin-bottom: 8px; transition: transform 0.2s; }
         .avatar-central-panel:active { transform: scale(0.95); }
 
         .brand-info h1 { color: #1e3a8a; font-size: 17px; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -99,11 +99,11 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO Y ACCESO (FASE 1 Y 2) -->
+<!-- PANTALLA DE INICIO Y ACCESO (FASE 1 Y 2 CON TU IMAGEN OFICIAL) -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegableAuth()">
     <h2 class="portada-titulo" id="tituloPortada">Libreta Docente Bolivia 2026</h2>
-    <p class="portada-sub" id="subtituloPortada" onclick="toggleDesplegableAuth()">"Toca el logo para acceder o registrarte"</p>
+    <p class="portada-sub" id="subtituloPortada" onclick="toggleDesplegableAuth()">"Toca tu imagen oficial para acceder o registrarte"</p>
     
     <div id="seccionAuth" class="auth-box">
         <!-- Se despliega suavemente -->
@@ -225,6 +225,7 @@
     let filaActualIndex = null;
     let datosHistorialAlumnos = {};
     let temporizadorInactividad = null;
+    const URL_IMAGEN_OFICIAL = "https://i.ibb.co/wh1Yp5YM/1000736334.png";
 
     function verificarSesion() {
         let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026');
@@ -233,10 +234,11 @@
         let tituloPortada = document.getElementById('tituloPortada');
         let subtituloPortada = document.getElementById('subtituloPortada');
 
+        imgPortada.src = URL_IMAGEN_OFICIAL;
+
         if (!perfilGuardado) {
-            imgPortada.src = 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
             tituloPortada.innerText = 'Libreta Docente Bolivia 2026';
-            subtituloPortada.innerText = 'Toca el logo para registrarte';
+            subtituloPortada.innerText = 'Toca tu imagen oficial para registrarte';
 
             divAuth.innerHTML = `
                 <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
@@ -254,7 +256,6 @@
             `;
         } else {
             let perfil = JSON.parse(perfilGuardado);
-            imgPortada.src = perfil.foto || 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
             tituloPortada.innerText = perfil.nombre;
             subtituloPortada.innerText = perfil.ue + ' (🔒 Toca para ingresar PIN)';
 
@@ -319,7 +320,7 @@
             celular,
             ue: ue || 'Unidad Educativa', 
             pin, 
-            foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png',
+            foto: URL_IMAGEN_OFICIAL,
             ultimaModificacionFoto: 0
         };
 
@@ -388,7 +389,6 @@
             lector.onload = function(e) {
                 let base64Img = e.target.result;
                 document.getElementById('avatarCentral').src = base64Img;
-                document.getElementById('imgPortadaAvatar').src = base64Img;
                 
                 let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
                 if (perfil) {
@@ -409,7 +409,6 @@
         document.getElementById('ue').value = perfil.ue;
         if (perfil.foto) {
             document.getElementById('avatarCentral').src = perfil.foto;
-            document.getElementById('imgPortadaAvatar').src = perfil.foto;
         }
     }
 
@@ -570,7 +569,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v20_' + materia + '_2026';
+        return 'libreta_elegante_v21_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
