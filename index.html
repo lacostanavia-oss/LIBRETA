@@ -8,33 +8,32 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* FASE 1 & 2: PORTADA DE INICIO CON TU IMAGEN OFICIAL */
-        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 30px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
+        /* PANTALLA DE INICIO LIMPIA CON LOGO GRANDE AL CENTRO */
+        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 35px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
-        .portada-img-grande { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 35px rgba(96, 165, 250, 0.9); margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s ease; }
+        .portada-img-grande { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 35px rgba(96, 165, 250, 0.9); margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s ease; }
         .portada-img-grande:active { transform: scale(0.95); }
         
         .portada-titulo { font-size: 20px; font-weight: 800; color: #ffffff; margin: 6px 0 4px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        .portada-sub { font-size: 11px; color: #93c5fd; margin: 0 0 18px 0; font-weight: 500; cursor: pointer; }
+        .portada-sub { font-size: 11px; color: #93c5fd; margin: 0; font-weight: 500; cursor: pointer; }
         
         /* Contenedor Desplegable / Deslizante para Registro y Acceso */
         .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
-        .auth-box.activo { max-height: 600px; opacity: 1; padding: 14px; margin-top: 12px; }
+        .auth-box.activo { max-height: 650px; opacity: 1; padding: 14px; margin-top: 15px; }
 
         .auth-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 3px; }
         .auth-box input { width: 100%; padding: 11px; border: 1px solid #3b82f6; border-radius: 8px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; text-align: center; letter-spacing: 1px; }
         
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
-        .btn-biometrico { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 8px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* FASE 3: CONTENEDOR PRINCIPAL Y FOTO DE PERFIL AMPLIA AL CENTRO */
+        /* CONTENEDOR PRINCIPAL CON FOTO DE PERFIL AMPLIA Y PLANILLA */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
         .header-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 14px; text-align: center; position: relative; }
         
-        .avatar-central-panel { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 8px 25px rgba(30,58,138,0.4); margin-bottom: 8px; transition: transform 0.2s; }
+        .avatar-central-panel { width: 115px; height: 115px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 8px 25px rgba(30,58,138,0.4); margin-bottom: 8px; transition: transform 0.2s; }
         .avatar-central-panel:active { transform: scale(0.95); }
 
         .brand-info h1 { color: #1e3a8a; font-size: 17px; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -99,18 +98,32 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO Y ACCESO (FASE 1 Y 2 CON TU IMAGEN OFICIAL) -->
+<!-- PANTALLA DE INICIO LIMPIA (FASE 1) -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegableAuth()">
     <h2 class="portada-titulo" id="tituloPortada">Libreta Docente Bolivia 2026</h2>
-    <p class="portada-sub" id="subtituloPortada" onclick="toggleDesplegableAuth()">"Toca tu imagen oficial para acceder o registrarte"</p>
+    <p class="portada-sub" id="subtituloPortada" onclick="toggleDesplegableAuth()">Toca la imagen para registrar tus datos</p>
     
     <div id="seccionAuth" class="auth-box">
-        <!-- Se despliega suavemente -->
+        <!-- Se despliega suavemente para el primer registro con doble verificación de PIN -->
+        <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
+        <label>Nombre Completo:</label>
+        <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
+        <label>Correo Electrónico:</label>
+        <input type="email" id="regCorreo" placeholder="profesor@correo.com">
+        <label>Número de Celular:</label>
+        <input type="tel" id="regCelular" placeholder="70000000" inputmode="numeric">
+        <label>Unidad Educativa:</label>
+        <input type="text" id="regUE" placeholder="U.E. Simón Bolívar">
+        <label>Crear PIN Personal (4 dígitos):</label>
+        <input type="password" id="regPin1" placeholder="••••" maxlength="4" inputmode="numeric">
+        <label>Confirmar PIN Personal (4 dígitos):</label>
+        <input type="password" id="regPin2" placeholder="••••" maxlength="4" inputmode="numeric">
+        <button class="btn-accion" onclick="guardarNuevoRegistro()">Registrarse y Entrar</button>
     </div>
 </div>
 
-<!-- CONTENEDOR PRINCIPAL CON FOTO DE PERFIL AMPLIA Y PLANILLA (FASE 3) -->
+<!-- CONTENEDOR PRINCIPAL CON FOTO DE PERFIL AMPLIA Y PLANILLA (FASE 2 Y 3) -->
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
@@ -229,50 +242,59 @@
 
     function verificarSesion() {
         let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026');
-        let divAuth = document.getElementById('seccionAuth');
+        let portada = document.getElementById('portadaAcceso');
         let imgPortada = document.getElementById('imgPortadaAvatar');
-        let tituloPortada = document.getElementById('tituloPortada');
-        let subtituloPortada = document.getElementById('subtituloPortada');
 
         imgPortada.src = URL_IMAGEN_OFICIAL;
 
         if (!perfilGuardado) {
-            tituloPortada.innerText = 'Libreta Docente Bolivia 2026';
-            subtituloPortada.innerText = 'Toca tu imagen oficial para registrarte';
-
-            divAuth.innerHTML = `
-                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
-                <label>Nombre Completo:</label>
-                <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
-                <label>Correo Electrónico:</label>
-                <input type="email" id="regCorreo" placeholder="profesor@correo.com">
-                <label>Número de Celular:</label>
-                <input type="tel" id="regCelular" placeholder="70000000" inputmode="numeric">
-                <label>Unidad Educativa:</label>
-                <input type="text" id="regUE" placeholder="U.E. Simón Bolívar">
-                <label>Crear PIN Personal (4 dígitos):</label>
-                <input type="password" id="regPin" placeholder="••••" maxlength="4" inputmode="numeric">
-                <button class="btn-accion" onclick="guardarNuevoRegistro()">Registrarse y Entrar</button>
+            // Mostrar portada limpia para registrarse al tocar la imagen
+            portada.innerHTML = `
+                <img id="imgPortadaAvatar" src="${URL_IMAGEN_OFICIAL}" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegableAuth()">
+                <h2 class="portada-titulo">Libreta Docente Bolivia 2026</h2>
+                <p class="portada-sub" onclick="toggleDesplegableAuth()">Toca la imagen para registrar tus datos</p>
+                
+                <div id="seccionAuth" class="auth-box">
+                    <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" id="regCorreo" placeholder="profesor@correo.com">
+                    <label>Número de Celular:</label>
+                    <input type="tel" id="regCelular" placeholder="70000000" inputmode="numeric">
+                    <label>Unidad Educativa:</label>
+                    <input type="text" id="regUE" placeholder="U.E. Simón Bolívar">
+                    <label>Crear PIN Personal (4 dígitos):</label>
+                    <input type="password" id="regPin1" placeholder="••••" maxlength="4" inputmode="numeric">
+                    <label>Confirmar PIN Personal (4 dígitos):</label>
+                    <input type="password" id="regPin2" placeholder="••••" maxlength="4" inputmode="numeric">
+                    <button class="btn-accion" onclick="guardarNuevoRegistro()">Registrarse y Entrar</button>
+                </div>
             `;
         } else {
+            // Pantalla de bloqueo estricta con PIN
             let perfil = JSON.parse(perfilGuardado);
-            tituloPortada.innerText = perfil.nombre;
-            subtituloPortada.innerText = perfil.ue + ' (🔒 Toca para ingresar PIN)';
-
-            divAuth.innerHTML = `
-                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Acceso Exclusivo del Propietario</p>
-                <label>Ingrese su PIN de 4 dígitos:</label>
-                <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="autoValidarPin(this)">
-                <button class="btn-accion" onclick="validarPin()">Desbloquear con PIN</button>
-                <button class="btn-biometrico" onclick="desbloquearBiometria()">👆 Huella / Reconocimiento Facial</button>
-                <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
+            imgPortada.src = perfil.foto || URL_IMAGEN_OFICIAL;
+            portada.innerHTML = `
+                <img src="${perfil.foto || URL_IMAGEN_OFICIAL}" alt="Docente" class="portada-img-grande">
+                <h2 class="portada-titulo">${perfil.nombre}</h2>
+                <p class="portada-sub">${perfil.ue} (🔒 Acceso Protegido)</p>
+                
+                <div class="auth-box activo" style="max-height:300px; opacity:1; padding:14px; margin-top:10px;">
+                    <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Ingrese su PIN de 4 dígitos:</p>
+                    <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="autoValidarPin(this)">
+                    <button class="btn-accion" onclick="validarPin()">Desbloquear al Instante</button>
+                    <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
+                </div>
             `;
         }
     }
 
     function toggleDesplegableAuth() {
         let authBox = document.getElementById('seccionAuth');
-        authBox.classList.toggle('activo');
+        if (authBox) {
+            authBox.classList.toggle('activo');
+        }
     }
 
     function autoValidarPin(input) {
@@ -281,36 +303,21 @@
         }
     }
 
-    async function desbloquearBiometria() {
-        if (window.PublicKeyCredential) {
-            try {
-                let challenge = new Uint8Array(32);
-                window.crypto.getRandomValues(challenge);
-                let credential = await navigator.credentials.get({
-                    publicKey: { challenge: challenge, timeout: 60000, userVerification: "required" }
-                });
-                if (credential) {
-                    let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
-                    cargarPerfilEnInterfaz(perfil);
-                    entrarAlSistema();
-                }
-            } catch (err) {
-                alert('⚠️ Validación biométrica cancelada o no configurada. Utiliza tu PIN de 4 dígitos.');
-            }
-        } else {
-            alert('El desbloqueo biométrico no es compatible con este navegador. Utiliza tu PIN de 4 dígitos.');
-        }
-    }
-
     function guardarNuevoRegistro() {
         let nombre = document.getElementById('regNombre').value.trim();
         let correo = document.getElementById('regCorreo').value.trim();
         let celular = document.getElementById('regCelular').value.trim();
         let ue = document.getElementById('regUE').value.trim();
-        let pin = document.getElementById('regPin').value.trim();
+        let pin1 = document.getElementById('regPin1').value.trim();
+        let pin2 = document.getElementById('regPin2').value.trim();
 
-        if (!nombre || !correo || !pin || pin.length < 4) {
+        if (!nombre || !correo || !pin1 || pin1.length < 4) {
             alert('Por favor complete su nombre, correo y un PIN válido de 4 dígitos.');
+            return;
+        }
+
+        if (pin1 !== pin2) {
+            alert('❌ Error: Los dos códigos PIN ingresados no coinciden. Por favor verifíquelos.');
             return;
         }
 
@@ -319,7 +326,7 @@
             correo,
             celular,
             ue: ue || 'Unidad Educativa', 
-            pin, 
+            pin: pin1, 
             foto: URL_IMAGEN_OFICIAL,
             ultimaModificacionFoto: 0
         };
@@ -424,7 +431,6 @@
         guardarLocalmenteSilencioso();
         document.getElementById('panelPrincipal').classList.remove('visible');
         document.getElementById('portadaAcceso').style.display = 'block';
-        document.getElementById('seccionAuth').classList.remove('activo');
         verificarSesion();
     }
 
@@ -569,7 +575,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v21_' + materia + '_2026';
+        return 'libreta_elegante_v23_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
