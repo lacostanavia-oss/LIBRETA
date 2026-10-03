@@ -24,14 +24,32 @@
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* PANEL PRINCIPAL (INALTERADO) */
+        /* PANEL PRINCIPAL */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
         .header-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 14px; text-align: center; position: relative; }
         
-        .avatar-central-panel { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 8px 25px rgba(30,58,138,0.4); margin-bottom: 8px; transition: transform 0.2s; }
-        .avatar-central-panel:active { transform: scale(0.95); }
+        /* FOTO DE PERFIL PERSONAL: ELEGANTE, BRILLOSA, SIN BORDES EXTRAÑOS */
+        .avatar-central-panel { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: none; 
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+            cursor: pointer; 
+            background: #e2e8f0; 
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.5); 
+            margin-bottom: 10px; 
+            transition: all 0.3s ease; 
+        }
+        .avatar-central-panel:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .avatar-central-panel:active { transform: scale(0.96); }
 
         .brand-info h1 { color: #1e3a8a; font-size: 17px; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .brand-info span { font-size: 12px; color: #64748b; font-weight: 600; display: block; margin-top: 3px; }
@@ -93,7 +111,7 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- ENTRADA OCULTA PARA SELECCIONAR FOTO AL TOCARLA -->
+<!-- ENTRADA OCULTA GLOBAL PARA CAMBIAR FOTO DE PERFIL DESDE EL PANEL -->
 <input type="file" id="inputGlobalFoto" accept="image/*" style="display:none;" onchange="procesarCambioFotoDirecto(event)">
 
 <!-- PANTALLA DE INICIO -->
@@ -130,14 +148,14 @@
     </div>
 </div>
 
-<!-- PANEL PRINCIPAL (INALTERADO) -->
+<!-- PANEL PRINCIPAL -->
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
         <button class="btn-bloquear" onclick="bloquearSesion()">⬅ Salir / Bloquear</button>
         
-        <!-- Toca la foto de perfil aquí arriba para cambiarla de forma natural -->
-        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarPerfil()" title="Toca para cambiar foto">
+        <!-- FOTO DE PERFIL PERSONAL: ELEGANTE Y AL TOCARLA CAMBIA DIRECTAMENTE -->
+        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarPerfil()" title="Toca para cambiar foto de perfil">
         
         <div class="brand-info">
             <h1 id="lblProfesorNombre">Docente</h1>
@@ -246,7 +264,7 @@
     let fotoTemporalSeleccionada = URL_IMAGEN_OFICIAL;
 
     function verificarSesion() {
-        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v34');
+        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v35');
         let imgPortada = document.getElementById('imgPortadaAvatar');
         if (imgPortada) imgPortada.src = URL_IMAGEN_OFICIAL;
 
@@ -265,7 +283,7 @@
 
     function toggleMinimizarYDeslizar() {
         let img = document.querySelector('.portada-img-grande');
-        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v34');
+        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v35');
         if (img) img.classList.toggle('minimazada');
 
         if (!perfilGuardado) {
@@ -321,7 +339,7 @@
             ultimaModificacionFoto: Date.now()
         };
 
-        localStorage.setItem('libreta_docente_perfil_2026_v34', JSON.stringify(nuevoPerfil));
+        localStorage.setItem('libreta_docente_perfil_2026_v35', JSON.stringify(nuevoPerfil));
         cargarPerfilEnInterfaz(nuevoPerfil);
         entrarAlSistema();
     }
@@ -335,7 +353,7 @@
     function validarPin() {
         let pinInput = document.getElementById('loginPin');
         let pinIngresado = pinInput ? pinInput.value.trim() : '';
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v34'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v35'));
 
         if (perfil && (pinIngresado === perfil.pin || pinIngresado === '1717')) {
             cargarPerfilEnInterfaz(perfil);
@@ -347,7 +365,7 @@
     }
 
     function recuperarPin() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v34'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v35'));
         if (perfil && perfil.correo) {
             alert('📧 ¡Enviado con éxito!\nSe han enviado las instrucciones y su PIN a su correo:\n' + perfil.correo + '\n\n(Tu PIN actual es: ' + perfil.pin + ')');
         } else {
@@ -356,7 +374,7 @@
     }
 
     function verificarYCambiarPerfil() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v34'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v35'));
         let ahora = Date.now();
         let sieteDiasMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -367,14 +385,14 @@
                 let nuevoPinOpcional = prompt('⏳ Tu foto está protegida por 7 días (faltan ' + diasRestantes + ' días para poder cambiarla).\n¿Deseas actualizar tu código PIN de seguridad de 4 dígitos?', perfil.pin);
                 if (nuevoPinOpcional && nuevoPinOpcional.length === 4) {
                     perfil.pin = nuevoPinOpcional;
-                    localStorage.setItem('libreta_docente_perfil_2026_v34', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v35', JSON.stringify(perfil));
                     alert('🔒 ¡Tu PIN de seguridad ha sido actualizado con éxito!');
                 }
                 return;
             }
         }
         
-        let cambiar = confirm('¿Deseas cambiar tu foto de perfil ahora?');
+        let cambiar = confirm('¿Deseas cambiar tu foto de perfil de docente ahora?');
         if (cambiar) {
             document.getElementById('inputGlobalFoto').click();
         }
@@ -386,11 +404,11 @@
             let lector = new FileReader();
             lector.onload = function(e) {
                 let nuevaBase64 = e.target.result;
-                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v34'));
+                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v35'));
                 if (perfil) {
                     perfil.foto = nuevaBase64;
                     perfil.ultimaModificacionFoto = Date.now();
-                    localStorage.setItem('libreta_docente_perfil_2026_v34', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v35', JSON.stringify(perfil));
                     cargarPerfilEnInterfaz(perfil);
                     alert('✨ ¡Foto de perfil actualizada con éxito!');
                 }
@@ -566,7 +584,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v34_' + materia + '_2026';
+        return 'libreta_elegante_v35_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
