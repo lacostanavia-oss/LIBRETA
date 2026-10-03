@@ -8,31 +8,36 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* Pantalla de Portada Amplia, Elegante y Adaptada a Celular */
-        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 25px 20px; border-radius: 20px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; }
+        /* Pantalla de Portada Principal */
+        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 25px 20px; border-radius: 20px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
-        .portada-img-grande { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 30px rgba(96, 165, 250, 0.9); margin: 0 auto 14px auto; display: block; }
+        .portada-img-grande { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 30px rgba(96, 165, 250, 0.9); margin: 0 auto 12px auto; display: block; cursor: pointer; transition: transform 0.3s; }
+        .portada-img-grande:active { transform: scale(0.95); }
         
         .portada-titulo { font-size: 19px; font-weight: 800; color: #ffffff; margin: 6px 0 2px 0; text-transform: uppercase; }
-        .portada-sub { font-size: 11px; color: #93c5fd; margin: 0 0 16px 0; font-weight: 500; }
+        .portada-sub { font-size: 11px; color: #93c5fd; margin: 0 0 16px 0; font-weight: 500; cursor: pointer; }
         
-        /* Caja de Autenticación Amplia y Cómoda */
-        .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 14px; border: 1px solid rgba(59, 130, 246, 0.5); }
-        .auth-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .auth-box input { width: 100%; padding: 12px; border: 1px solid #3b82f6; border-radius: 8px; font-size: 14px; margin-bottom: 12px; background: #1e293b; color: white; text-align: center; letter-spacing: 3px; }
+        /* Contenedor Desplegable / Deslizante para el Formulario */
+        .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
+        .auth-box.activo { max-height: 500px; opacity: 1; padding: 14px; margin-top: 12px; }
+
+        .auth-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 3px; }
+        .auth-box input { width: 100%; padding: 11px; border: 1px solid #3b82f6; border-radius: 8px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; text-align: center; letter-spacing: 2px; }
         
-        .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 13px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-        .btn-biometrico { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 13px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 10px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 10px; text-align: center; display: block; }
+        .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .btn-biometrico { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 8px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
         /* Contenedor Principal (Oculto hasta autenticarse) */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
-        /* Cabecera Elegante con Foto Amplia al Centro */
+        /* Cabecera Elegante */
         .header-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; text-align: center; position: relative; }
         
-        .avatar-central-panel { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 6px 15px rgba(30,58,138,0.3); margin-bottom: 6px; }
+        .avatar-central-panel { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 4px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 6px 15px rgba(30,58,138,0.3); margin-bottom: 6px; transition: transform 0.2s; }
+        .avatar-central-panel:active { transform: scale(0.95); }
+
         .brand-info h1 { color: #1e3a8a; font-size: 16px; margin: 0; font-weight: 800; text-transform: uppercase; }
         .brand-info span { font-size: 11px; color: #64748b; font-weight: 600; display: block; margin-top: 2px; }
         
@@ -96,12 +101,12 @@
 
 <!-- PANTALLA DE PORTADA Y ACCESO BLINDADO -->
 <div id="portadaAcceso">
-    <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande">
+    <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegableAuth()">
     <h2 class="portada-titulo" id="tituloPortada">Libreta Docente Bolivia 2026</h2>
-    <p class="portada-sub" id="subtituloPortada">"Sistema Oficial del Magisterio"</p>
+    <p class="portada-sub" id="subtituloPortada" onclick="toggleDesplegableAuth()">"Toca aquí para acceder o registrarte"</p>
     
     <div id="seccionAuth" class="auth-box">
-        <!-- Se carga dinámicamente -->
+        <!-- Se despliega suavemente al tocar la portada -->
     </div>
 </div>
 
@@ -112,7 +117,7 @@
         <button class="btn-bloquear" onclick="bloquearSesion()">⬅ Salir / Bloquear</button>
         
         <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
-        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarFoto()" title="Cambiar foto de perfil (Cada 7 días)">
+        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarPerfil()" title="Toca para cambiar foto y actualizar tu PIN de acceso">
         
         <div class="brand-info">
             <h1 id="lblProfesorNombre">Docente</h1>
@@ -230,7 +235,7 @@
         if (!perfilGuardado) {
             imgPortada.src = 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
             tituloPortada.innerText = 'Libreta Docente Bolivia 2026';
-            subtituloPortada.innerText = 'Registro Oficial Institucional';
+            subtituloPortada.innerText = 'Toca aquí para registrarte y crear tu acceso';
 
             divAuth.innerHTML = `
                 <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
@@ -248,7 +253,7 @@
             let perfil = JSON.parse(perfilGuardado);
             imgPortada.src = perfil.foto || 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
             tituloPortada.innerText = perfil.nombre;
-            subtituloPortada.innerText = perfil.ue + ' (🔒 Blindado)';
+            subtituloPortada.innerText = perfil.ue + ' (🔒 Toca para ingresar PIN)';
 
             divAuth.innerHTML = `
                 <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Acceso Exclusivo del Propietario</p>
@@ -259,6 +264,11 @@
                 <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
             `;
         }
+    }
+
+    function toggleDesplegableAuth() {
+        let authBox = document.getElementById('seccionAuth');
+        authBox.classList.toggle('activo');
     }
 
     function autoValidarPin(input) {
@@ -283,7 +293,7 @@
                     entrarAlSistema();
                 }
             } catch (err) {
-                alert('⚠️ Validación biométrica cancelada o no configurada en este dispositivo. Utiliza tu PIN de 4 dígitos.');
+                alert('⚠️ Validación biométrica cancelada o no configurada. Utiliza tu PIN de 4 dígitos.');
             }
         } else {
             alert('El desbloqueo biométrico no es compatible con este navegador. Utiliza tu PIN de 4 dígitos.');
@@ -338,7 +348,7 @@
         }
     }
 
-    function verificarYCambiarFoto() {
+    function verificarYCambiarPerfil() {
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
         let ahora = Date.now();
         let sieteDiasMs = 7 * 24 * 60 * 60 * 1000;
@@ -347,11 +357,27 @@
             let tiempoTranscurrido = ahora - perfil.ultimaModificacionFoto;
             if (tiempoTranscurrido < sieteDiasMs) {
                 let diasRestantes = Math.ceil((sieteDiasMs - tiempoTranscurrido) / (1000 * 60 * 60 * 24));
-                alert('⏳ Por seguridad institucional, solo puedes cambiar tu foto de perfil una vez cada 7 días.\nFaltan ' + diasRestantes + ' día(s).');
+                
+                // Permitir actualizar el PIN incluso si la foto está bloqueada por los 7 días
+                let nuevoPinOpcional = prompt('⏳ Tu foto de perfil está protegida (cambio cada 7 días, faltan ' + diasRestantes + ' días).\n¿Deseas actualizar tu código PIN de acceso de 4 dígitos?', perfil.pin);
+                if (nuevoPinOpcional && nuevoPinOpcional.length === 4) {
+                    perfil.pin = nuevoPinOpcional;
+                    localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+                    alert('🔒 ¡Tu PIN de acceso personal ha sido actualizado con éxito!');
+                }
                 return;
             }
         }
-        document.getElementById('subirFotoPerfil').click();
+        
+        let cambiarTodo = confirm('¿Deseas cambiar tu foto de perfil y actualizar tu PIN de seguridad?');
+        if (cambiarTodo) {
+            let nuevoPin = prompt('Ingresa tu nuevo PIN personal (4 dígitos):', perfil.pin);
+            if (nuevoPin && nuevoPin.length === 4) {
+                perfil.pin = nuevoPin;
+            }
+            localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+            document.getElementById('subirFotoPerfil').click();
+        }
     }
 
     function cambiarFotoPerfil(event) {
@@ -369,7 +395,7 @@
                     perfil.ultimaModificacionFoto = Date.now();
                     localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
                 }
-                alert('✨ ¡Foto de perfil actualizada con éxito! Próximo cambio disponible en 7 días.');
+                alert('✨ ¡Perfil y foto actualizados con éxito!');
             };
             lector.readAsDataURL(archivo);
         }
@@ -398,6 +424,7 @@
         guardarLocalmenteSilencioso();
         document.getElementById('panelPrincipal').classList.remove('visible');
         document.getElementById('portadaAcceso').style.display = 'block';
+        document.getElementById('seccionAuth').classList.remove('activo');
         verificarSesion();
     }
 
@@ -541,7 +568,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v17_' + materia + '_2026';
+        return 'libreta_elegante_v18_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
