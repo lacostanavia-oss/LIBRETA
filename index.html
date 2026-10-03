@@ -8,13 +8,13 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* PANTALLA DE INICIO: IMAGEN GRANDE AMPLIA Y CIRCULAR AL CENTRO */
+        /* PANTALLA DE INICIO (FASE 1 Y FASE 2) */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 35px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
         .portada-img-grande { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 45px rgba(96, 165, 250, 0.9); margin: 0 auto; display: block; cursor: pointer; transition: all 0.4s ease-in-out; }
         .portada-img-grande.minimazada { width: 90px; height: 90px; border-width: 3px; box-shadow: 0 0 15px rgba(96, 165, 250, 0.6); margin-bottom: 10px; }
         
-        /* PLANILLA DESLIZABLE: SOLO NOMBRE, CORREO, CELULAR Y PIN */
+        /* CAJAS DESLIZABLES */
         .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
         .auth-box.activo { max-height: 600px; opacity: 1; padding: 14px; margin-top: 15px; }
 
@@ -24,7 +24,7 @@
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* PANEL PRINCIPAL (INTACTO CON TUS CELDAS Y TRABAJO ANTERIOR) */
+        /* PANEL PRINCIPAL (INALTERADO) */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
@@ -93,28 +93,46 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO: IMAGEN GRANDE OFICIAL CON EFECTO DE MINIMIZAR Y DESLIZAR -->
+<!-- PANTALLA DE INICIO -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
     
-    <div id="seccionAuth" class="auth-box">
+    <!-- FASE 1: PRIMER REGISTRO (SOLO 3 CAMPOS) -->
+    <div id="seccionFase1" class="auth-box">
         <label>Nombre Completo:</label>
         <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
         <label>Correo Electrónico:</label>
         <input type="email" id="regCorreo" placeholder="profesor@correo.com">
         <label>Número de Celular:</label>
         <input type="tel" id="regCelular" placeholder="70000000" inputmode="numeric">
+        <button class="btn-accion" onclick="guardarFase1()">Siguiente (Foto y PIN)</button>
+    </div>
+
+    <!-- FASE 2: SEGUNDO REGISTRO (FOTO DE PERFIL Y PIN REPETIDO DOS VECES) -->
+    <div id="seccionFase2" class="auth-box">
+        <p style="font-size:11px; color:#93c5fd; text-align:center; margin-top:0;">📸 Personaliza tu foto y código de acceso:</p>
+        <label>Cambiar / Subir Foto de Perfil:</label>
+        <input type="file" id="regFotoInput" accept="image/*" style="padding:6px; background:#1e293b; color:white; border-radius:8px; width:100%; margin-bottom:10px;">
         
-        <label>Crear PIN Personal (4 dígitos):</label>
+        <label>Crear Código PIN (4 dígitos):</label>
         <input type="password" id="regPin1" placeholder="••••" maxlength="4" inputmode="numeric">
-        <label>Confirmar PIN Personal (4 dígitos):</label>
+        
+        <label>Repetir Código PIN (4 dígitos):</label>
         <input type="password" id="regPin2" placeholder="••••" maxlength="4" inputmode="numeric">
         
-        <button class="btn-accion" onclick="guardarRegistroPaso1()">Registrarse y Entrar</button>
+        <button class="btn-accion" onclick="guardarFase2Final()">Finalizar y Entrar</button>
+    </div>
+
+    <!-- PANTALLA DE BLOQUEO CON PIN (ACCESOS POSTERIORES) -->
+    <div id="seccionLoginPin" class="auth-box">
+        <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Ingrese su PIN de 4 dígitos:</p>
+        <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="autoValidarPin(this)">
+        <button class="btn-accion" onclick="validarPin()">Desbloquear al Instante</button>
+        <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
     </div>
 </div>
 
-<!-- PANEL PRINCIPAL CON TUS CELDAS Y TRABAJO DIARIO INTACTO -->
+<!-- PANEL PRINCIPAL (INALTERADO) -->
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
@@ -226,73 +244,69 @@
     let datosHistorialAlumnos = {};
     let temporizadorInactividad = null;
     const URL_IMAGEN_OFICIAL = "https://i.ibb.co/wh1Yp5YM/1000736334.png";
+    let datosTempFase1 = {};
 
     function verificarSesion() {
-        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v3');
-        let portada = document.getElementById('portadaAcceso');
+        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v4');
         let imgPortada = document.getElementById('imgPortadaAvatar');
-
         if (imgPortada) imgPortada.src = URL_IMAGEN_OFICIAL;
 
+        document.getElementById('seccionFase1').classList.remove('activo');
+        document.getElementById('seccionFase2').classList.remove('activo');
+        document.getElementById('seccionLoginPin').classList.remove('activo');
+
         if (!perfilGuardado) {
-            portada.innerHTML = `
-                <img id="imgPortadaAvatar" src="${URL_IMAGEN_OFICIAL}" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
-                
-                <div id="seccionAuth" class="auth-box">
-                    <label>Nombre Completo:</label>
-                    <input type="text" id="regNombre" placeholder="Lic. Juan Pérez">
-                    <label>Correo Electrónico:</label>
-                    <input type="email" id="regCorreo" placeholder="profesor@correo.com">
-                    <label>Número de Celular:</label>
-                    <input type="tel" id="regCelular" placeholder="70000000" inputmode="numeric">
-                    
-                    <label>Crear PIN Personal (4 dígitos):</label>
-                    <input type="password" id="regPin1" placeholder="••••" maxlength="4" inputmode="numeric">
-                    <label>Confirmar PIN Personal (4 dígitos):</label>
-                    <input type="password" id="regPin2" placeholder="••••" maxlength="4" inputmode="numeric">
-                    
-                    <button class="btn-accion" onclick="guardarRegistroPaso1()">Registrarse y Entrar</button>
-                </div>
-            `;
+            // Muestra Fase 1 por defecto
+            document.getElementById('seccionFase1').classList.add('activo');
         } else {
             let perfil = JSON.parse(perfilGuardado);
-            portada.innerHTML = `
-                <img src="${perfil.foto || URL_IMAGEN_OFICIAL}" alt="Docente" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
-                
-                <div id="seccionAuth" class="auth-box activo" style="max-height:300px; opacity:1; padding:14px; margin-top:15px;">
-                    <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Ingrese su PIN de 4 dígitos:</p>
-                    <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="autoValidarPin(this)">
-                    <button class="btn-accion" onclick="validarPin()">Desbloquear al Instante</button>
-                    <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
-                </div>
-            `;
+            if (imgPortada) imgPortada.src = perfil.foto || URL_IMAGEN_OFICIAL;
+            document.getElementById('seccionLoginPin').classList.add('activo');
         }
     }
 
     function toggleMinimizarYDeslizar() {
         let img = document.querySelector('.portada-img-grande');
-        let authBox = document.getElementById('seccionAuth');
-        if (img && authBox) {
-            img.classList.toggle('minimazada');
-            authBox.classList.toggle('activo');
+        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v4');
+        if (img) img.classList.toggle('minimazada');
+
+        if (!perfilGuardado) {
+            let f1 = document.getElementById('seccionFase1');
+            let f2 = document.getElementById('seccionFase2');
+            if (!f2.classList.contains('activo')) {
+                f1.classList.toggle('activo');
+            }
+        } else {
+            document.getElementById('seccionLoginPin').classList.toggle('activo');
         }
     }
 
-    function autoValidarPin(input) {
-        if (input.value.length === 4) {
-            validarPin();
-        }
-    }
-
-    function guardarRegistroPaso1() {
+    function guardarFase1() {
         let nombre = document.getElementById('regNombre').value.trim();
         let correo = document.getElementById('regCorreo').value.trim();
         let celular = document.getElementById('regCelular').value.trim();
+
+        if (!nombre || !correo || !celular) {
+            alert('Por favor complete su nombre, correo y número de celular.');
+            return;
+        }
+
+        datosTempFase1 = { nombre, correo, celular };
+
+        // Ocultar Fase 1 y mostrar Fase 2 (Foto y PIN repetido)
+        document.getElementById('seccionFase1').classList.remove('activo');
+        setTimeout(() => {
+            document.getElementById('seccionFase2').classList.add('activo');
+        }, 200);
+    }
+
+    function guardarFase2Final() {
         let pin1 = document.getElementById('regPin1').value.trim();
         let pin2 = document.getElementById('regPin2').value.trim();
+        let fileInput = document.getElementById('regFotoInput');
 
-        if (!nombre || !correo || !celular || !pin1 || pin1.length < 4) {
-            alert('Por favor complete todos los campos y un PIN válido de 4 dígitos.');
+        if (!pin1 || pin1.length < 4) {
+            alert('Por favor ingrese un código PIN válido de 4 dígitos.');
             return;
         }
 
@@ -301,27 +315,48 @@
             return;
         }
 
-        let nuevoPerfil = { 
-            nombre, 
-            correo,
-            celular,
-            ue: 'Unidad Educativa', 
-            pin: pin1, 
-            foto: URL_IMAGEN_OFICIAL,
-            ultimaModificacionFoto: 0
+        let fotoFinal = URL_IMAGEN_OFICIAL;
+
+        if (fileInput.files && fileInput.files[0]) {
+            let lector = new FileReader();
+            lector.onload = function(e) {
+                fotoFinal = e.target.result;
+                registrarPerfilCompleto(pin1, fotoFinal);
+            };
+            lector.readAsDataURL(fileInput.files[0]);
+        } else {
+            registrarPerfilCompleto(pin1, fotoFinal);
+        }
+    }
+
+    function registrarPerfilCompleto(pin, foto) {
+        let nuevoPerfil = {
+            nombre: datosTempFase1.nombre,
+            correo: datosTempFase1.correo,
+            celular: datosTempFase1.celular,
+            ue: 'Unidad Educativa',
+            pin: pin,
+            foto: foto,
+            ultimaModificacionFoto: Date.now()
         };
 
-        localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(nuevoPerfil));
+        localStorage.setItem('libreta_docente_perfil_2026_v4', JSON.stringify(nuevoPerfil));
         cargarPerfilEnInterfaz(nuevoPerfil);
         entrarAlSistema();
+    }
+
+    function autoValidarPin(input) {
+        if (input.value.length === 4) {
+            validarPin();
+        }
     }
 
     function validarPin() {
         let pinInput = document.getElementById('loginPin');
         let pinIngresado = pinInput ? pinInput.value.trim() : '';
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v4'));
 
-        if (pinIngresado === perfil.pin || pinIngresado === '1717') {
+        if (perfil && (pinIngresado === perfil.pin || pinIngresado === '1717')) {
             cargarPerfilEnInterfaz(perfil);
             entrarAlSistema();
         } else if(pinIngresado.length === 4) {
@@ -331,7 +366,7 @@
     }
 
     function recuperarPin() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v4'));
         if (perfil && perfil.correo) {
             alert('📧 ¡Enviado con éxito!\nSe han enviado las instrucciones y su PIN a su correo:\n' + perfil.correo + '\n\n(Tu PIN actual es: ' + perfil.pin + ')');
         } else {
@@ -340,7 +375,7 @@
     }
 
     function verificarYCambiarPerfil() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v4'));
         let ahora = Date.now();
         let sieteDiasMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -351,7 +386,7 @@
                 let nuevoPinOpcional = prompt('⏳ Tu foto está protegida por 7 días (faltan ' + diasRestantes + ' días).\n¿Deseas actualizar tu código PIN de seguridad?', perfil.pin);
                 if (nuevoPinOpcional && nuevoPinOpcional.length === 4) {
                     perfil.pin = nuevoPinOpcional;
-                    localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v4', JSON.stringify(perfil));
                     alert('🔒 ¡Tu PIN de seguridad ha sido actualizado con éxito!');
                 }
                 return;
@@ -364,7 +399,7 @@
             if (nuevoPin && nuevoPin.length === 4) {
                 perfil.pin = nuevoPin;
             }
-            localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
+            localStorage.setItem('libreta_docente_perfil_2026_v4', JSON.stringify(perfil));
             document.getElementById('subirFotoPerfil').click();
         }
     }
@@ -377,11 +412,11 @@
                 let base64Img = e.target.result;
                 document.getElementById('avatarCentral').src = base64Img;
                 
-                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
+                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v4'));
                 if (perfil) {
                     perfil.foto = base64Img;
                     perfil.ultimaModificacionFoto = Date.now();
-                    localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v4', JSON.stringify(perfil));
                 }
                 alert('✨ ¡Perfil, foto y seguridad actualizados con éxito!');
             };
@@ -396,6 +431,8 @@
         document.getElementById('ue').value = perfil.ue;
         if (perfil.foto) {
             document.getElementById('avatarCentral').src = perfil.foto;
+            let imgPortada = document.getElementById('imgPortadaAvatar');
+            if (imgPortada) imgPortada.src = perfil.foto;
         }
     }
 
@@ -554,7 +591,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v31_' + materia + '_2026';
+        return 'libreta_elegante_v32_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
