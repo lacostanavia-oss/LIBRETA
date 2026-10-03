@@ -6,56 +6,58 @@
     <title>Libreta Docente Oficial - Bolivia 2026</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 6px; background: #0f172a; color: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* Pantalla de Portada con Animación de Minimización */
-        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0f172a 100%); padding: 35px 15px; border-radius: 12px; text-align: center; margin: auto; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #3b82f6; transition: all 0.5s ease; }
+        /* Pantalla de Portada Amplia y Centrada */
+        #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0f172a 100%); padding: 30px 20px; border-radius: 16px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 12px 35px rgba(0,0,0,0.6); border: 2px solid #3b82f6; margin: auto; }
         
-        .portada-img-grande { width: 170px; height: 170px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 30px rgba(96, 165, 250, 0.9); cursor: pointer; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 0 auto 12px auto; display: block; }
-        
-        /* Clase que minimiza la imagen al centro/arriba al hacer clic */
-        .portada-img-grande.minimizada { width: 60px; height: 60px; border-width: 2px; box-shadow: 0 0 10px rgba(96, 165, 250, 0.5); margin-bottom: 5px; }
+        .portada-img-grande { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 25px rgba(96, 165, 250, 0.9); cursor: pointer; transition: transform 0.3s ease; margin: 0 auto 12px auto; display: block; }
+        .portada-img-grande:active { transform: scale(0.95); }
 
-        .portada-titulo { font-size: 18px; font-weight: 800; color: #f8fafc; margin: 6px 0; text-transform: uppercase; transition: font-size 0.3s; }
-        .portada-sub { font-size: 10px; color: #93c5fd; margin: 0 0 10px 0; font-style: italic; }
+        .portada-titulo { font-size: 19px; font-weight: 800; color: #f8fafc; margin: 8px 0; text-transform: uppercase; }
+        .portada-sub { font-size: 11px; color: #93c5fd; margin: 0 0 16px 0; font-style: italic; }
         
-        /* Contenedor Deslizable de Autenticación / Registro */
-        .auth-slide-box { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s ease; opacity: 0; text-align: left; background: rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0 12px; }
-        .auth-slide-box.show { max-height: 420px; opacity: 1; padding: 12px; margin-top: 10px; border: 1px solid #3b82f6; }
+        /* Contenedor Deslizable de Autenticación / Registro Amplio */
+        .auth-slide-box { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s ease; opacity: 0; text-align: left; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 0 15px; }
+        .auth-slide-box.show { max-height: 450px; opacity: 1; padding: 15px; margin-top: 14px; border: 1px solid #3b82f6; }
         
-        .auth-slide-box label { font-size: 9px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 2px; }
-        .auth-slide-box input { width: 100%; padding: 8px; border: 1px solid #3b82f6; border-radius: 4px; font-size: 12px; margin-bottom: 8px; background: #1e293b; color: white; }
-        .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 4px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
-        .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 10px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 6px; text-align: center; }
+        .auth-slide-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 3px; }
+        .auth-slide-box input { width: 100%; padding: 10px; border: 1px solid #3b82f6; border-radius: 6px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; }
+        .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 4px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
         /* Contenedor Principal (Oculto hasta autenticarse) */
-        .container { max-width: 100%; margin: auto; background: #ffffff; padding: 12px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); color: #1e293b; display: none; }
+        .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
-        .header-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
-        .profile-mini-container { display: flex; align-items: center; gap: 8px; }
-        .avatar-mini { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #1e3a8a; cursor: pointer; background: #e2e8f0; }
-        .brand-info h1 { color: #1e3a8a; font-size: 13px; margin: 0; font-weight: 700; }
-        .brand-info span { font-size: 9px; color: #64748b; font-weight: 600; }
-        .btn-bloquear { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; padding: 6px 8px; border-radius: 6px; font-size: 9px; font-weight: bold; cursor: pointer; }
+        /* Cabecera Interactiva con Foto de Perfil Amplia al Centro */
+        .header-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; text-align: center; position: relative; }
+        
+        .avatar-central-panel { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #1e3a8a; cursor: pointer; background: #e2e8f0; box-shadow: 0 4px 12px rgba(30,58,138,0.2); margin-bottom: 8px; transition: transform 0.2s; }
+        .avatar-central-panel:active { transform: scale(0.95); }
 
-        .stats-bar { display: flex; justify-content: space-around; background: #f1f5f9; padding: 6px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; font-weight: bold; text-align: center; color: #334155; border: 1px solid #cbd5e1; }
-        .stats-bar span span { display: block; font-size: 12px; }
+        .brand-info h1 { color: #1e3a8a; font-size: 15px; margin: 0; font-weight: 700; }
+        .brand-info span { font-size: 10px; color: #64748b; font-weight: 600; display: block; margin-top: 2px; }
+        
+        .btn-bloquear { position: absolute; top: 0; right: 0; background: #fee2e2; color: #991b1b; border: 1px solid #f87171; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; }
 
-        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; background: #f8fafc; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; }
+        .stats-bar { display: flex; justify-content: space-around; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; font-weight: bold; text-align: center; color: #334155; border: 1px solid #cbd5e1; }
+        .stats-bar span span { display: block; font-size: 13px; }
+
+        .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; }
         .config-item { display: flex; flex-direction: column; gap: 2px; }
         .config-item.full { grid-column: span 2; }
         .config-item label { font-size: 9px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .config-item input, .config-item select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; background: white; pointer-events: auto; }
+        .config-item input, .config-item select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; background: white; pointer-events: auto; }
 
         .section-title { font-size: 11px; font-weight: 700; color: #1e3a8a; margin: 14px 0 6px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; text-transform: uppercase; }
         
-        .table-container { overflow-x: auto; margin-bottom: 10px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
+        .table-container { overflow-x: auto; margin-bottom: 12px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 780px; }
         th, td { border: 1px solid #cbd5e1; padding: 6px 4px; text-align: center; vertical-align: middle; }
         th { background-color: #1e3a8a; color: white; font-size: 10px; font-weight: 600; }
         
-        td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 4px; pointer-events: auto; }
+        td input { width: 100%; border: 1px solid #e2e8f0; text-align: center; font-size: 13px; background: #fff; padding: 8px 4px; border-radius: 6px; pointer-events: auto; }
         td input:focus { border-color: #1e3a8a; background: #f8fafc; outline: none; }
         .nombre-input { text-align: left !important; width: 140px; font-weight: 500; }
         
@@ -78,7 +80,7 @@
         .modal-content { background: white; padding: 16px; border-radius: 10px; width: 95%; max-width: 420px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
         .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
         .modal-section { font-size: 11px; font-weight: bold; color: #1e3a8a; margin-top: 10px; margin-bottom: 4px; text-transform: uppercase; }
-        .modal-content textarea { width: 100%; height: 100px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; resize: vertical; pointer-events: auto; }
+        .modal-content textarea { width: 100%; height: 100px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; resize: vertical; pointer-events: auto; }
         .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: #f8fafc; padding: 8px; border-radius: 6px; }
         .modal-field { display: flex; flex-direction: column; gap: 2px; font-size: 10px; }
         .modal-field input { padding: 6px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; }
@@ -86,7 +88,7 @@
         .btn-close { background: #ef4444; color: white; width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; margin-top: 12px; cursor: pointer; }
 
         @media print {
-            body { background: white; padding: 0; }
+            body { background: white; padding: 0; display: block; }
             #portadaAcceso { display: none; }
             .container { box-shadow: none; padding: 0; display: block !important; }
             .actions-grid, .config-grid, .btn-historial, .stats-bar, .btn-bloquear { display: none; }
@@ -95,13 +97,13 @@
 </head>
 <body>
 
-<!-- PANTALLA DE PORTADA (Avatar circular al centro que al tocarse se minimiza y despliega datos) -->
+<!-- PANTALLA DE PORTADA CENTRADA Y AMPLIA -->
 <div id="portadaAcceso">
-    <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="tocarAvatarPortada()">
-    <h2 class="portada-titulo" onclick="tocarAvatarPortada()" style="cursor:pointer;">Libreta Docente Bolivia 2026</h2>
-    <p class="portada-sub">"Toca el avatar central para acceder"</p>
+    <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegarAuth()">
+    <h2 class="portada-titulo" onclick="toggleDesplegarAuth()" style="cursor:pointer;">Libreta Docente Bolivia 2026</h2>
+    <p class="portada-sub">"Toca la imagen para acceder al sistema"</p>
     
-    <!-- Celdas deslizables para Registro y Código PIN Personal -->
+    <!-- Celdas Deslizables de Acceso -->
     <div id="seccionAuth" class="auth-slide-box">
         <!-- Se carga dinámicamente -->
     </div>
@@ -111,16 +113,16 @@
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
-        <div class="profile-mini-container">
-            <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
-            <!-- Círculo minimizado que al tocar permite cambiar la foto personal -->
-            <img id="avatarMini" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-mini" onclick="document.getElementById('subirFotoPerfil').click()" title="Toca para subir tu foto personal">
-            <div class="brand-info">
-                <h1 id="lblProfesorNombre">Docente</h1>
-                <span id="lblUnidadEducativa">Unidad Educativa</span>
-            </div>
-        </div>
         <button class="btn-bloquear" onclick="bloquearSesion()">🔒 Bloquear</button>
+        
+        <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
+        <!-- Foto de perfil amplia y centrada en la parte superior del panel -->
+        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarFoto()" title="Toca para cambiar tu foto de perfil">
+        
+        <div class="brand-info">
+            <h1 id="lblProfesorNombre">Docente</h1>
+            <span id="lblUnidadEducativa">Unidad Educativa</span>
+        </div>
     </div>
 
     <!-- BARRA DE ESTADÍSTICAS Y CONTADOR EN VIVO -->
@@ -232,14 +234,15 @@
                 ue: 'Unidad Educativa Bolivia', 
                 correo: 'docente@bolivia.edu',
                 pin: '1717', 
-                foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png' 
+                foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png',
+                ultimaModificacionFoto: 0
             };
             localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfilDefault));
         }
 
         divAuth.innerHTML = `
-            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🔐 Ingrese su Código de Acceso (PIN de 4 dígitos)</p>
-            <label>Código PIN:</label>
+            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🔐 Código de Acceso (PIN por defecto: 1717)</p>
+            <label>Código PIN (4 dígitos):</label>
             <input type="password" id="loginPin" placeholder="Ej: 1717" maxlength="4" inputmode="numeric" value="1717">
             <button class="btn-accion" onclick="validarPin()">Ingresar a la Libreta</button>
             <button class="btn-link-secundario" onclick="mostrarFormularioRegistro()">📝 Registrarse por primera vez</button>
@@ -247,11 +250,8 @@
         `;
     }
 
-    function tocarAvatarPortada() {
-        let img = document.getElementById('imgPortadaAvatar');
+    function toggleDesplegarAuth() {
         let box = document.getElementById('seccionAuth');
-        
-        img.classList.toggle('minimizada');
         box.classList.toggle('show');
     }
 
@@ -288,7 +288,8 @@
             ue: ue || 'Unidad Educativa', 
             correo,
             pin, 
-            foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png' 
+            foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png',
+            ultimaModificacionFoto: 0
         };
 
         localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(nuevoPerfil));
@@ -311,9 +312,47 @@
     function recuperarPin() {
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
         if (perfil && perfil.correo) {
-            alert('Se ha enviado un enlace de recuperación de PIN a su correo registrado: ' + perfil.correo + '\n(Su código actual es: ' + perfil.pin + ')');
+            alert('Se ha enviado las instrucciones para restablecer su PIN al correo: ' + perfil.correo + '\n(Su PIN actual es: ' + perfil.pin + ')');
         } else {
-            alert('No hay correo registrado. Utilice el PIN de prueba: 1717');
+            alert('Utilice el PIN de acceso: 1717');
+        }
+    }
+
+    // RESTRICCIÓN DE CAMBIO DE FOTO CADA 7 DÍAS
+    function verificarYCambiarFoto() {
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+        let ahora = Date.now();
+        let sieteDiasMs = 7 * 24 * 60 * 60 * 1000;
+
+        if (perfil && perfil.ultimaModificacionFoto) {
+            let tiempoTranscurrido = ahora - perfil.ultimaModificacionFoto;
+            if (tiempoTranscurrido < sieteDiasMs) {
+                let diasRestantes = Math.ceil((sieteDiasMs - tiempoTranscurrido) / (1000 * 60 * 60 * 24));
+                alert('⏳ Por seguridad institucional, solo puedes cambiar tu foto de perfil una vez cada 7 días.\nFaltan ' + diasRestantes + ' día(s) para tu próximo cambio.');
+                return;
+            }
+        }
+        document.getElementById('subirFotoPerfil').click();
+    }
+
+    function cambiarFotoPerfil(event) {
+        let archivo = event.target.files[0];
+        if (archivo) {
+            let lector = new FileReader();
+            lector.onload = function(e) {
+                let base64Img = e.target.result;
+                document.getElementById('avatarCentral').src = base64Img;
+                document.getElementById('imgPortadaAvatar').src = base64Img;
+                
+                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+                if (perfil) {
+                    perfil.foto = base64Img;
+                    perfil.ultimaModificacionFoto = Date.now();
+                    localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+                }
+                alert('¡Foto de perfil actualizada con éxito! Próximo cambio disponible en 7 días.');
+            };
+            lector.readAsDataURL(archivo);
         }
     }
 
@@ -323,28 +362,8 @@
         document.getElementById('prof').value = perfil.nombre;
         document.getElementById('ue').value = perfil.ue;
         if (perfil.foto) {
-            document.getElementById('avatarMini').src = perfil.foto;
+            document.getElementById('avatarCentral').src = perfil.foto;
             document.getElementById('imgPortadaAvatar').src = perfil.foto;
-        }
-    }
-
-    function cambiarFotoPerfil(event) {
-        let archivo = event.target.files[0];
-        if (archivo) {
-            let lector = new FileReader();
-            lector.onload = function(e) {
-                let base64Img = e.target.result;
-                document.getElementById('avatarMini').src = base64Img;
-                document.getElementById('imgPortadaAvatar').src = base64Img;
-                
-                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
-                if (perfil) {
-                    perfil.foto = base64Img;
-                    localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
-                }
-                alert('¡Foto de perfil actualizada con éxito!');
-            };
-            lector.readAsDataURL(archivo);
         }
     }
 
@@ -356,7 +375,6 @@
 
     function bloquearSesion() {
         document.getElementById('panelPrincipal').classList.remove('visible');
-        document.getElementById('imgPortadaAvatar').classList.remove('minimizada');
         document.getElementById('seccionAuth').classList.remove('show');
         document.getElementById('portadaAcceso').style.display = 'block';
         verificarSesion();
@@ -492,7 +510,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_animada_v8_' + materia + '_2026';
+        return 'libreta_perfil_v9_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
