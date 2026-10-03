@@ -8,13 +8,13 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* FASE 1: PANTALLA DE INICIO CON TU IMAGEN OFICIAL GRANDE Y AMPLIA */
+        /* PANTALLA DE INICIO CON TU IMAGEN OFICIAL GRANDE */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 35px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
         .portada-img-grande { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 45px rgba(96, 165, 250, 0.9); margin: 0 auto; display: block; cursor: pointer; transition: all 0.4s ease-in-out; }
         .portada-img-grande.minimazada { width: 90px; height: 90px; border-width: 3px; box-shadow: 0 0 15px rgba(96, 165, 250, 0.6); margin-bottom: 10px; }
         
-        /* Planilla Deslizable: Solo Nombre, Correo y Celular + PIN de seguridad */
+        /* Planilla Deslizable: Nombre, Correo, Celular y PIN */
         .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
         .auth-box.activo { max-height: 600px; opacity: 1; padding: 14px; margin-top: 15px; }
 
@@ -24,7 +24,7 @@
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* PANEL PRINCIPAL CON FOTO AMPLIA Y PLANILLAS OFICIALES */
+        /* PANEL PRINCIPAL */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
@@ -38,7 +38,6 @@
         
         .btn-bloquear { position: absolute; top: 0; right: 0; background: #fee2e2; color: #991b1b; border: 1px solid #f87171; padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-        /* Estructura oficial de planillas y celdas */
         .stats-bar { display: flex; justify-content: space-around; background: #f1f5f9; padding: 8px; border-radius: 8px; margin-bottom: 10px; font-size: 10px; font-weight: bold; text-align: center; color: #334155; border: 1px solid #cbd5e1; }
         .stats-bar span span { display: block; font-size: 13px; }
 
@@ -73,7 +72,6 @@
         .btn-excel { background: #0d9488; color: white; }
         .btn-pdf { background: #1e3a8a; color: white; grid-column: span 2; }
 
-        /* Modal para el Historial */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
         .modal-content { background: white; padding: 16px; border-radius: 12px; width: 95%; max-width: 420px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; pointer-events: auto; }
         .modal-content h3 { color: #1e3a8a; margin-top: 0; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
@@ -95,7 +93,7 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO (FASE 1) CON TU IMAGEN OFICIAL GRANDE -->
+<!-- PANTALLA DE INICIO CON TU IMAGEN EXACTA DE IMGBB -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
     
@@ -116,14 +114,13 @@
     </div>
 </div>
 
-<!-- PANEL PRINCIPAL CON FOTO AMPLIA Y PLANILLAS OFICIALES (FASE 2 Y 3) -->
+<!-- PANEL PRINCIPAL CON PLANILLAS OFICIALES -->
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
         <button class="btn-bloquear" onclick="bloquearSesion()">⬅ Salir / Bloquear</button>
         
         <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
-        <!-- FOTO DE PERFIL AMPLIA Y ELEGANTE -->
         <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarPerfil()" title="Toca para cambiar foto y actualizar PIN de seguridad">
         
         <div class="brand-info">
@@ -132,7 +129,6 @@
         </div>
     </div>
 
-    <!-- BARRA DE ESTADÍSTICAS Y CONTADOR EN VIVO -->
     <div class="stats-bar">
         <span>👥 Alumnos: <span id="statTotal">0</span></span>
         <span>🟢 Verde: <span id="statVerde" style="color: #166534;">0</span></span>
@@ -178,7 +174,6 @@
         </div>
     </div>
 
-    <!-- TABLA DE PLANILLA OFICIAL -->
     <div class="section-title">📊 Registro Consolidado Oficial (Min. Educación 2026)</div>
     <div class="table-container">
         <table id="tabla-principal">
@@ -206,7 +201,6 @@
     </div>
 </div>
 
-<!-- Modal Historial, Diario y Promedio Semanal -->
 <div id="modalHistorial" class="modal">
     <div class="modal-content">
         <h3 id="modalTitulo">Historial del Alumno</h3>
@@ -420,7 +414,6 @@
         verificarSesion();
     }
 
-    // BLOQUEO AUTOMÁTICO ESTRICTO POR INACTIVIDAD (15 SEGUNDOS)
     function reiniciarTemporizadorInactividad() {
         if (temporizadorInactividad) clearTimeout(temporizadorInactividad);
         if (document.getElementById('panelPrincipal').classList.contains('visible')) {
@@ -561,7 +554,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v28_' + materia + '_2026';
+        return 'libreta_elegante_v29_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
