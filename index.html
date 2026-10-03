@@ -8,15 +8,15 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* FASE 1: PANTALLA DE INICIO CON IMAGEN GRANDE Y EFECTO MINIMIZAR */
+        /* FASE 1: PANTALLA DE INICIO CON TU IMAGEN OFICIAL GRANDE Y AMPLIA */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 35px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
-        .portada-img-grande { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 35px rgba(96, 165, 250, 0.9); margin: 0 auto; display: block; cursor: pointer; transition: all 0.4s ease-in-out; }
+        .portada-img-grande { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 45px rgba(96, 165, 250, 0.9); margin: 0 auto; display: block; cursor: pointer; transition: all 0.4s ease-in-out; }
         .portada-img-grande.minimazada { width: 90px; height: 90px; border-width: 3px; box-shadow: 0 0 15px rgba(96, 165, 250, 0.6); margin-bottom: 10px; }
         
-        /* Planilla Deslizable de Primer Registro (Solo 3 campos) */
+        /* Planilla Deslizable: Solo Nombre, Correo y Celular + PIN de seguridad */
         .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
-        .auth-box.activo { max-height: 500px; opacity: 1; padding: 14px; margin-top: 15px; }
+        .auth-box.activo { max-height: 600px; opacity: 1; padding: 14px; margin-top: 15px; }
 
         .auth-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 3px; }
         .auth-box input { width: 100%; padding: 11px; border: 1px solid #3b82f6; border-radius: 8px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; text-align: center; letter-spacing: 1px; }
@@ -24,7 +24,7 @@
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* FASE 2 Y 3: CONTENEDOR PRINCIPAL Y FOTO DE PERFIL AMPLIA AL CENTRO */
+        /* PANEL PRINCIPAL CON FOTO AMPLIA Y PLANILLAS OFICIALES */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
@@ -95,7 +95,7 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO (FASE 1) -->
+<!-- PANTALLA DE INICIO (FASE 1) CON TU IMAGEN OFICIAL GRANDE -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
     
@@ -238,10 +238,9 @@
         let portada = document.getElementById('portadaAcceso');
         let imgPortada = document.getElementById('imgPortadaAvatar');
 
-        imgPortada.src = URL_IMAGEN_OFICIAL;
+        if (imgPortada) imgPortada.src = URL_IMAGEN_OFICIAL;
 
         if (!perfilGuardado) {
-            // Fase 1: Portada limpia con la imagen oficial
             portada.innerHTML = `
                 <img id="imgPortadaAvatar" src="${URL_IMAGEN_OFICIAL}" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
                 
@@ -262,7 +261,6 @@
                 </div>
             `;
         } else {
-            // Fase 2: Pantalla de bloqueo estricta con PIN
             let perfil = JSON.parse(perfilGuardado);
             portada.innerHTML = `
                 <img src="${perfil.foto || URL_IMAGEN_OFICIAL}" alt="Docente" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
@@ -563,7 +561,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v25_' + materia + '_2026';
+        return 'libreta_elegante_v28_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
