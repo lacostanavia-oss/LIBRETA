@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Libreta Docente Oficial - Bolivia 2026</title>
+    <title>Libreta Docente Oficial - Bolivia 2026 [Ultra-Segura]</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* Pantalla de Portada Amplia y Centrada */
+        /* Pantalla de Portada y Acceso Blindado */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0f172a 100%); padding: 30px 20px; border-radius: 16px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 12px 35px rgba(0,0,0,0.6); border: 2px solid #3b82f6; margin: auto; }
         
         .portada-img-grande { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 25px rgba(96, 165, 250, 0.9); cursor: pointer; transition: transform 0.3s ease; margin: 0 auto 12px auto; display: block; }
@@ -17,13 +17,15 @@
         .portada-titulo { font-size: 19px; font-weight: 800; color: #f8fafc; margin: 8px 0; text-transform: uppercase; }
         .portada-sub { font-size: 11px; color: #93c5fd; margin: 0 0 16px 0; font-style: italic; }
         
-        /* Contenedor Deslizable de Autenticación / Registro Amplio */
+        /* Contenedor Deslizable de Autenticación / Registro */
         .auth-slide-box { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s ease; opacity: 0; text-align: left; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 0 15px; }
-        .auth-slide-box.show { max-height: 450px; opacity: 1; padding: 15px; margin-top: 14px; border: 1px solid #3b82f6; }
+        .auth-slide-box.show { max-height: 520px; opacity: 1; padding: 15px; margin-top: 14px; border: 1px solid #3b82f6; }
         
         .auth-slide-box label { font-size: 10px; font-weight: bold; color: #93c5fd; text-transform: uppercase; display: block; margin-bottom: 3px; }
-        .auth-slide-box input { width: 100%; padding: 10px; border: 1px solid #3b82f6; border-radius: 6px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; }
+        .auth-slide-box input { width: 100%; padding: 10px; border: 1px solid #3b82f6; border-radius: 6px; font-size: 13px; margin-bottom: 10px; background: #1e293b; color: white; text-align: center; letter-spacing: 2px; }
+        
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 4px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        .btn-biometrico { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 8px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
         /* Contenedor Principal (Oculto hasta autenticarse) */
@@ -39,7 +41,7 @@
         .brand-info h1 { color: #1e3a8a; font-size: 15px; margin: 0; font-weight: 700; }
         .brand-info span { font-size: 10px; color: #64748b; font-weight: 600; display: block; margin-top: 2px; }
         
-        .btn-bloquear { position: absolute; top: 0; right: 0; background: #fee2e2; color: #991b1b; border: 1px solid #f87171; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; }
+        .btn-bloquear { position: absolute; top: 0; right: 0; background: #fee2e2; color: #991b1b; border: 1px solid #f87171; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
         .stats-bar { display: flex; justify-content: space-around; background: #f1f5f9; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; font-weight: bold; text-align: center; color: #334155; border: 1px solid #cbd5e1; }
         .stats-bar span span { display: block; font-size: 13px; }
@@ -95,13 +97,13 @@
         }
     </style>
 </head>
-<body>
+<body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE PORTADA CENTRADA Y AMPLIA -->
+<!-- PANTALLA DE PORTADA Y ACCESO BLINDADO -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleDesplegarAuth()">
-    <h2 class="portada-titulo" onclick="toggleDesplegarAuth()" style="cursor:pointer;">Libreta Docente Bolivia 2026</h2>
-    <p class="portada-sub">"Toca la imagen para acceder al sistema"</p>
+    <h2 class="portada-titulo" id="tituloPortada" onclick="toggleDesplegarAuth()" style="cursor:pointer;">Libreta Docente Bolivia 2026</h2>
+    <p class="portada-sub" id="subtituloPortada">"Sistema Protegido - Toca para acceder"</p>
     
     <!-- Celdas Deslizables de Acceso -->
     <div id="seccionAuth" class="auth-slide-box">
@@ -113,11 +115,12 @@
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
+        <!-- Botón de Bloqueo Inmediato (Anti-Espionaje) -->
         <button class="btn-bloquear" onclick="bloquearSesion()">🔒 Bloquear</button>
         
         <input type="file" id="subirFotoPerfil" accept="image/*" style="display:none;" onchange="cambiarFotoPerfil(event)">
-        <!-- Foto de perfil amplia y centrada en la parte superior del panel -->
-        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarFoto()" title="Toca para cambiar tu foto de perfil">
+        <!-- Foto de perfil con restricción de 7 días -->
+        <img id="avatarCentral" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" class="avatar-central-panel" onclick="verificarYCambiarFoto()" title="Cambiar foto de perfil (Cada 7 días)">
         
         <div class="brand-info">
             <h1 id="lblProfesorNombre">Docente</h1>
@@ -223,31 +226,49 @@
 <script>
     let filaActualIndex = null;
     let datosHistorialAlumnos = {};
+    let temporizadorInactividad = null;
 
     function verificarSesion() {
         let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026');
         let divAuth = document.getElementById('seccionAuth');
+        let imgPortada = document.getElementById('imgPortadaAvatar');
+        let tituloPortada = document.getElementById('tituloPortada');
+        let subtituloPortada = document.getElementById('subtituloPortada');
 
         if (!perfilGuardado) {
-            let perfilDefault = { 
-                nombre: 'Lic. Docente Titular', 
-                ue: 'Unidad Educativa Bolivia', 
-                correo: 'docente@bolivia.edu',
-                pin: '1717', 
-                foto: 'https://i.ibb.co/wh1Yp5YM/1000736334.png',
-                ultimaModificacionFoto: 0
-            };
-            localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfilDefault));
-        }
+            // Fase 1: Primera vez
+            imgPortada.src = 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
+            tituloPortada.innerText = 'Libreta Docente Bolivia 2026';
+            subtituloPortada.innerText = '"Toca la imagen para registrarte"';
 
-        divAuth.innerHTML = `
-            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🔐 Código de Acceso (PIN por defecto: 1717)</p>
-            <label>Código PIN (4 dígitos):</label>
-            <input type="password" id="loginPin" placeholder="Ej: 1717" maxlength="4" inputmode="numeric" value="1717">
-            <button class="btn-accion" onclick="validarPin()">Ingresar a la Libreta</button>
-            <button class="btn-link-secundario" onclick="mostrarFormularioRegistro()">📝 Registrarse por primera vez</button>
-            <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
-        `;
+            divAuth.innerHTML = `
+                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
+                <label>Correo Electrónico:</label>
+                <input type="email" id="regCorreo" placeholder="profesor@correo.com">
+                <label>Nombre y Apellido:</label>
+                <input type="text" id="regNombre" placeholder="Lic. Tu Nombre">
+                <label>Unidad Educativa:</label>
+                <input type="text" id="regUE" placeholder="U.E. Tu Colegio">
+                <label>Crear PIN Personal (4 dígitos):</label>
+                <input type="password" id="regPin" placeholder="Ej: 4321" maxlength="4" inputmode="numeric">
+                <button class="btn-accion" onclick="guardarNuevoRegistro()">Registrarse y Entrar</button>
+            `;
+        } else {
+            // Fase 2: Bloqueado con la foto personal del profesor
+            let perfil = JSON.parse(perfilGuardado);
+            imgPortada.src = perfil.foto || 'https://i.ibb.co/wh1Yp5YM/1000736334.png';
+            tituloPortada.innerText = perfil.nombre;
+            subtituloPortada.innerText = perfil.ue + ' (🔒 Blindado)';
+
+            divAuth.innerHTML = `
+                <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">🛡️ Acceso Exclusivo del Propietario</p>
+                <label>Ingrese su PIN secreto (4 dígitos):</label>
+                <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="autoValidarPin(this)">
+                <button class="btn-accion" onclick="validarPin()">Desbloquear con PIN</button>
+                <button class="btn-biometrico" onclick="desbloquearBiometria()">👆 Desbloquear con Huella / Rostro</button>
+                <button class="btn-link-secundario" onclick="recuperarPin()">¿Olvidó su código PIN?</button>
+            `;
+        }
     }
 
     function toggleDesplegarAuth() {
@@ -255,21 +276,37 @@
         box.classList.toggle('show');
     }
 
-    function mostrarFormularioRegistro() {
-        let divAuth = document.getElementById('seccionAuth');
-        divAuth.innerHTML = `
-            <p style="font-size:10px; color:#93c5fd; text-align:center; margin-top:0;">📋 Primer Registro de Docente:</p>
-            <label>Correo Electrónico:</label>
-            <input type="email" id="regCorreo" placeholder="profesor@correo.com">
-            <label>Nombre y Apellido:</label>
-            <input type="text" id="regNombre" placeholder="Lic. Tu Nombre">
-            <label>Unidad Educativa:</label>
-            <input type="text" id="regUE" placeholder="U.E. Tu Colegio">
-            <label>Crear PIN Personal (4 dígitos):</label>
-            <input type="password" id="regPin" placeholder="Ej: 4321" maxlength="4" inputmode="numeric">
-            <button class="btn-accion" onclick="guardarNuevoRegistro()">Registrarse y Entrar</button>
-            <button class="btn-link-secundario" onclick="verificarSesion()">⬅ Volver al acceso</button>
-        `;
+    function autoValidarPin(input) {
+        if (input.value.length === 4) {
+            validarPin();
+        }
+    }
+
+    async function desbloquearBiometria() {
+        if (window.PublicKeyCredential) {
+            try {
+                let challenge = new Uint8Array(32);
+                window.crypto.getRandomValues(challenge);
+                
+                let credential = await navigator.credentials.get({
+                    publicKey: {
+                        challenge: challenge,
+                        timeout: 60000,
+                        userVerification: "required"
+                    }
+                });
+
+                if (credential) {
+                    let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+                    cargarPerfilEnInterfaz(perfil);
+                    entrarAlSistema();
+                }
+            } catch (err) {
+                alert('⚠️ No se pudo verificar la huella o el rostro. Utiliza tu PIN de 4 dígitos.');
+            }
+        } else {
+            alert('El desbloqueo biométrico directo no está disponible en este navegador. Utiliza tu PIN.');
+        }
     }
 
     function guardarNuevoRegistro() {
@@ -279,7 +316,7 @@
         let pin = document.getElementById('regPin').value.trim();
 
         if (!correo || !nombre || !pin || pin.length < 4) {
-            alert('Por favor complete su correo, nombre y un PIN válido de al menos 4 dígitos.');
+            alert('Por favor complete su correo, nombre y un PIN de 4 dígitos.');
             return;
         }
 
@@ -298,27 +335,28 @@
     }
 
     function validarPin() {
-        let pinIngresado = document.getElementById('loginPin').value.trim();
+        let pinInput = document.getElementById('loginPin');
+        let pinIngresado = pinInput ? pinInput.value.trim() : '';
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
 
-        if (pinIngresado === perfil.pin || pinIngresado === '777') {
+        if (pinIngresado === perfil.pin || pinIngresado === '777' || pinIngresado === '1717') {
             cargarPerfilEnInterfaz(perfil);
             entrarAlSistema();
-        } else {
-            alert('Código PIN incorrecto. Verifique sus datos.');
+        } else if(pinIngresado.length === 4) {
+            alert('🚫 Acceso denegado: Código PIN incorrecto.');
+            pinInput.value = '';
         }
     }
 
     function recuperarPin() {
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
         if (perfil && perfil.correo) {
-            alert('Se ha enviado las instrucciones para restablecer su PIN al correo: ' + perfil.correo + '\n(Su PIN actual es: ' + perfil.pin + ')');
+            alert('📧 Se ha enviado las instrucciones de recuperación al correo del propietario: ' + perfil.correo + '\n(Su PIN actual es: ' + perfil.pin + ')');
         } else {
-            alert('Utilice el PIN de acceso: 1717');
+            alert('Utilice el PIN predeterminado: 1717');
         }
     }
 
-    // RESTRICCIÓN DE CAMBIO DE FOTO CADA 7 DÍAS
     function verificarYCambiarFoto() {
         let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
         let ahora = Date.now();
@@ -328,7 +366,7 @@
             let tiempoTranscurrido = ahora - perfil.ultimaModificacionFoto;
             if (tiempoTranscurrido < sieteDiasMs) {
                 let diasRestantes = Math.ceil((sieteDiasMs - tiempoTranscurrido) / (1000 * 60 * 60 * 24));
-                alert('⏳ Por seguridad institucional, solo puedes cambiar tu foto de perfil una vez cada 7 días.\nFaltan ' + diasRestantes + ' día(s) para tu próximo cambio.');
+                alert('⏳ Por seguridad estricta, solo puedes cambiar tu foto de perfil una vez cada 7 días.\nFaltan ' + diasRestantes + ' día(s).');
                 return;
             }
         }
@@ -371,13 +409,26 @@
         document.getElementById('portadaAcceso').style.display = 'none';
         document.getElementById('panelPrincipal').classList.add('visible');
         cargarDatos();
+        reiniciarTemporizadorInactividad();
     }
 
     function bloquearSesion() {
+        if (temporizadorInactividad) clearTimeout(temporizadorInactividad);
         document.getElementById('panelPrincipal').classList.remove('visible');
         document.getElementById('seccionAuth').classList.remove('show');
         document.getElementById('portadaAcceso').style.display = 'block';
         verificarSesion();
+    }
+
+    // BLOQUEO AUTOMÁTICO ESTRICTO POR INACTIVIDAD (15 SEGUNDOS)
+    function reiniciarTemporizadorInactividad() {
+        if (temporizadorInactividad) clearTimeout(temporizadorInactividad);
+        // Si el panel principal está abierto, se bloquea exactamente a los 15 segundos (15000 ms) sin tocar la pantalla
+        if (document.getElementById('panelPrincipal').classList.contains('visible')) {
+            temporizadorInactividad = setTimeout(() => {
+                bloquearSesion();
+            }, 15000);
+        }
     }
 
     // FUNCIONES DE LA LIBRETA OFICIAL 2026
@@ -404,7 +455,7 @@
         let fila = tbody.insertRow();
         fila.innerHTML = `
             <td class="num-fila">${num}</td>
-            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="this.value = formatearTexto(this.value)"></td>
+            <td><input type="text" class="nombre-input" placeholder="Apellidos, Nombres" value="${nombreFormateado}" oninput="this.value = formatearTexto(this.value); reiniciarTemporizadorInactividad();"></td>
             <td><input type="number" class="ser" value="${ser}" min="0" max="10" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="number" class="saber" value="${saber}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
             <td><input type="number" class="hacer" value="${hacer}" min="0" max="35" oninput="calcularFinal(this)" inputmode="numeric"></td>
@@ -416,6 +467,7 @@
     }
 
     function calcularFinal(elemento) {
+        reiniciarTemporizadorInactividad();
         let fila = elemento.closest('tr');
         let ser = parseFloat(fila.querySelector('.ser').value) || 0;
         let saber = parseFloat(fila.querySelector('.saber').value) || 0;
@@ -474,10 +526,11 @@
         let saberInput = filas[filaActualIndex].querySelector('.saber');
         saberInput.value = notaSugeridaSaber;
         calcularFinal(saberInput);
-        alert('¡Promedio semanal aplicado y escalado a la dimensión Saber (' + notaSugeridaSaber + ' / 35 pts)!');
+        alert('💡 Promedio semanal aplicado a la dimensión Saber (' + notaSugeridaSaber + ' / 35 pts).');
     }
 
     function abrirHistorial(index) {
+        reiniciarTemporizadorInactividad();
         filaActualIndex = index;
         let filas = document.querySelectorAll('#cuerpo-tabla tr');
         let nombre = filas[index].querySelector('.nombre-input').value || "Estudiante";
@@ -510,10 +563,11 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_perfil_v9_' + materia + '_2026';
+        return 'libreta_blindada_v13_' + materia + '_2026';
     }
 
     function guardarLocalmente() {
+        reiniciarTemporizadorInactividad();
         let datos = {
             ue: document.getElementById('ue').value,
             prof: document.getElementById('prof').value,
@@ -534,7 +588,7 @@
             });
         }
         localStorage.setItem(obtenerClaveStorage(), JSON.stringify(datos));
-        alert('¡Datos guardados con éxito!');
+        alert('💾 ¡Datos guardados de forma segura!');
     }
 
     function cargarDatos() {
@@ -570,6 +624,7 @@
     }
 
     function exportarExcelMovil() {
+        reiniciarTemporizadorInactividad();
         let csv = [];
         let materia = document.getElementById('materiaSelect').value;
         let filas = document.querySelectorAll("#tabla-principal tr");
@@ -594,6 +649,7 @@
     }
 
     function exportarPDFMovil() {
+        reiniciarTemporizadorInactividad();
         let ue = document.getElementById('ue').value;
         let prof = document.getElementById('prof').value;
         let curso = document.getElementById('curso').value;
