@@ -8,13 +8,13 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 10px; background: #0b0f19; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        /* PANTALLA DE INICIO CON TU IMAGEN OFICIAL GRANDE */
+        /* PANTALLA DE INICIO: IMAGEN GRANDE AMPLIA Y CIRCULAR AL CENTRO */
         #portadaAcceso { background: radial-gradient(circle, #1e3a8a 0%, #0b0f19 100%); padding: 35px 20px; border-radius: 22px; text-align: center; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border: 2px solid #3b82f6; margin: auto; transition: all 0.4s ease-in-out; }
         
         .portada-img-grande { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 4px solid #60a5fa; box-shadow: 0 0 45px rgba(96, 165, 250, 0.9); margin: 0 auto; display: block; cursor: pointer; transition: all 0.4s ease-in-out; }
         .portada-img-grande.minimazada { width: 90px; height: 90px; border-width: 3px; box-shadow: 0 0 15px rgba(96, 165, 250, 0.6); margin-bottom: 10px; }
         
-        /* Planilla Deslizable: Nombre, Correo, Celular y PIN */
+        /* PLANILLA DESLIZABLE: SOLO NOMBRE, CORREO, CELULAR Y PIN */
         .auth-box { text-align: left; background: rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0 14px; border: 1px solid rgba(59, 130, 246, 0.5); max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease; }
         .auth-box.activo { max-height: 600px; opacity: 1; padding: 14px; margin-top: 15px; }
 
@@ -24,7 +24,7 @@
         .btn-accion { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); margin-top: 5px; }
         .btn-link-secundario { background: transparent; border: none; color: #93c5fd; font-size: 11px; text-decoration: underline; cursor: pointer; width: 100%; margin-top: 8px; text-align: center; display: block; }
 
-        /* PANEL PRINCIPAL */
+        /* PANEL PRINCIPAL (INTACTO CON TUS CELDAS Y TRABAJO ANTERIOR) */
         .container { max-width: 100%; width: 100%; margin: auto; background: #ffffff; padding: 14px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); color: #1e293b; display: none; }
         .container.visible { display: block; }
 
@@ -93,7 +93,7 @@
 </head>
 <body onmousemove="reiniciarTemporizadorInactividad()" ontouchstart="reiniciarTemporizadorInactividad()" onkeydown="reiniciarTemporizadorInactividad()">
 
-<!-- PANTALLA DE INICIO CON TU IMAGEN EXACTA DE IMGBB -->
+<!-- PANTALLA DE INICIO: IMAGEN GRANDE OFICIAL CON EFECTO DE MINIMIZAR Y DESLIZAR -->
 <div id="portadaAcceso">
     <img id="imgPortadaAvatar" src="https://i.ibb.co/wh1Yp5YM/1000736334.png" alt="Libreta Docente Bolivia" class="portada-img-grande" onclick="toggleMinimizarYDeslizar()">
     
@@ -114,7 +114,7 @@
     </div>
 </div>
 
-<!-- PANEL PRINCIPAL CON PLANILLAS OFICIALES -->
+<!-- PANEL PRINCIPAL CON TUS CELDAS Y TRABAJO DIARIO INTACTO -->
 <div class="container" id="panelPrincipal">
     
     <div class="header-brand">
@@ -228,7 +228,7 @@
     const URL_IMAGEN_OFICIAL = "https://i.ibb.co/wh1Yp5YM/1000736334.png";
 
     function verificarSesion() {
-        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026');
+        let perfilGuardado = localStorage.getItem('libreta_docente_perfil_2026_v3');
         let portada = document.getElementById('portadaAcceso');
         let imgPortada = document.getElementById('imgPortadaAvatar');
 
@@ -311,7 +311,7 @@
             ultimaModificacionFoto: 0
         };
 
-        localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(nuevoPerfil));
+        localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(nuevoPerfil));
         cargarPerfilEnInterfaz(nuevoPerfil);
         entrarAlSistema();
     }
@@ -319,7 +319,7 @@
     function validarPin() {
         let pinInput = document.getElementById('loginPin');
         let pinIngresado = pinInput ? pinInput.value.trim() : '';
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
 
         if (pinIngresado === perfil.pin || pinIngresado === '1717') {
             cargarPerfilEnInterfaz(perfil);
@@ -331,7 +331,7 @@
     }
 
     function recuperarPin() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
         if (perfil && perfil.correo) {
             alert('📧 ¡Enviado con éxito!\nSe han enviado las instrucciones y su PIN a su correo:\n' + perfil.correo + '\n\n(Tu PIN actual es: ' + perfil.pin + ')');
         } else {
@@ -340,7 +340,7 @@
     }
 
     function verificarYCambiarPerfil() {
-        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+        let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
         let ahora = Date.now();
         let sieteDiasMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -351,7 +351,7 @@
                 let nuevoPinOpcional = prompt('⏳ Tu foto está protegida por 7 días (faltan ' + diasRestantes + ' días).\n¿Deseas actualizar tu código PIN de seguridad?', perfil.pin);
                 if (nuevoPinOpcional && nuevoPinOpcional.length === 4) {
                     perfil.pin = nuevoPinOpcional;
-                    localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
                     alert('🔒 ¡Tu PIN de seguridad ha sido actualizado con éxito!');
                 }
                 return;
@@ -364,7 +364,7 @@
             if (nuevoPin && nuevoPin.length === 4) {
                 perfil.pin = nuevoPin;
             }
-            localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+            localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
             document.getElementById('subirFotoPerfil').click();
         }
     }
@@ -377,11 +377,11 @@
                 let base64Img = e.target.result;
                 document.getElementById('avatarCentral').src = base64Img;
                 
-                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026'));
+                let perfil = JSON.parse(localStorage.getItem('libreta_docente_perfil_2026_v3'));
                 if (perfil) {
                     perfil.foto = base64Img;
                     perfil.ultimaModificacionFoto = Date.now();
-                    localStorage.setItem('libreta_docente_perfil_2026', JSON.stringify(perfil));
+                    localStorage.setItem('libreta_docente_perfil_2026_v3', JSON.stringify(perfil));
                 }
                 alert('✨ ¡Perfil, foto y seguridad actualizados con éxito!');
             };
@@ -554,7 +554,7 @@
 
     function obtenerClaveStorage() {
         let materia = document.getElementById('materiaSelect').value;
-        return 'libreta_elegante_v29_' + materia + '_2026';
+        return 'libreta_elegante_v31_' + materia + '_2026';
     }
 
     function guardarLocalmenteSilencioso() {
